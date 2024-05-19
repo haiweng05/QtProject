@@ -7,6 +7,9 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QLabel>
+#include <QTableWidget>
+#include <QTimeEdit>
+#include <QTableWidgetItem>
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +22,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void ShowMap();
+    void AddRow(int row);
+    void AddColumn(int column);
+    template<typename T>
+    void AddItem(int row,int column,T item);
 
 private slots:
     void handleSelectionChanged();

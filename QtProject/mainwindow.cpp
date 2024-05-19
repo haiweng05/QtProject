@@ -12,6 +12,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->_buttonInport,&QPushButton::clicked,this,&MainWindow::ClassImport);
     connect(ui->_buttonModify,&QPushButton::clicked,this,&MainWindow::ClassModify);
     connect(ui->_buttonPersonalize,&QPushButton::clicked,this,&MainWindow::Personalize);
+
+    AddRow(0);
+    for(int i = 0; i < 4; ++ i){
+        AddColumn(i);
+    }
+    AddItem(0,0,"");
+    AddItem(0,1,"时间");
+    AddItem(0,2,"事件");
+    AddItem(0,3,"地点");
 }
 
 
@@ -40,4 +49,16 @@ void MainWindow::Submit(){
     int d = date.day();
     int weekday = date.dayOfWeek();
     ui->_picture->setPixmap(QPixmap("C:\\Users\\徐海翁\\Downloads\\1.bmp"));
+}
+
+void MainWindow::AddRow(int row){
+    ui->_table->insertRow(row);
+}
+void MainWindow::AddColumn(int column){
+    ui->_table->insertColumn(column);
+}
+template<typename T>
+void MainWindow::AddItem(int row,int column,T item){
+    QTableWidgetItem *it = new QTableWidgetItem(item);
+    ui->_table->setItem(row, column, it);
 }
