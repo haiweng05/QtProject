@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     AddItem(0,1,"时间");
     AddItem(0,2,"事件");
     AddItem(0,3,"地点");
+    Event e;
+    AddEvent(e);
 }
 
 
@@ -61,4 +63,12 @@ template<typename T>
 void MainWindow::AddItem(int row,int column,T item){
     QTableWidgetItem *it = new QTableWidgetItem(item);
     ui->_table->setItem(row, column, it);
+}
+
+void MainWindow::AddEvent(Event& event){
+    int nrow = ui->_table->rowCount();
+    AddRow(nrow);
+    AddItem(nrow,1,event.begin.toString());
+    AddItem(nrow,2,event.Sname);
+    AddItem(nrow,3,event.Sposition);
 }

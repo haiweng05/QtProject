@@ -10,6 +10,7 @@
 #include <QTableWidget>
 #include <QTimeEdit>
 #include <QTableWidgetItem>
+#include "event.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,7 @@ public:
     void AddColumn(int column);
     template<typename T>
     void AddItem(int row,int column,T item);
+    void AddEvent(Event& event);
 
 private slots:
     void handleSelectionChanged();
