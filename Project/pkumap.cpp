@@ -1,5 +1,6 @@
 #include "pkumap.h"
 #include "ui_pkumap.h"
+#include <QDebug>
 
 class WheelEventFilter : public QObject
 {
@@ -69,12 +70,16 @@ public:
 
 
 
-PKUMap::PKUMap(QWidget *parent, std::vector<Event> events)
+PKUMap::PKUMap(QWidget *parent, std::vector<Event> events,QHash<int, QPair<int, int>> mp)
     : QMainWindow(parent)
     , ui(new Ui::PKUMap)
     , _events(events)
     , current(0)
+    , _idx_to_pos(mp)
 {
+    for(Event e: _events){
+        qDebug() << e.iposition << e.Sposition;
+    }
     // 一天内有n个事件,那么就有n + 1个节点存在,形成一个环路,共有n + 1条边
     _edges.resize(_events.size() + 1,0);
     // 链接ui中的元件与信号槽
@@ -123,16 +128,16 @@ PKUMap::PKUMap(QWidget *parent, std::vector<Event> events)
 
 }
 
-std::pair<int,int> PKUMap::IdxToPos(int idx){
-    return _idx_to_pos[idx];
+QPair<int,int> PKUMap::IdxToPos(int idx){
+    return _idx_to_pos.operator [](idx);
 }
 
 void PKUMap::DeleteNode(int idx){
-    _idx_to_pos.erase(idx);
+//    _idx_to_pos.erase(idx);
 }
 
 void PKUMap::AddNode(int idx,int x,int y){
-    _idx_to_pos[idx] = {x,y};
+//    _idx_to_pos[idx] = {x,y};
 }
 PKUMap::~PKUMap()
 {
@@ -145,6 +150,7 @@ std::vector<Event> &PKUMap::GetEvent()
 }
 
 void PKUMap::HidePath(int idx) {
+    qDebug() << "Hide "<< idx;
     if(_edges[idx] != NULL){
         _scene->removeItem((QGraphicsItem*)(_edges[idx]));
         _edges[idx] = NULL;
@@ -152,65 +158,68 @@ void PKUMap::HidePath(int idx) {
     }
 }
 void PKUMap::ShowPath(int idx) {
+    qDebug() << "Show " << idx;
     if(idx == 0){
+        int to = GetEvent()[idx].iposition;
+        ArrowLine* line = new ArrowLine(2126,2752,IdxToPos(to).first,IdxToPos(to).second);
+        _scene->addItem(line);
 
+        _edges[idx] = line;
     }
 
     else if(idx == int(GetEvent().size())){
+        int from = GetEvent()[idx - 1].iposition;
+        ArrowLine* line = new ArrowLine(IdxToPos(from).first,IdxToPos(from).second,2126,2752);
+        _scene->addItem(line);
 
+        _edges[idx] = line;
     }
 
     else{
         int from = GetEvent()[idx - 1].iposition;
         int to = GetEvent()[idx].iposition;
 
-//        QPen pen;
-//        pen.setWidth(3); // 设置线宽
-//        pen.setColor(Qt::blue); // 设置线条颜色为蓝色
-//        pen.setStyle(Qt::DashLine); // 设置为虚线
-
         ArrowLine* line = new ArrowLine(IdxToPos(from).first, IdxToPos(from).second, IdxToPos(to).first, IdxToPos(to).second);
         _scene->addItem(line);
-//        line->setPen(pen); // 将 QPen 应用到线段
 
         _edges[idx] = line;
     }
 }
 void PKUMap::Prev()
 {
-    if (current == 0) {
+    if (current <= 0) {
         return;
     }
+    current --;
     HidePath(current);
-    current--;
-    ShowPath(current);
+    if(current != 0){
+        ShowPath(current - 1);
+    }
 }
 
 void PKUMap::Next()
 {
-    ArrowLine *line = new ArrowLine(2126, 2752, 2370, 1124);
-    _scene->addItem(line);
 
-//    QPen pen;
-//    pen.setWidth(8); // 设置线宽
-//    pen.setColor(Qt::blue); // 设置线条颜色为蓝色
-//    pen.setStyle(Qt::DashLine); // 设置为虚线
-//    line->setPen(pen); // 将 QPen 应用到线段
-
-    if (current == int(GetEvent().size())) {
+    if (current == int(GetEvent().size()) + 1) {
         return;
     }
-    HidePath(current);
-    current++;
+    if(current != 0){
+          HidePath(current - 1);
+    }
     ShowPath(current);
+    current ++;
 }
 
 void PKUMap::Showall()
 {
+    qDebug() << GetEvent().size();
+
     for (int i = 0; i <= int(GetEvent().size()); ++i) {
         HidePath(i);
     }
     for (int i = 0; i <= int(GetEvent().size()); ++i) {
+        if(i)
+        qDebug() << GetEvent()[i - 1].iposition;
         ShowPath(i);
     }
 }

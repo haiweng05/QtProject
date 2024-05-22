@@ -56,17 +56,11 @@ void MainWindow::ClassImport(){
         QAxObject *work_sheet = work_book->querySubObject("Sheets(int)", 1);
         QAxObject *used_range = work_sheet->querySubObject("UsedRange");
         QAxObject *rows = used_range->querySubObject("Rows");
-        QChar ch1 = '教',ch2='楼';
-        std::wstring wideStr1 = std::wstring(1, ch1.unicode());
-        std::string utf8Char1 = std::string(wideStr1.begin(), wideStr1.end());
-        std::wstring wideStr2 = std::wstring(1, ch2.unicode());
-        std::string utf8Char2 = std::string(wideStr2.begin(), wideStr2.end());
         int row_count = rows->property("Count").toInt();  //获取行数
         for(int i=2;i<=8;i++){
             int j=2;
             while(j<=13){
                 QString txtt = work_sheet->querySubObject("Cells(int,int)",j,i)->dynamicCall("Value2()").toString(); //获取单元格内容
-                std::string txt=txtt.toLatin1().data();
                 if(txtt=="" ){
                     j++;
                     continue;
@@ -96,7 +90,16 @@ void MainWindow::ClassImport(){
 
 //                qDebug() << t.Sposition;
 //                qDebug() << (files.nameTint.find(t.Sposition.mid(0,2)) == files.nameTint.end());
-
+                qDebug() << t.Sposition;
+//                qDebug() << files.nameTint.size();
+                for(auto u = files.nameTint.begin();u!=files.nameTint.end();u++){
+//                    qDebug() << u.key() << u.value();
+                    if(t.Sposition.contains(u.key())){
+                        qDebug() << u.key();
+                        t.iposition=u.value();
+                        break;
+                    }
+                }
                 t.begin=classstart[j-2];
                 t.end=classend[j-2];
                 t.dayidx=i-1;
@@ -105,7 +108,6 @@ void MainWindow::ClassImport(){
                     j++;
                 }
                 classschedule.week[i-2].push_back(t);
-                //qDebug()<<t.Sname<<' '<<t.begin<<' '<<t.end<<endl;
             }
         }
 
@@ -155,7 +157,7 @@ void MainWindow::Submit(){
     date = ui->_calendar->selectedDate();
     int d = date.day();
     int weekday = date.dayOfWeek();
-    _pkumap = new PKUMap(this,classschedule.week[weekday]);
+    _pkumap = new PKUMap(this,classschedule.week[weekday - 1],files.intTpos);
     ShowMap();
 }
 

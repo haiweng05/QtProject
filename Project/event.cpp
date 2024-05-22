@@ -6,3 +6,13 @@ Event::Event():date(2024,1,1),begin(QTime::currentTime()),end(QTime::currentTime
     Sposition = "默认地点";
     iposition = 0; // 星期几
 }
+
+Event::Event(const Event& e){
+    activate = e.activate;
+    Sname = e.Sname;
+    Sposition = e.Sposition;
+    iposition = e.iposition;
+    begin = e.begin;
+    end = e.end;
+    dayidx = e.dayidx;
+}

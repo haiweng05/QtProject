@@ -20,6 +20,7 @@ public:
     bool operator <(const Event&u)const{
         return begin<u.begin;
     }
+    Event(const Event& e);
 };
 
 #endif // EVENT_H
