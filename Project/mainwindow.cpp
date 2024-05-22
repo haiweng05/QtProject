@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QFileDialog>
-
+#include<QAction>
+#include<QAbstractItemView>
+#include<QMenu>
+#include<vector>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),ui(new Ui::MainWindow)
 {
@@ -13,7 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->_buttonModify,&QPushButton::clicked,this,&MainWindow::ClassModify);
     connect(ui->_buttonPersonalize,&QPushButton::clicked,this,&MainWindow::Personalize);
     connect(ui->_calendar,&QCalendarWidget::activated,this,&MainWindow::oneday);
-
+    ui->_table->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->_table, &QTableWidget::customContextMenuRequested, this, &MainWindow::onItemContextMenuRequested);
     AddRow(0);
     for(int i = 0; i < 4; ++ i){
         AddColumn(i);
@@ -120,8 +124,10 @@ void MainWindow::ClassImport(){
 }
 void MainWindow::oneday(const QDate&date){
     int dayidx=(date.dayOfWeek()-2)%7+1;
+    dayindex=(date.dayOfWeek()-2)%7+1;
     MainWindow::tableclear();
     for(Event x:classschedule.week[dayidx]){
+        activities.push_back(x);
         AddEvent(x);
     }
 
@@ -144,10 +150,61 @@ void MainWindow::ShowMap(){
 }
 void MainWindow::handleSelectionChanged(){}
 
-void MainWindow::ClassModify(){
+void MainWindow::ClassModify() {
+    //QTableWidgetItem* selectedItem = ui->_table->currentItem();
+    //if (selectedItem) {
+       // int selectedRow = selectedItem->row();
 
+        // 在这里连接 customContextMenuRequested 信号
+       // connect(ui->_table, &QTableWidget::customContextMenuRequested, this, &MainWindow::onItemContextMenuRequested);
+    //}
 }
 
+void MainWindow::onItemContextMenuRequested(const QPoint& pos) {
+    QTableWidgetItem* selectedItem = ui->_table->itemAt(pos);
+    if (selectedItem) {
+        QMenu* menu = new QMenu(ui->_table);
+        QAction* actiondelete = new QAction(tr("删除"), this);
+        actiondelete->setData(1);
+        menu->addAction(actiondelete);
+        connect(actiondelete, &QAction::triggered, [this, selectedItem]() {
+            onActiondeleteTriggered(selectedItem);
+        });
+        QAction* actionadd = menu->addAction("添加");
+        connect(actionadd, &QAction::triggered, this,
+            onActionaddTriggered);
+        QAction* actioncancel = menu->addAction("取消");
+        connect(actioncancel, &QAction::triggered, [this, selectedItem]() {
+            onActioncancelTriggered(selectedItem);
+        });
+        // 添加更多菜单项...
+
+        // 显示右键菜单
+        menu->exec(QCursor::pos());
+    }
+}
+
+void MainWindow::onActiondeleteTriggered(QTableWidgetItem *item) {
+    int row = item->row();
+    ui->_table->removeRow(row);
+    activities.erase(activities.begin()+row);
+    // 处理 Action 1 被触发的逻辑
+    //qDebug() << "Action 1 triggered";
+}
+void MainWindow::onActionaddTriggered(){
+    int rowcount=ui->_table->rowCount();
+    ui->_table->insertRow(rowcount);
+}
+void MainWindow::onActioncancelTriggered(QTableWidgetItem *item){
+    int row=item->row();
+    activities[row].activate=0;
+    for (int i = 0; i < ui->_table->columnCount(); i++) {
+        QTableWidgetItem* item = ui->_table->item(row, i);
+        if (item) {
+            item->setBackground(QBrush(Qt::red));
+        }
+    }
+}
 void MainWindow::Personalize(){
 
 }
