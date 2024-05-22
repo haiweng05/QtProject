@@ -67,7 +67,9 @@ OBJECTS       = debug/event.o \
 		debug/moc_menu.o \
 		debug/moc_pkumap.o
 
-DIST          =  ..\Project\event.h \
+DIST          = resource/nodes.csv \
+		map.jpg \
+		nodes.csv ..\Project\event.h \
 		..\Project\introduction.h \
 		..\Project\mainwindow.h \
 		..\Project\menu.h \

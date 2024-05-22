@@ -22,8 +22,14 @@ MainWindow::MainWindow(QWidget *parent)
     AddItem(0,1,"时间");
     AddItem(0,2,"事件");
     AddItem(0,3,"地点");
-    FileIO f;
-    f.getNodes(QString("C:\\code\\C++\\temp\\QT_Modules\\CSVReader\\nodes.csv"));
+
+    files.getNodes(QString("../Project/nodes.csv"));
+
+    qDebug() << (files.nameTint.find("未名湖") == files.nameTint.end());
+    qDebug() << (files.nameTint.find("农园") == files.nameTint.end());
+//    QString s = "我在教学楼";
+//    bool flag =s.contains("教");
+//    qDebug() << flag;
 }
 
 MainWindow::~MainWindow()
@@ -39,6 +45,7 @@ void MainWindow::ClassImport(){
     }
     QAxObject excel("Excel.Application");
     excel.setProperty("Visible", false);
+
     QAxObject *work_books = excel.querySubObject("WorkBooks");
     work_books->dynamicCall("Open (const QString&)", fileName);
     QAxObject *work_book = excel.querySubObject("ActiveWorkBook");
@@ -86,6 +93,10 @@ void MainWindow::ClassImport(){
                 Event t;
                 t.Sname=txtt.left(leftbracket);
                 t.Sposition=txtt.mid(leftbracket+1,rightbracket-leftbracket-1);
+
+//                qDebug() << t.Sposition;
+//                qDebug() << (files.nameTint.find(t.Sposition.mid(0,2)) == files.nameTint.end());
+
                 t.begin=classstart[j-2];
                 t.end=classend[j-2];
                 t.dayidx=i-1;

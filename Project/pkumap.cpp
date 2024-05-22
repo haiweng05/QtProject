@@ -93,7 +93,8 @@ PKUMap::PKUMap(QWidget *parent, std::vector<Event> events)
     ui->_graph->installEventFilter(filter);
 
     // 使用QPixmap加载图片
-    QPixmap pixmap("C:\\Users\\徐海翁\\Desktop\\tp.jpg");
+    QPixmap pixmap("../Project/map.jpg");
+
 
     // 将图片添加到QGraphicsScene中
     _scene->addPixmap(pixmap);
