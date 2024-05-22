@@ -1,0 +1,13 @@
+INPUT(
+./release\event.o
+./release\introduction.o
+./release\main.o
+./release\mainwindow.o
+./release\menu.o
+./release\network.o
+./release\pkumap.o
+./release\moc_introduction.o
+./release\moc_mainwindow.o
+./release\moc_menu.o
+./release\moc_pkumap.o
+);

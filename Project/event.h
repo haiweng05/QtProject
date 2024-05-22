@@ -17,6 +17,9 @@ public:
     bool activate;
 public:
     Event();
+    bool operator <(const Event&u)const{
+        return begin<u.begin;
+    }
 };
 
 #endif // EVENT_H
