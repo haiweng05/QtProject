@@ -25,7 +25,7 @@
 #include "fileio.h"
 #include "schedule.h"
 #include "pkumap.h"
-
+#include<vector>
 namespace Ui {
 class MainWindow;
 }
@@ -44,7 +44,8 @@ public:
     void AddEvent(Event& event);
     void tableclear();
     QWidget*& pkumap();
-
+    int dayindex;//星期几
+    std::vector<Event> activities;
 private slots:
     void handleSelectionChanged();
     void Submit();
@@ -52,7 +53,10 @@ private slots:
     void ClassModify();
     void Personalize();
     void oneday(const QDate&date);
-
+    void onItemContextMenuRequested(const QPoint& pos);
+    void onActiondeleteTriggered(QTableWidgetItem *item);
+    void onActionaddTriggered();
+    void onActioncancelTriggered(QTableWidgetItem *item);
 private:
     Ui::MainWindow *ui;
     QWidget* _pkumap;
