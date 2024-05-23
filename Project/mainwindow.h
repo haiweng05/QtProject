@@ -27,7 +27,7 @@
 #include "pkumap.h"
 #include "config.h"
 #include <vector>
-
+#include <QTime>
 
 namespace Ui {
 class MainWindow;
@@ -49,6 +49,26 @@ public:
     QWidget*& pkumap();
     int dayindex;//星期几
     std::vector<Event> activities;
+
+
+    // 输入一个时间点，遍历当天的vector查找是否有空
+    bool Available(QTime t);
+
+    // 插入事件，可同时用于手动添加和随机生成
+    void InsertEvent(Event& event);
+
+    // 提供两个版本的删除课程接口
+    void DeleteEvent(Event& event);
+    void DeleteEvent(const QString& Sname);
+
+    // 不论是删除还是插入课程后都需要重新排序
+    void SortEvent();
+
+    // 向当天依据个性化添加早饭，中饭，晚饭
+    void GetFood();
+
+    // 向当天添加活动
+    void GetActivity();
 private slots:
     void handleSelectionChanged();
     void Submit();
@@ -63,18 +83,6 @@ private slots:
     void onActionaddTriggered();
     void onActioncancelTriggered(QTableWidgetItem *item);
 
-
-    void InsertEvent(Event& event);
-    // 提供两个版本的删除课程接口
-    void DeleteEvent(Event& event);
-    void DeleteEvent(const QString& Sname);
-
-    // 不论是删除还是插入课程后都需要重新排序
-    void SortEvent();
-
-    void GetFood(int mode);
-
-    void GetActivity(int mode);
 private:
     Ui::MainWindow *ui;
 

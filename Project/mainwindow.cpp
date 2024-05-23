@@ -29,8 +29,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     files.getNodes(QString("../Project/nodes.csv"));
 
-    qDebug() << (files.nameTint.find("未名湖") == files.nameTint.end());
-    qDebug() << (files.nameTint.find("农园") == files.nameTint.end());
+    qDebug() << "修改之前";
+    qDebug() << files.readUserInfo(0);
+    qDebug() << files.readUserInfo(1);
+    files.saveUserInfo(1);
+    files.saveUserInfo(1);
+    qDebug() << "修改之后";
+    qDebug() << files.readUserInfo(0);
+    qDebug() << files.readUserInfo(1);
+
+//    qDebug() << (files.nameTint.find("未名湖") == files.nameTint.end());
+//    qDebug() << (files.nameTint.find("农园") == files.nameTint.end());
 //    QString s = "我在教学楼";
 //    bool flag =s.contains("教");
 //    qDebug() << flag;
@@ -240,6 +249,9 @@ void MainWindow::AddEvent(Event& event){
 }
 
 // 以下是直接操作储存事件的vector的接口
+bool MainWindow::Available(QTime t){
+
+}
 
 void MainWindow::InsertEvent(Event& event){
 
@@ -254,15 +266,34 @@ void MainWindow::DeleteEvent(const QString& Sname){
 
 }
 
-// 不论是删除还是插入课程后都需要重新排序
+// 不论是删除还是插入课程后都需要重新排序,如果我们只使用InsertEvent这个接口保证有序性，那这个函数不用实现
 void MainWindow::SortEvent(){
 
 }
 
-void MainWindow::GetFood(int mode){
+void MainWindow::GetFood(){
+    // 处理早餐
+    if(configs->Breakfast()){
+        // 考虑错时优化，例如有早八可以是7：30，没有早八可以是8：30
+
+    }
+    // 处理中餐
+    if(configs->Lunch()){
+        // 考虑错时优化，例如上午最后没有课可以是11：30，有课可以是12：00
+
+    }
+
+
+
+    // 处理晚餐
+    if(configs->Dinner()){
+        // 考虑错时优化，例如下午最后没有课可以是17：30，有课可以是17：00 / 18：00
+
+    }
+
 
 }
 
-void MainWindow::GetActivity(int mode){
+void MainWindow::GetActivity(){
 
 }

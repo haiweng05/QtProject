@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[25];
-    char stringdata0[291];
+    QByteArrayData data[16];
+    char stringdata0[213];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,16 +44,7 @@ QT_MOC_LITERAL(11, 121, 23), // "onActiondeleteTriggered"
 QT_MOC_LITERAL(12, 145, 17), // "QTableWidgetItem*"
 QT_MOC_LITERAL(13, 163, 4), // "item"
 QT_MOC_LITERAL(14, 168, 20), // "onActionaddTriggered"
-QT_MOC_LITERAL(15, 189, 23), // "onActioncancelTriggered"
-QT_MOC_LITERAL(16, 213, 11), // "InsertEvent"
-QT_MOC_LITERAL(17, 225, 6), // "Event&"
-QT_MOC_LITERAL(18, 232, 5), // "event"
-QT_MOC_LITERAL(19, 238, 11), // "DeleteEvent"
-QT_MOC_LITERAL(20, 250, 5), // "Sname"
-QT_MOC_LITERAL(21, 256, 9), // "SortEvent"
-QT_MOC_LITERAL(22, 266, 7), // "GetFood"
-QT_MOC_LITERAL(23, 274, 4), // "mode"
-QT_MOC_LITERAL(24, 279, 11) // "GetActivity"
+QT_MOC_LITERAL(15, 189, 23) // "onActioncancelTriggered"
 
     },
     "MainWindow\0handleSelectionChanged\0\0"
@@ -62,9 +53,7 @@ QT_MOC_LITERAL(24, 279, 11) // "GetActivity"
     "onItemContextMenuRequested\0pos\0"
     "onActiondeleteTriggered\0QTableWidgetItem*\0"
     "item\0onActionaddTriggered\0"
-    "onActioncancelTriggered\0InsertEvent\0"
-    "Event&\0event\0DeleteEvent\0Sname\0SortEvent\0"
-    "GetFood\0mode\0GetActivity"
+    "onActioncancelTriggered"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,7 +63,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -82,22 +71,16 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   94,    2, 0x08 /* Private */,
-       3,    0,   95,    2, 0x08 /* Private */,
-       4,    0,   96,    2, 0x08 /* Private */,
-       5,    0,   97,    2, 0x08 /* Private */,
-       6,    0,   98,    2, 0x08 /* Private */,
-       7,    1,   99,    2, 0x08 /* Private */,
-       9,    1,  102,    2, 0x08 /* Private */,
-      11,    1,  105,    2, 0x08 /* Private */,
-      14,    0,  108,    2, 0x08 /* Private */,
-      15,    1,  109,    2, 0x08 /* Private */,
-      16,    1,  112,    2, 0x08 /* Private */,
-      19,    1,  115,    2, 0x08 /* Private */,
-      19,    1,  118,    2, 0x08 /* Private */,
-      21,    0,  121,    2, 0x08 /* Private */,
-      22,    1,  122,    2, 0x08 /* Private */,
-      24,    1,  125,    2, 0x08 /* Private */,
+       1,    0,   64,    2, 0x08 /* Private */,
+       3,    0,   65,    2, 0x08 /* Private */,
+       4,    0,   66,    2, 0x08 /* Private */,
+       5,    0,   67,    2, 0x08 /* Private */,
+       6,    0,   68,    2, 0x08 /* Private */,
+       7,    1,   69,    2, 0x08 /* Private */,
+       9,    1,   72,    2, 0x08 /* Private */,
+      11,    1,   75,    2, 0x08 /* Private */,
+      14,    0,   78,    2, 0x08 /* Private */,
+      15,    1,   79,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -110,12 +93,6 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, 0x80000000 | 12,   13,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 12,   13,
-    QMetaType::Void, 0x80000000 | 17,   18,
-    QMetaType::Void, 0x80000000 | 17,   18,
-    QMetaType::Void, QMetaType::QString,   20,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   23,
-    QMetaType::Void, QMetaType::Int,   23,
 
        0        // eod
 };
@@ -136,12 +113,6 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 7: _t->onActiondeleteTriggered((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
         case 8: _t->onActionaddTriggered(); break;
         case 9: _t->onActioncancelTriggered((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
-        case 10: _t->InsertEvent((*reinterpret_cast< Event(*)>(_a[1]))); break;
-        case 11: _t->DeleteEvent((*reinterpret_cast< Event(*)>(_a[1]))); break;
-        case 12: _t->DeleteEvent((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 13: _t->SortEvent(); break;
-        case 14: _t->GetFood((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 15: _t->GetActivity((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -172,13 +143,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 16;
+        _id -= 10;
     }
     return _id;
 }
