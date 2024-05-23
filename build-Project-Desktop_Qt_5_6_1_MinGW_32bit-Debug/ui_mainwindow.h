@@ -64,6 +64,8 @@ public:
         _calendar->setGeometry(QRect(0, 0, 861, 501));
         _calendar->setGridVisible(false);
         _calendar->setSelectionMode(QCalendarWidget::SingleSelection);
+        _calendar->setHorizontalHeaderFormat(QCalendarWidget::LongDayNames);
+        _calendar->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
         _buttonInport = new QPushButton(centralwidget);
         _buttonInport->setObjectName(QStringLiteral("_buttonInport"));
         _buttonInport->setGeometry(QRect(20, 580, 160, 48));
@@ -98,7 +100,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\346\216\242\347\264\242\346\250\241\345\274\217", 0));
         pushButton->setText(QApplication::translate("MainWindow", "\345\274\200\345\247\213", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "\346\232\202\345\201\234", 0));
         _buttonInport->setText(QApplication::translate("MainWindow", "\345\257\274\345\205\245\350\257\276\350\241\250", 0));

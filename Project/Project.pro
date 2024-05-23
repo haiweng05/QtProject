@@ -20,7 +20,8 @@ SOURCES += \
     menu.cpp \
     network.cpp \
     pkumap.cpp \
-    fileio.cpp
+    fileio.cpp \
+    config.cpp
 
 HEADERS += \
     event.h \
@@ -30,13 +31,15 @@ HEADERS += \
     network.h \
     pkumap.h \
     schedule.h \
-    fileio.h
+    fileio.h \
+    config.h
 
 FORMS += \
     introduction.ui \
     mainwindow.ui \
     menu.ui \
-    pkumap.ui
+    pkumap.ui \
+    config.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

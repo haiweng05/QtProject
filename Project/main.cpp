@@ -3,6 +3,7 @@
 #include "introduction.h"
 #include "network.h"
 #include "pkumap.h"
+#include "config.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 //    QString s = "我在教学楼";
 //    bool flag =s.contains("教");
 //    qDebug() << flag;
+    configs = new Config(this);
 }
 
 MainWindow::~MainWindow()
@@ -206,7 +207,7 @@ void MainWindow::onActioncancelTriggered(QTableWidgetItem *item){
     }
 }
 void MainWindow::Personalize(){
-
+    configs->show();
 }
 
 void MainWindow::Submit(){
@@ -236,4 +237,32 @@ void MainWindow::AddEvent(Event& event){
     AddItem(nrow,1,event.begin.toString());
     AddItem(nrow,2,event.Sname);
     AddItem(nrow,3,event.Sposition);
+}
+
+// 以下是直接操作储存事件的vector的接口
+
+void MainWindow::InsertEvent(Event& event){
+
+}
+
+// 提供两个版本的删除课程接口
+void MainWindow::DeleteEvent(Event& event){
+
+}
+
+void MainWindow::DeleteEvent(const QString& Sname){
+
+}
+
+// 不论是删除还是插入课程后都需要重新排序
+void MainWindow::SortEvent(){
+
+}
+
+void MainWindow::GetFood(int mode){
+
+}
+
+void MainWindow::GetActivity(int mode){
+
 }

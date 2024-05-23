@@ -25,7 +25,10 @@
 #include "fileio.h"
 #include "schedule.h"
 #include "pkumap.h"
-#include<vector>
+#include "config.h"
+#include <vector>
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -52,18 +55,38 @@ private slots:
     void ClassImport();
     void ClassModify();
     void Personalize();
+
+
     void oneday(const QDate&date);
     void onItemContextMenuRequested(const QPoint& pos);
     void onActiondeleteTriggered(QTableWidgetItem *item);
     void onActionaddTriggered();
     void onActioncancelTriggered(QTableWidgetItem *item);
+
+
+    void InsertEvent(Event& event);
+    // 提供两个版本的删除课程接口
+    void DeleteEvent(Event& event);
+    void DeleteEvent(const QString& Sname);
+
+    // 不论是删除还是插入课程后都需要重新排序
+    void SortEvent();
+
+    void GetFood(int mode);
+
+    void GetActivity(int mode);
 private:
     Ui::MainWindow *ui;
+
     QWidget* _pkumap;
+
     QTime classstart[13]{{8,0,0},{9,0,0},{10,10,0},{11,10,0},{13,0,0},{14,0,0},{15,10,0},{16,10,0},{17,10,0},{18,40,0},{19,40,0},{20,40,0}};
     QTime classend[13]{{8,50,0},{9,50,0},{11,0,0},{12,0,0},{13,50,0},{14,50,0},{16,0,0},{17,0,0},{18,0,0},{19,30,0},{20,30,0},{21,30,0}};
     schedule classschedule;
+
     FileIO files;
+
+    Config* configs;
 };
 
 #endif // MAINWINDOW_H

@@ -2,6 +2,11 @@
 #define CONFIG_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include <QDebug>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QLabel>
 
 namespace Ui {
 class Config;
@@ -14,9 +19,38 @@ class Config : public QMainWindow
 public:
     explicit Config(QWidget *parent = 0);
     ~Config();
+    bool Mode();
+    bool Breakfast();
+    bool Lunch();
+    bool Dinner();
+    bool CrazyThursday();
+    bool Coffee();
+    bool Exercise();
+    bool Store();
+    bool Clock();
+
+    // 用于同步化设置至显示
+    void Synchronize();
+private slots:
+    void Accept();
+    void Refuse();
 
 private:
     Ui::Config *ui;
+    // 0表示探索模式,1表示内卷模式
+    bool mode;
+    bool breakfast;
+    bool lunch;
+    bool dinner;
+    bool crazythursday;
+    bool coffee;
+    bool exercise;
+    // 记录
+    bool store;
+    // 倒计时
+    bool clock;
+    // 用于修改模式后改变主窗口名称
+    QWidget* mainwindow;
 };
 
 #endif // CONFIG_H
