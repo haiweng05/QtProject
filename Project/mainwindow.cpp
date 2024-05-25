@@ -4,6 +4,8 @@
 #include<QAction>
 #include<QAbstractItemView>
 #include<QMenu>
+#include<QTime>
+#include<QLineEdit>
 #include<vector>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),ui(new Ui::MainWindow)
@@ -204,6 +206,42 @@ void MainWindow::onActiondeleteTriggered(QTableWidgetItem *item) {
 void MainWindow::onActionaddTriggered(){
     int rowcount=ui->_table->rowCount();
     ui->_table->insertRow(rowcount);
+    QDialog *dialogadd=new QDialog(this);
+    dialogadd->setWindowTitle("Event Information");
+    QVBoxLayout* layout = new QVBoxLayout(dialogadd);
+    layout->addWidget(new QLabel("Start Time:"));
+    QTimeEdit* stimeEdit = new QTimeEdit;
+    stimeEdit->setDisplayFormat("hh:mm");
+    layout->addWidget(stimeEdit);
+    layout->addWidget(new QLabel("End Time:"));
+    QTimeEdit* etimeEdit = new QTimeEdit;
+    etimeEdit->setDisplayFormat("hh:mm");
+    layout->addWidget(etimeEdit);
+    layout->addWidget(new QLabel("Location:"));
+    QLineEdit* locationEdit = new QLineEdit;
+    layout->addWidget(locationEdit);
+    layout->addWidget(new QLabel("Event:"));
+    QLineEdit* eventEdit = new QLineEdit;
+    layout->addWidget(eventEdit);
+    QPushButton* saveButton = new QPushButton("Save");
+    layout->addWidget(saveButton);
+    connect(saveButton, &QPushButton::clicked, [=](){
+            QTime stime = stimeEdit->time();
+            QTime etime = etimeEdit->time();
+            QString location = locationEdit->text();
+            QString event = eventEdit->text();
+
+            Event h;
+            h.Sname=event;
+            h.Sposition=location;
+            h.begin=stime;
+            h.end=etime;
+            h.iposition=files.nameTint[location];
+            InsertEvent(h);
+
+            dialogadd->close();
+        });
+    dialogadd->exec();
 }
 void MainWindow::onActioncancelTriggered(QTableWidgetItem *item){
     int row=item->row();
@@ -254,7 +292,8 @@ bool MainWindow::Available(QTime t){
 }
 
 void MainWindow::InsertEvent(Event& event){
-
+    activities.push_back(event);
+    SortEvent();
 }
 
 // 提供两个版本的删除课程接口
@@ -268,7 +307,12 @@ void MainWindow::DeleteEvent(const QString& Sname){
 
 // 不论是删除还是插入课程后都需要重新排序,如果我们只使用InsertEvent这个接口保证有序性，那这个函数不用实现
 void MainWindow::SortEvent(){
-
+    qDebug()<<activities.size()<<' '<<"kk"<<endl;
+    std::sort(activities.begin(),activities.end());
+    tableclear();
+    for(Event u:activities){
+        AddEvent(u);
+    }
 }
 
 void MainWindow::GetFood(){
