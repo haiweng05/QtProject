@@ -13,11 +13,16 @@ Config::Config(QWidget *parent) :
     exercise(1),
     store(0),
     clock(1),
+    origin("37楼"),
     mainwindow(parent)
 {
     ui->setupUi(this);
     connect(ui->_accept,&QPushButton::clicked,this,&Config::Accept);
     connect(ui->_refuse,&QPushButton::clicked,this,&Config::Refuse);
+
+    for(auto nm : ((MainWindow*)mainwindow)->GetFile().TypePos[3]){
+        ui->_origin->addItem(((MainWindow*)mainwindow)->GetFile().intTname[nm]);
+    }
 
     Synchronize();
 }
@@ -74,6 +79,7 @@ void Config::Accept(){
     store = ui->_store->isChecked();
     exercise = ui->_exercise->isChecked();
     clock = ui->_clock->isChecked();
+    origin = ui->_origin->currentText();
 
     Synchronize();
     close();
@@ -96,9 +102,14 @@ void Config::Synchronize(){
     ui->_store->setChecked(store);
     ui->_exercise->setChecked(exercise);
     ui->_clock->setChecked(clock);
+    ui->_origin->setCurrentText(origin);
 
     if(!mode)
     mainwindow->setWindowTitle("探索模式");
     else
     mainwindow->setWindowTitle("内卷模式");
+}
+
+QString Config::Origin(){
+    return origin;
 }

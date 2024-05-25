@@ -21,7 +21,7 @@ class PKUMap : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit PKUMap(QWidget *parent = nullptr, std::vector<Event> events = {},QHash<int, QPair<int, int>> mp = {});
+    explicit PKUMap(QWidget *parent = nullptr, std::vector<Event> events = {},QHash<int, QPair<int, int>> mp = {},QPair<int,int> ori = {2126,2752} );
     std::vector<Event> &GetEvent();
     ~PKUMap();
     void ShowPath(int idx);
@@ -29,11 +29,13 @@ public:
     QPair<int,int> IdxToPos(int idx);
     void DeleteNode(int idx);
     void AddNode(int idx,int x,int y);
+    void Update();
 
 private slots:
     void Prev();
     void Next();
     void Showall();
+    void Removeall();
 
 private:
     Ui::PKUMap *ui;
@@ -42,6 +44,7 @@ private:
     int current;
     QGraphicsScene* _scene;
     QHash<int, QPair<int, int>> _idx_to_pos;
+    QPair<int,int> origin;
 };
 
 #endif // PKUMAP_H

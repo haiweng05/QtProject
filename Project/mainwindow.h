@@ -28,6 +28,10 @@
 #include "config.h"
 #include <vector>
 #include <QTime>
+#include <QComboBox>
+#include "selection.h"
+
+class Config;
 
 namespace Ui {
 class MainWindow;
@@ -54,6 +58,9 @@ public:
     // 输入一个时间点，遍历当天的vector查找是否有空
     bool Available(QTime t);
 
+    // 找到第一个在某个时间点前的事件
+    int FirstBefore(QTime t);
+
     // 插入事件，可同时用于手动添加和随机生成
     void InsertEvent(Event& event);
 
@@ -69,6 +76,8 @@ public:
 
     // 向当天添加活动
     void GetActivity();
+
+    FileIO GetFile();
 private slots:
     void handleSelectionChanged();
     void Submit();

@@ -40,12 +40,9 @@ MainWindow::MainWindow(QWidget *parent)
     qDebug() << files.readUserInfo(0);
     qDebug() << files.readUserInfo(1);
 
-//    qDebug() << (files.nameTint.find("未名湖") == files.nameTint.end());
-//    qDebug() << (files.nameTint.find("农园") == files.nameTint.end());
-//    QString s = "我在教学楼";
-//    bool flag =s.contains("教");
-//    qDebug() << flag;
+
     configs = new Config(this);
+
 }
 
 MainWindow::~MainWindow()
@@ -137,12 +134,15 @@ void MainWindow::ClassImport(){
 void MainWindow::oneday(const QDate&date){
     int dayidx=(date.dayOfWeek()-2)%7+1;
     dayindex=(date.dayOfWeek()-2)%7+1;
-    MainWindow::tableclear();
-    for(Event x:classschedule.week[dayidx]){
-        activities.push_back(x);
-        AddEvent(x);
-    }
 
+    MainWindow::tableclear();
+
+    activities.clear();
+    for(Event x:classschedule.week[dayidx]){
+        InsertEvent(x);;
+    }
+    GetFood();
+    GetActivity();
 }
 void MainWindow::tableclear(){
     int t=ui->_table->rowCount();
@@ -218,7 +218,12 @@ void MainWindow::onActionaddTriggered(){
     etimeEdit->setDisplayFormat("hh:mm");
     layout->addWidget(etimeEdit);
     layout->addWidget(new QLabel("Location:"));
-    QLineEdit* locationEdit = new QLineEdit;
+    QComboBox* locationEdit = new QComboBox;
+    for(auto nm:files.nameTint.keys()){
+        locationEdit->addItem(nm);
+    }
+
+//    QLineEdit* locationEdit = new QLineEdit;
     layout->addWidget(locationEdit);
     layout->addWidget(new QLabel("Event:"));
     QLineEdit* eventEdit = new QLineEdit;
@@ -228,7 +233,7 @@ void MainWindow::onActionaddTriggered(){
     connect(saveButton, &QPushButton::clicked, [=](){
             QTime stime = stimeEdit->time();
             QTime etime = etimeEdit->time();
-            QString location = locationEdit->text();
+            QString location = locationEdit->currentText();
             QString event = eventEdit->text();
 
             Event h;
@@ -258,11 +263,11 @@ void MainWindow::Personalize(){
 }
 
 void MainWindow::Submit(){
-    QDate date = QDate();
-    date = ui->_calendar->selectedDate();
-    int d = date.day();
-    int weekday = date.dayOfWeek();
-    _pkumap = new PKUMap(this,classschedule.week[weekday - 1],files.intTpos);
+//    QDate date = QDate();
+//    date = ui->_calendar->selectedDate();
+//    int d = date.day();
+//    int weekday = date.dayOfWeek();
+    _pkumap = new PKUMap(this,activities,files.intTpos,files.intTpos[files.nameTint[configs->Origin()]]);
     ShowMap();
 }
 
@@ -279,6 +284,7 @@ void MainWindow::AddItem(int row,int column,T item){
 }
 
 void MainWindow::AddEvent(Event& event){
+
     int nrow = ui->_table->rowCount();
     AddRow(nrow);
     AddItem(nrow,1,event.begin.toString());
@@ -288,7 +294,27 @@ void MainWindow::AddEvent(Event& event){
 
 // 以下是直接操作储存事件的vector的接口
 bool MainWindow::Available(QTime t){
+    for(auto event:activities){
+        if(event.begin <= t && event.end >= t){
+            qDebug() << "not available";
+            return 0;
+        }
+    }
+    qDebug() << "available";
+    return 1;
+}
 
+int MainWindow::FirstBefore(QTime t){
+//    bool find = 0;
+    int idx = -1;
+    for(int i = activities.size() - 1; i >= 0; -- i){
+        if(activities[i].end < t){
+            idx = i;
+            break;
+        }
+    }
+
+    return idx;
 }
 
 void MainWindow::InsertEvent(Event& event){
@@ -316,14 +342,108 @@ void MainWindow::SortEvent(){
 }
 
 void MainWindow::GetFood(){
+    qDebug() << "Now add Food";
     // 处理早餐
     if(configs->Breakfast()){
         // 考虑错时优化，例如有早八可以是7：30，没有早八可以是8：30
+        QString timeStr = "08:00:01";
+        QTime time = QTime::fromString(timeStr, "hh:mm:ss");
+        if(Available(time)){
+            timeStr = "08:30:00";
+        }
+        else{
+            timeStr = "07:30:00";
+        }
+        QTime beg = QTime::fromString(timeStr,"hh:mm:ss");
+        QTime ed = beg.addSecs(1200);
+
+        QPair<int,int> curpos;
+        QPair<int,int> nextpos;
+
+        int idx = FirstBefore(beg);
+        if(idx == -1){
+            curpos = files.intTpos[files.nameTint[configs->Origin()]];
+            if(activities.empty()){
+                nextpos = files.intTpos[files.nameTint[configs->Origin()]];
+            }
+            else
+            nextpos = files.intTpos[activities[0].iposition];
+        }
+        else if(idx != activities.size() - 1){
+            curpos = files.intTpos[activities[idx].iposition];
+            nextpos = files.intTpos[activities[idx + 1].iposition];
+        }
+        else{
+            curpos = files.intTpos[activities[idx].iposition];
+            nextpos = files.intTpos[files.nameTint[configs->Origin()]];
+        }
+        int iposition = 0;
+        if(configs->Mode() == 0 && configs->Store()){
+            iposition = Selection::PreferenceSelection(2);
+        }
+        else if(configs->Mode() == 0 && configs->Store() == 0){
+            iposition = Selection::RandomSelection(2);
+        }
+        else{
+            iposition = Selection::NearestSelection(2,curpos,nextpos);
+        }
+        QString Sposition = files.intTname[iposition];
+        QString name = "早餐";
+        Event e(name,Sposition,iposition,beg,ed);
+        InsertEvent(e);
 
     }
     // 处理中餐
     if(configs->Lunch()){
         // 考虑错时优化，例如上午最后没有课可以是11：30，有课可以是12：00
+        QString timeStr = "11:59:59";
+        QTime time = QTime::fromString(timeStr, "hh:mm:ss");
+        if(Available(time)){
+            timeStr = "11:30:00";
+        }
+        else{
+            timeStr = "12:00:00";
+        }
+        QTime beg = QTime::fromString(timeStr,"hh:mm:ss");
+        QTime ed = beg.addSecs(1200);
+
+
+        QPair<int,int> curpos;
+        QPair<int,int> nextpos;
+
+        int idx = FirstBefore(beg);
+        if(idx == -1){
+            curpos = files.intTpos[files.nameTint[configs->Origin()]];
+            if(activities.empty()){
+                nextpos = files.intTpos[files.nameTint[configs->Origin()]];
+            }
+            else
+            nextpos = files.intTpos[activities[0].iposition];
+        }
+        else if(idx != activities.size() - 1){
+            curpos = files.intTpos[activities[idx].iposition];
+            nextpos = files.intTpos[activities[idx + 1].iposition];
+        }
+        else{
+            curpos = files.intTpos[activities[idx].iposition];
+            nextpos = files.intTpos[files.nameTint[configs->Origin()]];
+        }
+
+
+        int iposition = 0;
+        if(configs->Mode() == 0 && configs->Store()){
+            iposition = Selection::PreferenceSelection(2);
+        }
+        else if(configs->Mode() == 0 && configs->Store() == 0){
+            iposition = Selection::RandomSelection(2);
+        }
+        else{
+            iposition = Selection::NearestSelection(2,curpos,nextpos);
+        }
+        QString Sposition = files.intTname[iposition];
+        QString name = "中餐";
+        Event e(name,Sposition,iposition,beg,ed);
+        InsertEvent(e);
 
     }
 
@@ -332,6 +452,54 @@ void MainWindow::GetFood(){
     // 处理晚餐
     if(configs->Dinner()){
         // 考虑错时优化，例如下午最后没有课可以是17：30，有课可以是17：00 / 18：00
+        QString timeStr = "17:59:59";
+        QTime time = QTime::fromString(timeStr, "hh:mm:ss");
+        if(Available(time)){
+            timeStr = "17:30:00";
+        }
+        else{
+            timeStr = "18:00:00";
+        }
+        QTime beg = QTime::fromString(timeStr,"hh:mm:ss");
+        QTime ed = beg.addSecs(1200);
+
+
+        QPair<int,int> curpos;
+        QPair<int,int> nextpos;
+
+        int idx = FirstBefore(beg);
+        if(idx == -1){
+            curpos = files.intTpos[files.nameTint[configs->Origin()]];
+            if(activities.empty()){
+                nextpos = files.intTpos[files.nameTint[configs->Origin()]];
+            }
+            else
+            nextpos = files.intTpos[activities[0].iposition];
+        }
+        else if(idx != activities.size() - 1){
+            curpos = files.intTpos[activities[idx].iposition];
+            nextpos = files.intTpos[activities[idx + 1].iposition];
+        }
+        else{
+            curpos = files.intTpos[activities[idx].iposition];
+            nextpos = files.intTpos[files.nameTint[configs->Origin()]];
+        }
+
+
+        int iposition = 0;
+        if(configs->Mode() == 0 && configs->Store()){
+            iposition = Selection::PreferenceSelection(2);
+        }
+        else if(configs->Mode() == 0 && configs->Store() == 0){
+            iposition = Selection::RandomSelection(2);
+        }
+        else{
+            iposition = Selection::NearestSelection(2,curpos,nextpos);
+        }
+        QString Sposition = files.intTname[iposition];
+        QString name = "晚餐";
+        Event e(name,Sposition,iposition,beg,ed);
+        InsertEvent(e);
 
     }
 
@@ -340,4 +508,9 @@ void MainWindow::GetFood(){
 
 void MainWindow::GetActivity(){
 
+}
+
+// 这是是一个获取private变量的接口，之后整理代码的时候注意！
+FileIO MainWindow::GetFile(){
+    return files;
 }

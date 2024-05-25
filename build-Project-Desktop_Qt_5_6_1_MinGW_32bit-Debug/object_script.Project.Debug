@@ -8,6 +8,7 @@ INPUT(
 ./debug\pkumap.o
 ./debug\fileio.o
 ./debug\config.o
+./debug\selection.o
 ./debug\moc_introduction.o
 ./debug\moc_mainwindow.o
 ./debug\moc_menu.o

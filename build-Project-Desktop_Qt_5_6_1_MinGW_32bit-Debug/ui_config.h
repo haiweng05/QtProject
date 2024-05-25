@@ -44,6 +44,8 @@ public:
     QCheckBox *_exercise;
     QLabel *label_3;
     QCheckBox *_store;
+    QLabel *label_4;
+    QComboBox *_origin;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -99,6 +101,12 @@ public:
         _store = new QCheckBox(centralwidget);
         _store->setObjectName(QStringLiteral("_store"));
         _store->setGeometry(QRect(450, 120, 360, 40));
+        label_4 = new QLabel(centralwidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(340, 200, 100, 24));
+        _origin = new QComboBox(centralwidget);
+        _origin->setObjectName(QStringLiteral("_origin"));
+        _origin->setGeometry(QRect(450, 190, 160, 40));
         Config->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Config);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -135,6 +143,7 @@ public:
         _exercise->setText(QApplication::translate("Config", "\344\275\223\350\202\262\351\224\273\347\202\274", 0));
         label_3->setText(QApplication::translate("Config", "\345\201\217\345\245\275", 0));
         _store->setText(QApplication::translate("Config", "\350\256\260\345\275\225\345\271\266\344\275\277\347\224\250\346\227\245\347\250\213\350\256\260\345\275\225\346\224\271\350\277\233\346\216\250\350\215\220", 0));
+        label_4->setText(QApplication::translate("Config", "\350\267\257\345\276\204\350\265\267\347\202\271", 0));
     } // retranslateUi
 
 };

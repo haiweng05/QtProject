@@ -21,6 +21,7 @@ public:
         return begin<u.begin;
     }
     Event(const Event& e);
+    Event(QString name,QString Spos,int ipos,QTime beg,QTime ed);
 };
 
 #endif // EVENT_H

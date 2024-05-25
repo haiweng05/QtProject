@@ -70,12 +70,13 @@ public:
 
 
 
-PKUMap::PKUMap(QWidget *parent, std::vector<Event> events,QHash<int, QPair<int, int>> mp)
+PKUMap::PKUMap(QWidget *parent, std::vector<Event> events,QHash<int, QPair<int, int>> mp,QPair<int,int> ori)
     : QMainWindow(parent)
     , ui(new Ui::PKUMap)
     , _events(events)
     , current(0)
     , _idx_to_pos(mp)
+    , origin(ori)
 {
     for(Event e: _events){
         qDebug() << e.iposition << e.Sposition;
@@ -87,6 +88,7 @@ PKUMap::PKUMap(QWidget *parent, std::vector<Event> events,QHash<int, QPair<int, 
     connect(ui->_prev, &QPushButton::clicked, this, &PKUMap::Prev);
     connect(ui->_next, &QPushButton::clicked, this, &PKUMap::Next);
     connect(ui->_showall, &QPushButton::clicked, this, &PKUMap::Showall);
+    connect(ui->_removeall,&QPushButton::clicked,this,&PKUMap::Removeall);
 
 
     // 处理图像的部分
@@ -124,8 +126,7 @@ PKUMap::PKUMap(QWidget *parent, std::vector<Event> events,QHash<int, QPair<int, 
 
     // 导入默认节点
 
-
-
+    Update();
 }
 
 QPair<int,int> PKUMap::IdxToPos(int idx){
@@ -161,7 +162,7 @@ void PKUMap::ShowPath(int idx) {
     qDebug() << "Show " << idx;
     if(idx == 0){
         int to = GetEvent()[idx].iposition;
-        ArrowLine* line = new ArrowLine(2126,2752,IdxToPos(to).first,IdxToPos(to).second);
+        ArrowLine* line = new ArrowLine(origin.first,origin.second,IdxToPos(to).first,IdxToPos(to).second);
         _scene->addItem(line);
 
         _edges[idx] = line;
@@ -169,7 +170,7 @@ void PKUMap::ShowPath(int idx) {
 
     else if(idx == int(GetEvent().size())){
         int from = GetEvent()[idx - 1].iposition;
-        ArrowLine* line = new ArrowLine(IdxToPos(from).first,IdxToPos(from).second,2126,2752);
+        ArrowLine* line = new ArrowLine(IdxToPos(from).first,IdxToPos(from).second,origin.first,origin.second);
         _scene->addItem(line);
 
         _edges[idx] = line;
@@ -192,9 +193,10 @@ void PKUMap::Prev()
     }
     current --;
     HidePath(current);
-    if(current != 0){
+    if(current != 0 && _edges[current - 1] == NULL){
         ShowPath(current - 1);
     }
+    Update();
 }
 
 void PKUMap::Next()
@@ -208,6 +210,7 @@ void PKUMap::Next()
     }
     ShowPath(current);
     current ++;
+    Update();
 }
 
 void PKUMap::Showall()
@@ -222,4 +225,22 @@ void PKUMap::Showall()
         qDebug() << GetEvent()[i - 1].iposition;
         ShowPath(i);
     }
+    current = GetEvent().size() + 1;
+    Update();
+}
+void PKUMap::Removeall(){
+    for(int i = 0; i <= int(GetEvent().size()); ++ i){
+        HidePath(i);
+    }
+    current = 0;
+    Update();
+}
+
+void PKUMap::Update(){
+    QString cur = "当前第";
+    cur += QString::number(current);
+    cur += "步，共";
+    cur += QString::number(int(GetEvent().size()) + 1);
+    cur += "步";
+    ui->_label->setText(cur);
 }

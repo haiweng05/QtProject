@@ -21,7 +21,8 @@ SOURCES += \
     network.cpp \
     pkumap.cpp \
     fileio.cpp \
-    config.cpp
+    config.cpp \
+    selection.cpp
 
 HEADERS += \
     event.h \
@@ -32,7 +33,8 @@ HEADERS += \
     pkumap.h \
     schedule.h \
     fileio.h \
-    config.h
+    config.h \
+    selection.h
 
 FORMS += \
     introduction.ui \

@@ -8,6 +8,7 @@ INPUT(
 ./release\pkumap.o
 ./release\fileio.o
 ./release\config.o
+./release\selection.o
 ./release\moc_introduction.o
 ./release\moc_mainwindow.o
 ./release\moc_menu.o

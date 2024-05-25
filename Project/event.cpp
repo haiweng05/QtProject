@@ -16,3 +16,5 @@ Event::Event(const Event& e){
     end = e.end;
     dayidx = e.dayidx;
 }
+
+Event::Event(QString name,QString Spos,int ipos,QTime beg,QTime ed):Sname(name),Sposition(Spos),iposition(ipos),begin(beg),end(ed){}

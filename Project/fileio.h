@@ -20,8 +20,9 @@ public:
     FileIO();
     QHash<QString, int> nameTint;
     QHash<int, QPair<int, int>> intTpos;
-    std::vector<int>  FoodPos;
-    std::vector<int> StudyPos;
+    QHash<int,QString> intTname;
+    // 第一个索引对应类型，分别为StudyPos，FoodPos，ActivityPos，RestPos，ExercisePos
+    std::vector<std::vector<int>> TypePos;
 
     void getNodes(const QString& name);
 

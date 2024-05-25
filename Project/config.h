@@ -7,6 +7,7 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QLabel>
+#include "mainwindow.h"
 
 namespace Ui {
 class Config;
@@ -28,6 +29,7 @@ public:
     bool Exercise();
     bool Store();
     bool Clock();
+    QString Origin();
 
     // 用于同步化设置至显示
     void Synchronize();
@@ -51,6 +53,7 @@ private:
     bool clock;
     // 用于修改模式后改变主窗口名称
     QWidget* mainwindow;
+    QString origin;
 };
 
 #endif // CONFIG_H

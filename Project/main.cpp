@@ -4,6 +4,7 @@
 #include "network.h"
 #include "pkumap.h"
 #include "config.h"
+#include "selection.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -14,6 +15,7 @@ int main(int argc, char *argv[])
     Introduction intro(&menu); // 介绍窗口以我们的入口窗口为父窗口
 
     menu.mainwindow() = &mainwindow;
+    Selection::mainwindow = &mainwindow;
     menu.introwindow() = &intro;
     NetWork::GetHTML();
     menu.show();
