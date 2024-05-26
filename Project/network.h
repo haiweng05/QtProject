@@ -1,20 +1,17 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include <QCoreApplication>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QEventLoop>
-#include <QDebug>
-#include <QFile>
-#include <QByteArray>
+#include <QObject>
 
-class NetWork
+class NetWork : public QObject
 {
+    Q_OBJECT
 public:
-    NetWork();
-    static void GetHTML();
+    explicit NetWork(QObject *parent = 0);
 
+signals:
+
+public slots:
 };
 
 #endif // NETWORK_H
