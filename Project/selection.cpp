@@ -55,3 +55,9 @@ int Selection::NearestSelection(int type,QPair<int,int> cur,QPair<int,int> next)
 int Selection::PreferenceSelection(int type){
 
 }
+
+int Selection::RandomInt(int l, int r){
+    std::uniform_int_distribution<> dis(l,r);
+    int random_int = dis(Selection::gen);
+    return random_int;
+}

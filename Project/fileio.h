@@ -28,6 +28,25 @@ public:
 
     //
     void initUserInfo(){
+        // 创建一个 QJsonObject 对象
+        QJsonObject jsonObject;
+        for(auto u: nameTint){
+            QString key = QString::number(u);
+            jsonObject.insert(key,0);
+        }
+
+        // 创建一个 QJsonDocument 对象并设置 jsonObject 为其主要对象
+        QJsonDocument jsonDoc;
+        jsonDoc.setObject(jsonObject);
+
+        // 打开一个文件并将 JSON 数据写入其中
+        QFile file("../Project/UserInfo.json");
+        if (!file.open(QIODevice::WriteOnly)) {
+            qWarning("Couldn't open file.");
+            return ;
+        }
+        file.write(jsonDoc.toJson());
+        file.close();
 
     }
 

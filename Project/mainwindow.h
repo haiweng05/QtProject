@@ -30,6 +30,7 @@
 #include <QTime>
 #include <QComboBox>
 #include "selection.h"
+#include <QHash>
 
 class Config;
 
@@ -53,7 +54,7 @@ public:
     QWidget*& pkumap();
     int dayindex;//星期几
     std::vector<Event> activities;
-
+    QHash<QDate,std::vector<Event>> Memo;
 
     // 输入一个时间点，遍历当天的vector查找是否有空
     bool Available(QTime t);
@@ -72,12 +73,18 @@ public:
     void SortEvent();
 
     // 向当天依据个性化添加早饭，中饭，晚饭
+
+    void GetSingle(QString name,QTime begin,QTime end,int type);
     void GetFood();
 
     // 向当天添加活动
     void GetActivity();
 
+    void GetStudy();
+
     FileIO GetFile();
+
+    void Bailan();
 private slots:
     void handleSelectionChanged();
     void Submit();

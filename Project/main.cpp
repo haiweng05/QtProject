@@ -5,6 +5,7 @@
 #include "pkumap.h"
 #include "config.h"
 #include "selection.h"
+
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -17,7 +18,9 @@ int main(int argc, char *argv[])
     menu.mainwindow() = &mainwindow;
     Selection::mainwindow = &mainwindow;
     menu.introwindow() = &intro;
-    NetWork::GetHTML();
+    NetWork net;
+    net.GetHTML();
+//    NetWork::GetHTML();
     menu.show();
     // w.show();
     return a.exec();

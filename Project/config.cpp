@@ -19,6 +19,7 @@ Config::Config(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->_accept,&QPushButton::clicked,this,&Config::Accept);
     connect(ui->_refuse,&QPushButton::clicked,this,&Config::Refuse);
+    connect(ui->_clear,&QPushButton::clicked,this,&Config::Clear);
 
     for(auto nm : ((MainWindow*)mainwindow)->GetFile().TypePos[3]){
         ui->_origin->addItem(((MainWindow*)mainwindow)->GetFile().intTname[nm]);
@@ -32,7 +33,7 @@ Config::~Config()
     delete ui;
 }
 
-bool Config::Mode(){
+int Config::Mode(){
     return mode;
 }
 
@@ -112,4 +113,8 @@ void Config::Synchronize(){
 
 QString Config::Origin(){
     return origin;
+}
+
+void Config::Clear(){
+    ((MainWindow*)mainwindow)->GetFile().initUserInfo();
 }

@@ -19,6 +19,8 @@ public:
 
     static int PreferenceSelection(int type);
 
+    static int RandomInt(int l,int r);
+
     static MainWindow* mainwindow;
 
     static std::mt19937 gen;

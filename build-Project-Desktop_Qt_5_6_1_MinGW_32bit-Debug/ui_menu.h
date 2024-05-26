@@ -35,22 +35,22 @@ public:
     {
         if (Menu->objectName().isEmpty())
             Menu->setObjectName(QStringLiteral("Menu"));
-        Menu->resize(640, 480);
+        Menu->resize(1600, 900);
         Menu->setMinimumSize(QSize(640, 480));
         centralwidget = new QWidget(Menu);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         _intro = new QPushButton(centralwidget);
         _intro->setObjectName(QStringLiteral("_intro"));
-        _intro->setGeometry(QRect(400, 260, 80, 24));
+        _intro->setGeometry(QRect(1000, 600, 160, 48));
         _intro->setText(QString::fromUtf8("\350\257\264\346\230\216"));
         _launch = new QPushButton(centralwidget);
         _launch->setObjectName(QStringLiteral("_launch"));
-        _launch->setGeometry(QRect(260, 260, 80, 24));
+        _launch->setGeometry(QRect(600, 600, 160, 48));
         _launch->setText(QString::fromUtf8("\345\220\257\345\212\250"));
         Menu->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Menu);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 640, 21));
+        menubar->setGeometry(QRect(0, 0, 1600, 21));
         Menu->setMenuBar(menubar);
         statusbar = new QStatusBar(Menu);
         statusbar->setObjectName(QStringLiteral("statusbar"));

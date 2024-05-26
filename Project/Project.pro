@@ -18,23 +18,23 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
-    network.cpp \
     pkumap.cpp \
     fileio.cpp \
     config.cpp \
-    selection.cpp
+    selection.cpp \
+    network.cpp
 
 HEADERS += \
     event.h \
     introduction.h \
     mainwindow.h \
     menu.h \
-    network.h \
     pkumap.h \
     schedule.h \
     fileio.h \
     config.h \
-    selection.h
+    selection.h \
+    network.h
 
 FORMS += \
     introduction.ui \
@@ -51,4 +51,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     resource/nodes.csv \
     map.jpg \
-    nodes.csv
+    nodes.csv \
+    UserInfo.json

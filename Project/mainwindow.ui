@@ -124,7 +124,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>修改课表</string>
+     <string>重新安排</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">

@@ -46,6 +46,7 @@ public:
     QCheckBox *_store;
     QLabel *label_4;
     QComboBox *_origin;
+    QPushButton *_clear;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -103,10 +104,13 @@ public:
         _store->setGeometry(QRect(450, 120, 360, 40));
         label_4 = new QLabel(centralwidget);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(340, 200, 100, 24));
+        label_4->setGeometry(QRect(330, 240, 100, 24));
         _origin = new QComboBox(centralwidget);
         _origin->setObjectName(QStringLiteral("_origin"));
-        _origin->setGeometry(QRect(450, 190, 160, 40));
+        _origin->setGeometry(QRect(450, 230, 160, 40));
+        _clear = new QPushButton(centralwidget);
+        _clear->setObjectName(QStringLiteral("_clear"));
+        _clear->setGeometry(QRect(450, 170, 160, 48));
         Config->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Config);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -131,6 +135,7 @@ public:
         _mode->insertItems(0, QStringList()
          << QApplication::translate("Config", "\346\216\242\347\264\242\346\250\241\345\274\217", 0)
          << QApplication::translate("Config", "\345\206\205\345\215\267\346\250\241\345\274\217", 0)
+         << QApplication::translate("Config", "\346\221\206\347\203\202\346\250\241\345\274\217", 0)
         );
         _dinner->setText(QApplication::translate("Config", "\346\231\232\351\244\220", 0));
         label_2->setText(QApplication::translate("Config", "\345\212\237\350\203\275\350\256\276\347\275\256", 0));
@@ -144,6 +149,7 @@ public:
         label_3->setText(QApplication::translate("Config", "\345\201\217\345\245\275", 0));
         _store->setText(QApplication::translate("Config", "\350\256\260\345\275\225\345\271\266\344\275\277\347\224\250\346\227\245\347\250\213\350\256\260\345\275\225\346\224\271\350\277\233\346\216\250\350\215\220", 0));
         label_4->setText(QApplication::translate("Config", "\350\267\257\345\276\204\350\265\267\347\202\271", 0));
+        _clear->setText(QApplication::translate("Config", "\346\270\205\347\251\272\350\256\260\345\275\225\346\225\260\346\215\256", 0));
     } // retranslateUi
 
 };

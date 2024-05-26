@@ -8,6 +8,7 @@
 #include <QComboBox>
 #include <QLabel>
 #include "mainwindow.h"
+#include "fileio.h"
 
 namespace Ui {
 class Config;
@@ -20,7 +21,7 @@ class Config : public QMainWindow
 public:
     explicit Config(QWidget *parent = 0);
     ~Config();
-    bool Mode();
+    int Mode();
     bool Breakfast();
     bool Lunch();
     bool Dinner();
@@ -36,11 +37,12 @@ public:
 private slots:
     void Accept();
     void Refuse();
+    void Clear();
 
 private:
     Ui::Config *ui;
-    // 0表示探索模式,1表示内卷模式
-    bool mode;
+    // 0表示探索模式,1表示内卷模式,2表示摆烂模式
+    int mode;
     bool breakfast;
     bool lunch;
     bool dinner;

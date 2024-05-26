@@ -105,7 +105,7 @@ public:
         pushButton_2->setText(QApplication::translate("MainWindow", "\346\232\202\345\201\234", 0));
         _buttonInport->setText(QApplication::translate("MainWindow", "\345\257\274\345\205\245\350\257\276\350\241\250", 0));
         _buttonPersonalize->setText(QApplication::translate("MainWindow", "\344\270\252\346\200\247\345\214\226\350\256\276\347\275\256", 0));
-        _buttonModify->setText(QApplication::translate("MainWindow", "\344\277\256\346\224\271\350\257\276\350\241\250", 0));
+        _buttonModify->setText(QApplication::translate("MainWindow", "\351\207\215\346\226\260\345\256\211\346\216\222", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "\351\207\215\347\275\256", 0));
         _buttonConfirm->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\345\234\260\345\233\276", 0));
     } // retranslateUi
