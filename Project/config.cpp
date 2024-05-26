@@ -105,10 +105,12 @@ void Config::Synchronize(){
     ui->_clock->setChecked(clock);
     ui->_origin->setCurrentText(origin);
 
-    if(!mode)
+    if(mode == 0)
     mainwindow->setWindowTitle("探索模式");
-    else
+    else if(mode == 1)
     mainwindow->setWindowTitle("内卷模式");
+    else
+        mainwindow->setWindowTitle("摆烂模式");
 }
 
 QString Config::Origin(){

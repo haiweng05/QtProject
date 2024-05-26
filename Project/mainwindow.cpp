@@ -528,9 +528,10 @@ void MainWindow::Bailan(){
     tableclear();
     int nrow = ui->_table->rowCount();
     AddRow(nrow);
-    AddItem(nrow,0,"摆烂");
-    AddItem(nrow,1,"00:00:00");
-    AddItem(nrow,2,"24:00:00");
+
+    AddItem(nrow,0,"00:00:00");
+    AddItem(nrow,1,"24:00:00");
+    AddItem(nrow,2,"摆烂");
     AddItem(nrow,3,configs->Origin());
 }
 
