@@ -14,7 +14,7 @@ void FileIO::getNodes(const QString& name){
     in.setCodec("UTF-8"); // 设置编码为UTF-8
 
     int cnt = 0;
-    TypePos.resize(5,{});
+    TypePos.resize(8,{});
     while (!in.atEnd()) {
         QString line = in.readLine();
         QStringList row = line.split(',');
