@@ -78,7 +78,8 @@ OBJECTS       = debug/event.o \
 DIST          = resource/nodes.csv \
 		map.jpg \
 		nodes.csv \
-		UserInfo.json ..\Project\event.h \
+		UserInfo.json \
+		bell.mp3 ..\Project\event.h \
 		..\Project\introduction.h \
 		..\Project\mainwindow.h \
 		..\Project\menu.h \
@@ -487,6 +488,9 @@ debug/moc_mainwindow.cpp: ../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidget
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qcombobox.h \
 		../Project/mainwindow.h \
 		../Project/selection.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		../Project/mainwindow.h
 	C:\Qt\Qt5.6.1\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.6.1/5.6/mingw49_32/mkspecs/win32-g++ -IC:/code/C++/Qt/Project -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/ActiveQt -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore -I. ..\Project\mainwindow.h -o debug\moc_mainwindow.cpp
 
@@ -955,6 +959,9 @@ debug/moc_config.cpp: ../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QM
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QWheelEvent \
 		../Project/config.h \
 		../Project/selection.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		../Project/config.h
 	C:\Qt\Qt5.6.1\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.6.1/5.6/mingw49_32/mkspecs/win32-g++ -IC:/code/C++/Qt/Project -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/ActiveQt -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork -IC:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore -I. ..\Project\config.h -o debug\moc_config.cpp
 
@@ -1527,6 +1534,9 @@ debug/main.o: ../Project/main.cpp ../Project/mainwindow.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QComboBox \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qcombobox.h \
 		../Project/selection.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		../Project/menu.h \
 		../Project/introduction.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QTextBrowser \
@@ -1774,6 +1784,9 @@ debug/mainwindow.o: ../Project/mainwindow.cpp ../Project/mainwindow.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QComboBox \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qcombobox.h \
 		../Project/selection.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		ui_mainwindow.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QAction \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -1782,6 +1795,10 @@ debug/mainwindow.o: ../Project/mainwindow.cpp ../Project/mainwindow.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QHeaderView \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextcursor.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextformat.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMenuBar \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmenubar.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmenu.h \
@@ -1790,10 +1807,7 @@ debug/mainwindow.o: ../Project/mainwindow.cpp ../Project/mainwindow.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QAbstractItemView \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMenu \
-		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QLineEdit \
-		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
-		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextcursor.h \
-		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextformat.h
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaContent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\Project\mainwindow.cpp
 
 debug/menu.o: ../Project/menu.cpp ../Project/menu.h \
@@ -2411,6 +2425,9 @@ debug/config.o: ../Project/config.cpp ../Project/config.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QGraphicsItem \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QWheelEvent \
 		../Project/selection.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		ui_config.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QAction \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -2641,7 +2658,10 @@ debug/selection.o: ../Project/selection.cpp ../Project/selection.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QCheckBox \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qcheckbox.h \
 		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QComboBox \
-		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qcombobox.h
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qcombobox.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		../../../../Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\selection.o ..\Project\selection.cpp
 
 debug/network.o: ../Project/network.cpp ../Project/network.h \

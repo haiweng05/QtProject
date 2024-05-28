@@ -86,8 +86,10 @@ void MainWindow::updateTimeDisplay(){
     ui->timeDisplay->setText(timeString);
     if(timeString=="00:00:01"){
        QMediaPlayer mediaPlayer;
-       mediaPlayer.setMedia(QMediaContent(QUrl::fromLocalFile("../Project/bell.mp3")));
-       mediaPlayer.play(); // 播放声音
+       mediaPlayer.setMedia(QMediaContent(QUrl::fromLocalFile("../Project/bell.wav")));
+           qDebug() << "Played!";
+           mediaPlayer.setVolume(50);
+           mediaPlayer.play(); // 播放声音
     }
 }
 
@@ -252,9 +254,11 @@ void MainWindow::onItemContextMenuRequested(const QPoint& pos) {
 }
 
 void MainWindow::onActiondeleteTriggered(QTableWidgetItem *item) {
+    QDate d = ui->_calendar->selectedDate();
     int row = item->row();
     ui->_table->removeRow(row);
-    activities.erase(activities.begin()+row);
+    Memo[d].erase(Memo[d].begin()+row + 1);
+    activities.erase(activities.begin()+row + 1);
     // 处理 Action 1 被触发的逻辑
     //qDebug() << "Action 1 triggered";
 }
