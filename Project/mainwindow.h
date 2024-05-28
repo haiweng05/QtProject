@@ -31,6 +31,7 @@
 #include <QComboBox>
 #include "selection.h"
 #include <QHash>
+#include <QTimer>
 
 class Config;
 
@@ -99,9 +100,10 @@ private slots:
     void onActionaddTriggered();
     void onActioncancelTriggered(QTableWidgetItem *item);
 
+    void updateTimeDisplay();
 private:
     Ui::MainWindow *ui;
-
+    QTimer* timer;
     QWidget* _pkumap;
 
     QTime classstart[13]{{8,0,0},{9,0,0},{10,10,0},{11,10,0},{13,0,0},{14,0,0},{15,10,0},{16,10,0},{17,10,0},{18,40,0},{19,40,0},{20,40,0}};

@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCalendarWidget>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -39,6 +40,7 @@ public:
     QPushButton *_buttonModify;
     QPushButton *pushButton_3;
     QPushButton *_buttonConfirm;
+    QLineEdit *timeDisplay;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -84,6 +86,9 @@ public:
         _buttonConfirm = new QPushButton(centralwidget);
         _buttonConfirm->setObjectName(QStringLiteral("_buttonConfirm"));
         _buttonConfirm->setGeometry(QRect(670, 580, 160, 48));
+        timeDisplay = new QLineEdit(centralwidget);
+        timeDisplay->setObjectName(QStringLiteral("timeDisplay"));
+        timeDisplay->setGeometry(QRect(200, 840, 201, 51));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));

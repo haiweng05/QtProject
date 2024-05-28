@@ -7,11 +7,18 @@
 #include<QTime>
 #include<QLineEdit>
 #include<vector>
+#include<QMediaPlayer>
+#include <QMediaContent>
+#include <QUrl>
+
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),ui(new Ui::MainWindow)
+    : QMainWindow(parent),ui(new Ui::MainWindow),timer(new QTimer(this))
 {
     ui->setupUi(this);
-
+    connect(timer,&QTimer::timeout,this,&MainWindow::updateTimeDisplay);
+    timer->start(1000);
+    ui->timeDisplay->setReadOnly(true);
+    updateTimeDisplay();
     connect(ui->_calendar, &QCalendarWidget::selectionChanged, this, &MainWindow::handleSelectionChanged);
     connect(ui->_buttonConfirm,&QPushButton::clicked,this,&MainWindow::Submit);
     connect(ui->_buttonInport,&QPushButton::clicked,this,&MainWindow::ClassImport);
@@ -47,6 +54,41 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::updateTimeDisplay(){
+    QTime currentTime=QTime::currentTime();
+    QString timeString;
+    int idx = -1;
+    for(int i = activities.size() - 1; i >= 0; -- i){
+        if(activities[i].begin < currentTime){
+            idx = i;
+            break;
+        }
+    }
+    if(idx!=-1&&idx!=activities.size()-1){
+        QTime next=activities[idx+1].begin;
+        qint64 msecs = currentTime.msecsTo(next);
+        // 将毫秒转换为小时、分钟和秒
+        int hours = msecs / (1000 * 60 * 60);
+        int minutes = (msecs % (1000 * 60 * 60)) / (1000 * 60);
+        int seconds = (msecs % (1000 * 60)) / 1000;
+        // 格式化时间差
+        timeString = QString("%1:%2:%3").arg(hours, 2, 10, QChar('0')).arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+    }
+    else if(activities.size()==0){
+        timeString="日程未规划";
+    }
+    else{
+        timeString="今日任务已完成";
+    }
+    // 设置 QLineEdit 的文本
+    ui->timeDisplay->setText(timeString);
+    if(timeString=="00:00:01"){
+       QMediaPlayer mediaPlayer;
+       mediaPlayer.setMedia(QMediaContent(QUrl::fromLocalFile("../Project/bell.mp3")));
+       mediaPlayer.play(); // 播放声音
+    }
 }
 
 

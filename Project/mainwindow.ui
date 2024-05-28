@@ -153,6 +153,16 @@
      <string>显示地图</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="timeDisplay">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>840</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
