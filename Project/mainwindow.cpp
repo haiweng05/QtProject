@@ -416,7 +416,7 @@ bool MainWindow::Whetherclash(QTime begin,QTime end){
         return 1;
     }
     for(auto it=activities.begin();it!=activities.end();it++){
-        if((it->end>begin and it->begin<begin) or (it->begin<end and it->end>end)){
+        if((it->end >= begin and it->begin <= begin) or (it->begin <= end and it->end >= end)){
             QMessageBox msgBox(QMessageBox::Warning, "事件时间冲突", "该事件时间发生冲突,暂时不能给你明确的答复,请你自己衡量。", QMessageBox::NoButton, this);
              msgBox.setIcon(QMessageBox::Warning);
             QPushButton* continueButton = msgBox.addButton("继续添加", QMessageBox::AcceptRole);
