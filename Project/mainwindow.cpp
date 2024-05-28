@@ -81,13 +81,24 @@ void MainWindow::ClassImport(){
                 int leftbracket=0,rightbracket=0;
                 int len=txtt.length();
                 int f=0;
+                Event t;
+
                 for(int k=0;k<len;k++){
                     if(txtt[k]=='(') leftbracket=k;
-                    if(leftbracket!=0 && txtt[k].isDigit()){
-                        f=1;
-                    }
 
                     if(txtt[k]==')') {
+                        f=0;
+                        rightbracket=k;
+                        t.Sposition=txtt.mid(leftbracket+1,rightbracket-leftbracket-1);
+                        for(auto u = files.nameTint.begin();u!=files.nameTint.end();u++){
+        //                    qDebug() << u.key() << u.value();
+                            if(t.Sposition.contains(u.key())){
+                                t.Sposition=u.key();
+                                t.iposition=u.value();
+                                f=1;
+                                break;
+                            }
+                        }
                         if(f==0){
                             leftbracket=0;
                             continue;
@@ -97,22 +108,8 @@ void MainWindow::ClassImport(){
                     }
                 }
                 //qDebug()<<leftbracket<<' '<<rightbracket<<endl;
-                Event t;
-                t.Sname=txtt.left(leftbracket);
-                t.Sposition=txtt.mid(leftbracket+1,rightbracket-leftbracket-1);
 
-//                qDebug() << t.Sposition;
-//                qDebug() << (files.nameTint.find(t.Sposition.mid(0,2)) == files.nameTint.end());
-                qDebug() << t.Sposition;
-//                qDebug() << files.nameTint.size();
-                for(auto u = files.nameTint.begin();u!=files.nameTint.end();u++){
-//                    qDebug() << u.key() << u.value();
-                    if(t.Sposition.contains(u.key())){
-                        qDebug() << u.key();
-                        t.iposition=u.value();
-                        break;
-                    }
-                }
+                t.Sname=txtt.left(leftbracket);
                 t.begin=classstart[j-2];
                 t.end=classend[j-2];
                 t.dayidx=i-1;
