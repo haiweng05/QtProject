@@ -1,5 +1,6 @@
 #include "selection.h"
 #include <cmath>
+#include <algorithm>
 MainWindow* Selection::mainwindow = nullptr;
 std::mt19937 Selection::gen(std::chrono::system_clock::now().time_since_epoch().count());
 Selection::Selection()
@@ -53,7 +54,47 @@ int Selection::NearestSelection(int type,QPair<int,int> cur,QPair<int,int> next)
 }
 
 int Selection::PreferenceSelection(int type){
+    type --;
 
+     qDebug() << "Now Consider Preference";
+       // 创建一个均匀分布的随机数生成器，范围是0到v.size()-1
+    std::uniform_int_distribution<> dis(0, mainwindow->GetFile().TypePos[type].size() - 1);
+
+    std::vector<int> memory;
+    for(int i = 0; i < mainwindow->GetFile().TypePos[type].size(); ++ i){
+        memory.push_back(mainwindow->GetFile().readUserInfo(mainwindow->GetFile().TypePos[type][i]));
+    }
+    std::vector<int> sorted = memory;
+    std::sort(sorted.begin(),sorted.end());
+    double median = sorted[sorted.size() / 2];
+    if(median < 1e-5){
+        median = 1;
+    }
+
+       // 生成一个随机索引
+    int random_index = dis(Selection::gen);
+
+    double Target = 10;
+    double acc = 0;
+    while(true){
+        double num = memory[random_index];
+        qDebug() << num;
+        acc += median * log(1 / (num + 1) + 1);
+        if(acc > Target){
+            break;
+        }
+        random_index ++;
+        if(random_index == mainwindow->GetFile().TypePos[type].size()){
+            random_index = 0;
+        }
+
+    }
+
+    int element = mainwindow->GetFile().TypePos[type][random_index];
+
+       // 打印随机元素
+    qDebug() << "Random element: " << element;
+    return element;
 }
 
 int Selection::RandomInt(int l, int r){

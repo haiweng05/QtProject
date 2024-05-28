@@ -11,8 +11,9 @@ Config::Config(QWidget *parent) :
     crazythursday(1),
     coffee(1),
     exercise(1),
-    store(0),
+    store(1),
     clock(1),
+    answer(0),
     origin("37楼"),
     mainwindow(parent)
 {
@@ -69,6 +70,10 @@ bool Config::Clock(){
     return clock;
 }
 
+bool Config::Answer(){
+    return answer;
+}
+
 void Config::Accept(){
 
     mode = ui->_mode->currentIndex();
@@ -81,6 +86,7 @@ void Config::Accept(){
     exercise = ui->_exercise->isChecked();
     clock = ui->_clock->isChecked();
     origin = ui->_origin->currentText();
+    answer = ui->_answer->isChecked();
 
     Synchronize();
     close();
@@ -104,6 +110,7 @@ void Config::Synchronize(){
     ui->_exercise->setChecked(exercise);
     ui->_clock->setChecked(clock);
     ui->_origin->setCurrentText(origin);
+    ui->_answer->setChecked(answer);
 
     if(mode == 0)
     mainwindow->setWindowTitle("探索模式");

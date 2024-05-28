@@ -53,4 +53,5 @@ DISTFILES += \
     map.jpg \
     nodes.csv \
     UserInfo.json \
-    bell.mp3
+    bell.mp3 \
+    events.csv

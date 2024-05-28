@@ -30,6 +30,7 @@ public:
     bool Exercise();
     bool Store();
     bool Clock();
+    bool Answer();
     QString Origin();
 
     // 用于同步化设置至显示
@@ -53,6 +54,8 @@ private:
     bool store;
     // 倒计时
     bool clock;
+
+    bool answer;
     // 用于修改模式后改变主窗口名称
     QWidget* mainwindow;
     QString origin;

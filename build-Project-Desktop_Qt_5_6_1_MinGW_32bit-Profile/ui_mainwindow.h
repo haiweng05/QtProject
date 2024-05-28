@@ -41,6 +41,7 @@ public:
     QPushButton *pushButton_3;
     QPushButton *_buttonConfirm;
     QLineEdit *timeDisplay;
+    QPushButton *_event;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -89,6 +90,9 @@ public:
         timeDisplay = new QLineEdit(centralwidget);
         timeDisplay->setObjectName(QStringLiteral("timeDisplay"));
         timeDisplay->setGeometry(QRect(200, 840, 201, 51));
+        _event = new QPushButton(centralwidget);
+        _event->setObjectName(QStringLiteral("_event"));
+        _event->setGeometry(QRect(230, 690, 160, 48));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -113,6 +117,7 @@ public:
         _buttonModify->setText(QApplication::translate("MainWindow", "\351\207\215\346\226\260\345\256\211\346\216\222", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "\351\207\215\347\275\256", 0));
         _buttonConfirm->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\345\234\260\345\233\276", 0));
+        _event->setText(QApplication::translate("MainWindow", "\344\270\252\346\200\247\345\214\226\346\216\250\350\215\220", 0));
     } // retranslateUi
 
 };

@@ -32,6 +32,7 @@
 #include "selection.h"
 #include <QHash>
 #include <QTimer>
+#include <QMessageBox>
 
 class Config;
 
@@ -86,6 +87,10 @@ public:
     FileIO GetFile();
 
     void Bailan();
+
+    void AddHelper(int idx = 3);
+
+    bool Whetherclash(QTime begin, QTime end);
 private slots:
     void handleSelectionChanged();
     void Submit();
@@ -99,8 +104,20 @@ private slots:
     void onActiondeleteTriggered(QTableWidgetItem *item);
     void onActionaddTriggered();
     void onActioncancelTriggered(QTableWidgetItem *item);
-
+    void onActionreviseTriggered(QTableWidgetItem *item);
     void updateTimeDisplay();
+
+
+    void AddActivities();
+
+    void onButton1Clicked();
+
+
+    void onButton2Clicked();
+
+
+    void onButton3Clicked();
+
 private:
     Ui::MainWindow *ui;
     QTimer* timer;
@@ -113,6 +130,9 @@ private:
     FileIO files;
 
     Config* configs;
+    // 事件推送中使用的临时量
+    Event event[3];
+    QWidget* adder;
 };
 
 #endif // MAINWINDOW_H

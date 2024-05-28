@@ -10,6 +10,7 @@
 #include<QMediaPlayer>
 #include <QMediaContent>
 #include <QUrl>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),ui(new Ui::MainWindow),timer(new QTimer(this))
@@ -27,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->_calendar,&QCalendarWidget::activated,this,&MainWindow::oneday);
     ui->_table->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->_table, &QTableWidget::customContextMenuRequested, this, &MainWindow::onItemContextMenuRequested);
+    connect(ui->_event,&QPushButton::clicked,this,&MainWindow::AddActivities);
     AddRow(0);
     for(int i = 0; i < 4; ++ i){
         AddColumn(i);
@@ -37,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     AddItem(0,3,"地点");
 
     files.getNodes(QString("../Project/nodes.csv"));
+    files.getActivities(QString("../Project/events.csv"));
 
     qDebug() << "修改之前";
     qDebug() << files.readUserInfo(0);
@@ -49,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     configs = new Config(this);
+    adder = NULL;
 
 }
 
@@ -246,12 +250,78 @@ void MainWindow::onItemContextMenuRequested(const QPoint& pos) {
         connect(actioncancel, &QAction::triggered, [this, selectedItem]() {
             onActioncancelTriggered(selectedItem);
         });
+        QAction* actionrevise = menu->addAction("修改");
+        connect(actionrevise, &QAction::triggered, [this, selectedItem,pos]() {
+            onActionreviseTriggered(selectedItem);
+        });
         // 添加更多菜单项...
 
         // 显示右键菜单
         menu->exec(QCursor::pos());
     }
 }
+
+
+void MainWindow::onActionreviseTriggered(QTableWidgetItem *item){
+    int row=item->row();
+    int col=item->column();
+    if(col==0){
+        QDialog *dialogrevise=new QDialog(this);
+        QHBoxLayout* layout = new QHBoxLayout(dialogrevise);
+        QPushButton* saveButton=new QPushButton("Save");
+        layout->addWidget(saveButton);
+        QTimeEdit* timeEdit=new QTimeEdit;
+        layout->addWidget(timeEdit);
+        connect(saveButton, &QPushButton::clicked, this, [=]() {
+            (activities.begin()+row-1)->begin=timeEdit->time();
+            dialogrevise->close();
+        });
+        dialogrevise->exec();
+        SortEvent();
+        }
+    if(col==1){
+        QDialog *dialogrevise=new QDialog(this);
+        QHBoxLayout* layout = new QHBoxLayout(dialogrevise);
+        QPushButton* saveButton=new QPushButton("Save");
+        QTimeEdit* timeEdit=new QTimeEdit;
+        layout->addWidget(saveButton);
+        layout->addWidget(timeEdit);
+        connect(saveButton, &QPushButton::clicked, this, [=]() {
+            (activities.begin()+row-1)->end=timeEdit->time();
+            dialogrevise->close();
+        });
+        dialogrevise->exec();
+        SortEvent();
+        }
+    if(col==2){
+        bool ok;
+        QString text = QInputDialog::getText(nullptr, "Enter Text", "Please enter some text:", QLineEdit::Normal, "", &ok);
+
+            if (ok && !text.isEmpty()) {
+                activities[row-1].Sname=text;
+                SortEvent();
+            }
+    }
+    if(col==3){
+        QComboBox* locationEdit = new QComboBox(ui->_table);
+        for(auto nm:files.nameTint.keys()){
+            locationEdit->addItem(nm);
+        }
+        QDialog *dialogrevise=new QDialog(this);
+        QVBoxLayout* layout = new QVBoxLayout(dialogrevise);
+        QPushButton* saveButton=new QPushButton("Save");
+        layout->addWidget(saveButton);
+        layout->addWidget(locationEdit);
+        connect(saveButton, &QPushButton::clicked, this, [=]() {
+            (activities.begin()+row-1)->Sposition=locationEdit->currentText();
+            dialogrevise->close();
+        });
+        dialogrevise->exec();
+        activities[row-1].iposition=files.nameTint[activities[row-1].Sposition];
+        SortEvent();
+    }
+}
+
 
 void MainWindow::onActiondeleteTriggered(QTableWidgetItem *item) {
     QDate d = ui->_calendar->selectedDate();
@@ -262,10 +332,14 @@ void MainWindow::onActiondeleteTriggered(QTableWidgetItem *item) {
     // 处理 Action 1 被触发的逻辑
     //qDebug() << "Action 1 triggered";
 }
-void MainWindow::onActionaddTriggered(){
+
+void MainWindow::AddHelper(int idx){
+
     int rowcount=ui->_table->rowCount();
     ui->_table->insertRow(rowcount);
     QDialog *dialogadd=new QDialog(this);
+
+    dialogadd->setMinimumSize(480,640);
     dialogadd->setWindowTitle("Event Information");
     QVBoxLayout* layout = new QVBoxLayout(dialogadd);
     layout->addWidget(new QLabel("Start Time:"));
@@ -289,6 +363,16 @@ void MainWindow::onActionaddTriggered(){
     layout->addWidget(eventEdit);
     QPushButton* saveButton = new QPushButton("Save");
     layout->addWidget(saveButton);
+
+    if(idx != 3){
+        if(event[idx].begin != QTime::fromString("00:00:05","hh:mm:ss")){
+            stimeEdit->setTime(event[idx].begin);
+            etimeEdit->setTime(event[idx].end);
+        }
+        locationEdit->setCurrentText(event[idx].Sposition);
+        eventEdit->setText(event[idx].Sname);
+    }
+
     connect(saveButton, &QPushButton::clicked, [=](){
             QTime stime = stimeEdit->time();
             QTime etime = etimeEdit->time();
@@ -301,12 +385,21 @@ void MainWindow::onActionaddTriggered(){
             h.begin=stime;
             h.end=etime;
             h.iposition=files.nameTint[location];
-            InsertEvent(h);
+            if(Whetherclash(h.begin,h.end)){
+                  InsertEvent(h);
+            }
+
 
             dialogadd->close();
         });
     dialogadd->exec();
 }
+
+void MainWindow::onActionaddTriggered(){
+    AddHelper();
+}
+
+
 void MainWindow::onActioncancelTriggered(QTableWidgetItem *item){
     int row=item->row();
     activities[row].activate=0;
@@ -317,6 +410,32 @@ void MainWindow::onActioncancelTriggered(QTableWidgetItem *item){
         }
     }
 }
+
+bool MainWindow::Whetherclash(QTime begin,QTime end){
+    if(configs->Answer()){
+        return 1;
+    }
+    for(auto it=activities.begin();it!=activities.end();it++){
+        if((it->end>begin and it->begin<begin) or (it->begin<end and it->end>end)){
+            QMessageBox msgBox(QMessageBox::Warning, "事件时间冲突", "该事件时间发生冲突,暂时不能给你明确的答复,请你自己衡量。", QMessageBox::NoButton, this);
+             msgBox.setIcon(QMessageBox::Warning);
+            QPushButton* continueButton = msgBox.addButton("继续添加", QMessageBox::AcceptRole);
+            QPushButton* discardButton = msgBox.addButton("放弃", QMessageBox::RejectRole);
+            msgBox.exec();
+
+                if (msgBox.clickedButton() == continueButton) {
+                    return 1; // 继续添加
+                } else if (msgBox.clickedButton() == discardButton) {
+                    return 0; // 放弃
+                }
+
+                return -1; // 未点击任何按钮
+            break;
+        }
+    }
+    return 1;
+}
+
 void MainWindow::Personalize(){
     configs->show();
 }
@@ -585,4 +704,88 @@ void MainWindow::GetActivity(){
 // 这是是一个获取private变量的接口，之后整理代码的时候注意！
 FileIO MainWindow::GetFile(){
     return files;
+}
+
+void MainWindow::AddActivities(){
+    if(adder != NULL){
+        adder->close();
+    }
+    QDate d = ui->_calendar->selectedDate();
+    int idx = d.dayOfWeek();
+    std::vector<Event> events = files.events[idx];
+    std::vector<int> random_choice;
+    while(random_choice.size() < 3 && !events.empty()){
+        int temp = Selection::RandomInt(0,events.size() - 1);
+        random_choice.push_back(temp);
+    }
+
+    for(int i = 0; i < 3; ++ i){
+        event[i] = events[random_choice[i]];
+        if(event[i].Sposition == "origin"){
+            event[i].Sposition = configs->Origin();
+            event[i].iposition = files.nameTint[event[i].Sposition];
+        }
+    }
+
+    QString line[3];
+    for(int i = 0; i < 3; ++ i){
+        line[i] = "事件: " + QString(event[i].Sname) + " , " + "地点: " + QString(event[i].Sposition) + " , 时间: ";
+        if(event[i].begin == QTime::fromString("00:00:05","hh:mm:ss")){
+                line[i] += "任意";
+        }
+        else{
+            line[i] += event[i].begin.toString() + '-' + event[i].end.toString();
+            qDebug() << event[i].begin.toString() << event[i].end.toString();
+        }
+    }
+    QWidget* window = new QWidget();
+    window->setWindowTitle("选择事件");
+    window->setMinimumSize(960,720);
+    adder = window;
+
+    QPushButton *button1 = new QPushButton();
+
+    QPushButton *button2 = new QPushButton();
+    QPushButton *button3 = new QPushButton();
+    QPushButton *remake = new QPushButton();
+
+    button1->setMinimumSize(320,64);
+    button2->setMinimumSize(320,64);
+    button3->setMinimumSize(320,64);
+    remake->setMinimumSize(320,64);
+
+    button1->setText(line[0]);
+    button2->setText(line[1]);
+    button3->setText(line[2]);
+    remake->setText("重开");
+
+    connect(button1, &QPushButton::clicked, this, &MainWindow::onButton1Clicked);
+    connect(button2, &QPushButton::clicked, this, &MainWindow::onButton2Clicked);
+    connect(button3, &QPushButton::clicked, this, &MainWindow::onButton3Clicked);
+    connect(remake,&QPushButton::clicked,this,&MainWindow::AddActivities);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(button1);
+    layout->addWidget(button2);
+    layout->addWidget(button3);
+    layout->addWidget(remake);
+
+    window->setLayout(layout);
+    window->show();
+
+}
+
+void MainWindow::onButton1Clicked() {
+    AddHelper(0);
+    adder->close();
+}
+
+void MainWindow::onButton2Clicked() {
+    AddHelper(1);
+    adder->close();
+}
+
+void MainWindow::onButton3Clicked() {
+    AddHelper(2);
+    adder->close();
 }

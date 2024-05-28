@@ -8,7 +8,7 @@
 #include <QPair>
 #include <QDebug>
 #include <vector>
-
+#include <event.h>
 #include <QJsonDocument>
 #include <QJsonObject>
 
@@ -23,8 +23,11 @@ public:
     QHash<int,QString> intTname;
     // 第一个索引对应类型，分别为StudyPos，FoodPos，ActivityPos，RestPos，ExercisePos
     std::vector<std::vector<int>> TypePos;
+    std::vector<std::vector<Event>> events;
 
     void getNodes(const QString& name);
+
+    void getActivities(const QString& name);
 
     //
     void initUserInfo(){
