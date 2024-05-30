@@ -11,11 +11,16 @@
 #include <QMediaContent>
 #include <QUrl>
 #include <QInputDialog>
+#include <QIcon>
+#include <QMediaPlaylist>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),ui(new Ui::MainWindow),timer(new QTimer(this))
+    : QMainWindow(parent),ui(new Ui::MainWindow),timer(new QTimer(this)),mycountdown(new CountDownTimer(this))
 {
     ui->setupUi(this);
+    this->setStyleSheet("QMainWindow { background-color: #add8e6; }");
+    this->setWindowIcon(QIcon(":/icon.jpg"));
+    setWindowTitle("Time Tracker");
     connect(timer,&QTimer::timeout,this,&MainWindow::updateTimeDisplay);
     timer->start(1000);
     ui->timeDisplay->setReadOnly(true);
@@ -53,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     configs = new Config(this);
     adder = NULL;
+    ui->_countdowntimer->show();
 
 }
 
@@ -89,11 +95,12 @@ void MainWindow::updateTimeDisplay(){
     // 设置 QLineEdit 的文本
     ui->timeDisplay->setText(timeString);
     if(timeString=="00:00:01"){
-       QMediaPlayer mediaPlayer;
-       mediaPlayer.setMedia(QMediaContent(QUrl::fromLocalFile("../Project/bell.wav")));
-           qDebug() << "Played!";
-           mediaPlayer.setVolume(50);
-           mediaPlayer.play(); // 播放声音
+       QMediaPlaylist* musicList=new QMediaPlaylist;
+       musicList->addMedia(QMediaContent(QUrl("qrc:/sounds/bell.wav")));
+       mediaPlayer.setPlaylist(musicList);
+       qDebug() << "Played!";
+       mediaPlayer.setVolume(80);
+       mediaPlayer.play(); // 播放声音
     }
 }
 
