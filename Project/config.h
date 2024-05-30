@@ -25,9 +25,6 @@ public:
     bool Breakfast();
     bool Lunch();
     bool Dinner();
-    bool CrazyThursday();
-    bool Coffee();
-    bool Exercise();
     bool Store();
     bool Clock();
     bool Answer();
@@ -47,9 +44,6 @@ private:
     bool breakfast;
     bool lunch;
     bool dinner;
-    bool crazythursday;
-    bool coffee;
-    bool exercise;
     // 记录
     bool store;
     // 倒计时

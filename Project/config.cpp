@@ -8,9 +8,6 @@ Config::Config(QWidget *parent) :
     breakfast(1),
     lunch(1),
     dinner(1),
-    crazythursday(1),
-    coffee(1),
-    exercise(1),
     store(1),
     clock(1),
     answer(0),
@@ -52,18 +49,6 @@ bool Config::Dinner(){
     return dinner;
 }
 
-bool Config::CrazyThursday(){
-    return crazythursday;
-}
-
-bool Config::Coffee(){
-    return coffee;
-}
-
-bool Config::Exercise(){
-    return exercise;
-}
-
 bool Config::Store(){
     return store;
 }
@@ -82,10 +67,7 @@ void Config::Accept(){
     breakfast = ui->_breakfast->isChecked();
     lunch = ui->_lunch->isChecked();
     dinner = ui->_dinner->isChecked();
-    crazythursday = ui->_crazythursday->isChecked();
-    coffee = ui->_coffee->isChecked();
     store = ui->_store->isChecked();
-    exercise = ui->_exercise->isChecked();
     clock = ui->_clock->isChecked();
     origin = ui->_origin->currentText();
     answer = ui->_answer->isChecked();
@@ -106,10 +88,7 @@ void Config::Synchronize(){
     ui->_breakfast->setChecked(breakfast);
     ui->_lunch->setChecked(lunch);
     ui->_dinner->setChecked(dinner);
-    ui->_crazythursday->setChecked(crazythursday);
-    ui->_coffee->setChecked(coffee);
     ui->_store->setChecked(store);
-    ui->_exercise->setChecked(exercise);
     ui->_clock->setChecked(clock);
     ui->_origin->setCurrentText(origin);
     ui->_answer->setChecked(answer);
