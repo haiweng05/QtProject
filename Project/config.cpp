@@ -12,6 +12,8 @@ Config::Config(QWidget *parent) :
     clock(1),
     answer(0),
     origin("37楼"),
+    dest("../Project/1.bmp"),
+    tempdest("../Project/1.bmp"),
     mainwindow(parent)
 {
     ui->setupUi(this);
@@ -20,11 +22,13 @@ Config::Config(QWidget *parent) :
     connect(ui->_accept,&QPushButton::clicked,this,&Config::Accept);
     connect(ui->_refuse,&QPushButton::clicked,this,&Config::Refuse);
     connect(ui->_clear,&QPushButton::clicked,this,&Config::Clear);
+    connect(ui->_dest,&QPushButton::clicked,this,&Config::ChangeDirection);
 
     for(auto nm : ((MainWindow*)mainwindow)->GetFile().TypePos[3]){
         ui->_origin->addItem(((MainWindow*)mainwindow)->GetFile().intTname[nm]);
     }
 
+    ui->_direction->setText("当前地址: 默认地址");
     Synchronize();
 }
 
@@ -61,6 +65,10 @@ bool Config::Answer(){
     return answer;
 }
 
+QString Config::Dest(){
+    return dest;
+}
+
 void Config::Accept(){
 
     mode = ui->_mode->currentIndex();
@@ -71,6 +79,7 @@ void Config::Accept(){
     clock = ui->_clock->isChecked();
     origin = ui->_origin->currentText();
     answer = ui->_answer->isChecked();
+    dest = tempdest;
 
     Synchronize();
     close();
@@ -92,6 +101,7 @@ void Config::Synchronize(){
     ui->_clock->setChecked(clock);
     ui->_origin->setCurrentText(origin);
     ui->_answer->setChecked(answer);
+    tempdest = dest;
 
     if(mode == 0)
     mainwindow->setWindowTitle("探索模式");
@@ -107,4 +117,10 @@ QString Config::Origin(){
 
 void Config::Clear(){
     ((MainWindow*)mainwindow)->GetFile().initUserInfo();
+}
+
+void Config::ChangeDirection(){
+    tempdest = QFileDialog::getOpenFileName(this,
+                                                    tr("打开文件"), "", tr("图片文件 (*.jpg *.jpeg *.png *.bmp *.gif *.tiff *.ico *.svg *.webp);;所有文件 (*)"));
+    ui->_direction->setText("当前地址: " + tempdest);
 }

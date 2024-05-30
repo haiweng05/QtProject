@@ -101,6 +101,18 @@ void MainWindow::updateTimeDisplay(){
        qDebug() << "Played!";
        mediaPlayer.setVolume(80);
        mediaPlayer.play(); // 播放声音
+
+       QWidget* jump = new QWidget();
+
+       QLabel* pic = new QLabel(jump);
+       QPixmap pixmap(configs->Dest());
+       int h = pixmap.height();
+       int w = pixmap.width();
+
+       jump->setMinimumSize(w,h);
+       pic->setPixmap(pixmap);
+
+       jump->show();
     }
 }
 

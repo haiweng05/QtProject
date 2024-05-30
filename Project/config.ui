@@ -218,6 +218,32 @@
      <string>明确的答复</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="_dest">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>300</y>
+      <width>160</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>更改倒计时图片</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="_direction">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>380</y>
+      <width>841</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>当前地址:</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -29,13 +29,14 @@ public:
     bool Clock();
     bool Answer();
     QString Origin();
-
+    QString Dest();
     // 用于同步化设置至显示
     void Synchronize();
 private slots:
     void Accept();
     void Refuse();
     void Clear();
+    void ChangeDirection();
 
 private:
     Ui::Config *ui;
@@ -53,6 +54,8 @@ private:
     // 用于修改模式后改变主窗口名称
     QWidget* mainwindow;
     QString origin;
+    QString dest;
+    QString tempdest;
 };
 
 #endif // CONFIG_H
