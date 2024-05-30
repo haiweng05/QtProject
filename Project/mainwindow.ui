@@ -20,19 +20,6 @@
    <string>探索模式</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>760</x>
-      <y>860</y>
-      <width>51</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>开始</string>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="_table">
     <property name="geometry">
      <rect>
@@ -41,19 +28,6 @@
       <width>811</width>
       <height>791</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>860</y>
-      <width>51</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>暂停</string>
     </property>
    </widget>
    <widget class="QCalendarWidget" name="_calendar">
@@ -104,16 +78,6 @@
      <string>个性化设置</string>
     </property>
    </widget>
-   <widget class="QTimeEdit" name="_timeEdit">
-    <property name="geometry">
-     <rect>
-      <x>760</x>
-      <y>780</y>
-      <width>191</width>
-      <height>51</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="_buttonModify">
     <property name="geometry">
      <rect>
@@ -125,19 +89,6 @@
     </property>
     <property name="text">
      <string>重新安排</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>860</y>
-      <width>51</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>重置</string>
     </property>
    </widget>
    <widget class="QPushButton" name="_buttonConfirm">
@@ -156,8 +107,8 @@
    <widget class="QLineEdit" name="timeDisplay">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>840</y>
+      <x>1200</x>
+      <y>900</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -166,7 +117,7 @@
    <widget class="QPushButton" name="_event">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>340</x>
       <y>690</y>
       <width>160</width>
       <height>48</height>
@@ -174,6 +125,16 @@
     </property>
     <property name="text">
      <string>个性化推荐</string>
+    </property>
+   </widget>
+   <widget class="CountDownTimer" name="_countdowntimer" native="true">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>780</y>
+      <width>240</width>
+      <height>240</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -189,6 +150,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CountDownTimer</class>
+   <extends>QWidget</extends>
+   <header location="global">countdowntimer.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

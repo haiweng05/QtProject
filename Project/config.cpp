@@ -1,6 +1,6 @@
 #include "config.h"
 #include "ui_config.h"
-
+#include <QIcon>
 Config::Config(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Config),
@@ -18,6 +18,8 @@ Config::Config(QWidget *parent) :
     mainwindow(parent)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Time Tracker");
+    this->setWindowIcon(QIcon(":/icon.jpg"));
     connect(ui->_accept,&QPushButton::clicked,this,&Config::Accept);
     connect(ui->_refuse,&QPushButton::clicked,this,&Config::Refuse);
     connect(ui->_clear,&QPushButton::clicked,this,&Config::Clear);
