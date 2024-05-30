@@ -13,7 +13,9 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -28,6 +30,8 @@ public:
     QWidget *centralwidget;
     QPushButton *_intro;
     QPushButton *_launch;
+    QFrame *frame;
+    QLabel *label;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -37,17 +41,33 @@ public:
             Menu->setObjectName(QStringLiteral("Menu"));
         Menu->resize(1600, 900);
         Menu->setMinimumSize(QSize(640, 480));
+        Menu->setStyleSheet(QStringLiteral(""));
         centralwidget = new QWidget(Menu);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         _intro = new QPushButton(centralwidget);
         _intro->setObjectName(QStringLiteral("_intro"));
-        _intro->setGeometry(QRect(1000, 600, 160, 48));
+        _intro->setGeometry(QRect(750, 750, 160, 48));
         _intro->setText(QString::fromUtf8("\350\257\264\346\230\216"));
         _launch = new QPushButton(centralwidget);
         _launch->setObjectName(QStringLiteral("_launch"));
-        _launch->setGeometry(QRect(600, 600, 160, 48));
+        _launch->setGeometry(QRect(750, 660, 160, 48));
         _launch->setText(QString::fromUtf8("\345\220\257\345\212\250"));
+        frame = new QFrame(centralwidget);
+        frame->setObjectName(QStringLiteral("frame"));
+        frame->setGeometry(QRect(-1, -21, 1611, 901));
+        frame->setStyleSheet(QLatin1String("#frame{\n"
+"border-image:url(:/image.jpg)\n"
+"}"));
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+        label = new QLabel(frame);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(630, 240, 491, 101));
+        label->setStyleSheet(QString::fromUtf8("QLabel{color:rgb(255, 0, 0);font: 26pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";}"));
         Menu->setCentralWidget(centralwidget);
+        frame->raise();
+        _intro->raise();
+        _launch->raise();
         menubar = new QMenuBar(Menu);
         menubar->setObjectName(QStringLiteral("menubar"));
         menubar->setGeometry(QRect(0, 0, 1600, 21));
@@ -58,12 +78,16 @@ public:
 
         retranslateUi(Menu);
 
+        _launch->setDefault(false);
+
+
         QMetaObject::connectSlotsByName(Menu);
     } // setupUi
 
     void retranslateUi(QMainWindow *Menu)
     {
         Menu->setWindowTitle(QApplication::translate("Menu", "MainWindow", 0));
+        label->setText(QApplication::translate("Menu", "Time Tracker", 0));
     } // retranslateUi
 
 };

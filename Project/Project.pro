@@ -2,7 +2,7 @@ QT       += core gui
 QT       += network
 QT       += multimedia
 QT       += axcontainer
-
+QT       +=multimedia
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -22,7 +22,8 @@ SOURCES += \
     fileio.cpp \
     config.cpp \
     selection.cpp \
-    network.cpp
+    network.cpp \
+    countdowntimer.cpp
 
 HEADERS += \
     event.h \
@@ -34,14 +35,16 @@ HEADERS += \
     fileio.h \
     config.h \
     selection.h \
-    network.h
+    network.h \
+    countdowntimer.h
 
 FORMS += \
     introduction.ui \
     mainwindow.ui \
     menu.ui \
     pkumap.ui \
-    config.ui
+    config.ui \
+    countdowntimer.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -54,4 +57,10 @@ DISTFILES += \
     nodes.csv \
     UserInfo.json \
     bell.mp3 \
-    events.csv
+    events.csv \
+    icon.jpg
+
+RESOURCES += \
+    background.qrc \
+    icon.qrc \
+    bell.qrc

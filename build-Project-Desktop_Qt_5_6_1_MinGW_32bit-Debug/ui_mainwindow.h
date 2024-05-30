@@ -21,8 +21,8 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
-#include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QWidget>
+#include <countdowntimer.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -30,17 +30,15 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QPushButton *pushButton;
     QTableWidget *_table;
-    QPushButton *pushButton_2;
     QCalendarWidget *_calendar;
     QPushButton *_buttonInport;
     QPushButton *_buttonPersonalize;
-    QTimeEdit *_timeEdit;
     QPushButton *_buttonModify;
-    QPushButton *pushButton_3;
     QPushButton *_buttonConfirm;
     QLineEdit *timeDisplay;
+    QPushButton *_event;
+    CountDownTimer *_countdowntimer;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -52,15 +50,9 @@ public:
         MainWindow->setMinimumSize(QSize(1000, 800));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(760, 860, 51, 51));
         _table = new QTableWidget(centralwidget);
         _table->setObjectName(QStringLiteral("_table"));
         _table->setGeometry(QRect(870, 0, 811, 791));
-        pushButton_2 = new QPushButton(centralwidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(830, 860, 51, 51));
         _calendar = new QCalendarWidget(centralwidget);
         _calendar->setObjectName(QStringLiteral("_calendar"));
         _calendar->setGeometry(QRect(0, 0, 861, 501));
@@ -74,21 +66,21 @@ public:
         _buttonPersonalize = new QPushButton(centralwidget);
         _buttonPersonalize->setObjectName(QStringLiteral("_buttonPersonalize"));
         _buttonPersonalize->setGeometry(QRect(450, 580, 160, 48));
-        _timeEdit = new QTimeEdit(centralwidget);
-        _timeEdit->setObjectName(QStringLiteral("_timeEdit"));
-        _timeEdit->setGeometry(QRect(760, 780, 191, 51));
         _buttonModify = new QPushButton(centralwidget);
         _buttonModify->setObjectName(QStringLiteral("_buttonModify"));
         _buttonModify->setGeometry(QRect(230, 580, 160, 48));
-        pushButton_3 = new QPushButton(centralwidget);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(900, 860, 51, 51));
         _buttonConfirm = new QPushButton(centralwidget);
         _buttonConfirm->setObjectName(QStringLiteral("_buttonConfirm"));
         _buttonConfirm->setGeometry(QRect(670, 580, 160, 48));
         timeDisplay = new QLineEdit(centralwidget);
         timeDisplay->setObjectName(QStringLiteral("timeDisplay"));
-        timeDisplay->setGeometry(QRect(200, 840, 201, 51));
+        timeDisplay->setGeometry(QRect(1200, 900, 201, 51));
+        _event = new QPushButton(centralwidget);
+        _event->setObjectName(QStringLiteral("_event"));
+        _event->setGeometry(QRect(340, 690, 160, 48));
+        _countdowntimer = new CountDownTimer(centralwidget);
+        _countdowntimer->setObjectName(QStringLiteral("_countdowntimer"));
+        _countdowntimer->setGeometry(QRect(300, 780, 240, 240));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -106,13 +98,11 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\346\216\242\347\264\242\346\250\241\345\274\217", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "\345\274\200\345\247\213", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "\346\232\202\345\201\234", 0));
         _buttonInport->setText(QApplication::translate("MainWindow", "\345\257\274\345\205\245\350\257\276\350\241\250", 0));
         _buttonPersonalize->setText(QApplication::translate("MainWindow", "\344\270\252\346\200\247\345\214\226\350\256\276\347\275\256", 0));
         _buttonModify->setText(QApplication::translate("MainWindow", "\351\207\215\346\226\260\345\256\211\346\216\222", 0));
-        pushButton_3->setText(QApplication::translate("MainWindow", "\351\207\215\347\275\256", 0));
         _buttonConfirm->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\345\234\260\345\233\276", 0));
+        _event->setText(QApplication::translate("MainWindow", "\344\270\252\346\200\247\345\214\226\346\216\250\350\215\220", 0));
     } // retranslateUi
 
 };

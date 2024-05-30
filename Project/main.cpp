@@ -5,7 +5,7 @@
 #include "pkumap.h"
 #include "config.h"
 #include "selection.h"
-
+#include <QIcon>
 #include <QApplication>
 
 int main(int argc, char *argv[])
