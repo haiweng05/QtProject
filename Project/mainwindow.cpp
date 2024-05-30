@@ -333,17 +333,22 @@ void MainWindow::onActionreviseTriggered(QTableWidgetItem *item){
 void MainWindow::onActiondeleteTriggered(QTableWidgetItem *item) {
     QDate d = ui->_calendar->selectedDate();
     int row = item->row();
-    ui->_table->removeRow(row);
-    Memo[d].erase(Memo[d].begin()+row + 1);
-    activities.erase(activities.begin()+row + 1);
+    // 防止表头被删
+    if(row == 0){
+        return;
+    }
+//    ui->_table->removeRow(row);
+    Memo[d].erase(Memo[d].begin()+row - 1);
+    activities.erase(activities.begin()+row - 1);
     // 处理 Action 1 被触发的逻辑
     //qDebug() << "Action 1 triggered";
+    SortEvent();
 }
 
 void MainWindow::AddHelper(int idx){
 
     int rowcount=ui->_table->rowCount();
-    ui->_table->insertRow(rowcount);
+    // 把插入行放在我们实际确定添加后
     QDialog *dialogadd=new QDialog(this);
 
     dialogadd->setMinimumSize(480,640);
@@ -393,10 +398,14 @@ void MainWindow::AddHelper(int idx){
             h.end=etime;
             h.iposition=files.nameTint[location];
             if(Whetherclash(h.begin,h.end)){
+                // 移动到这里
+                  ui->_table->insertRow(rowcount);
                   InsertEvent(h);
             }
 
+            else{
 
+            }
             dialogadd->close();
         });
     dialogadd->exec();
@@ -416,6 +425,7 @@ void MainWindow::onActioncancelTriggered(QTableWidgetItem *item){
             item->setBackground(QBrush(Qt::red));
         }
     }
+    SortEvent();
 }
 
 bool MainWindow::Whetherclash(QTime begin,QTime end){
@@ -436,7 +446,7 @@ bool MainWindow::Whetherclash(QTime begin,QTime end){
                     return 0; // 放弃
                 }
 
-                return -1; // 未点击任何按钮
+                return 0; // 未点击任何按钮
             break;
         }
     }
