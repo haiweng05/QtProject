@@ -47,14 +47,19 @@ public:
         _intro = new QPushButton(centralwidget);
         _intro->setObjectName(QStringLiteral("_intro"));
         _intro->setGeometry(QRect(750, 750, 160, 48));
+        QFont font;
+        font.setPointSize(10);
+        _intro->setFont(font);
         _intro->setText(QString::fromUtf8("\350\257\264\346\230\216"));
         _launch = new QPushButton(centralwidget);
         _launch->setObjectName(QStringLiteral("_launch"));
         _launch->setGeometry(QRect(750, 660, 160, 48));
+        _launch->setFont(font);
         _launch->setText(QString::fromUtf8("\345\220\257\345\212\250"));
         frame = new QFrame(centralwidget);
         frame->setObjectName(QStringLiteral("frame"));
         frame->setGeometry(QRect(-1, -21, 1611, 901));
+        frame->setFont(font);
         frame->setStyleSheet(QLatin1String("#frame{\n"
 "border-image:url(:/image.jpg)\n"
 "}"));
@@ -62,8 +67,15 @@ public:
         frame->setFrameShadow(QFrame::Raised);
         label = new QLabel(frame);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(630, 240, 491, 101));
-        label->setStyleSheet(QString::fromUtf8("QLabel{color:rgb(255, 0, 0);font: 26pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";}"));
+        label->setGeometry(QRect(480, 230, 711, 101));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Harrington"));
+        font1.setPointSize(44);
+        font1.setBold(false);
+        font1.setItalic(true);
+        font1.setWeight(50);
+        label->setFont(font1);
+        label->setStyleSheet(QStringLiteral("color:rgb(255, 0, 0)"));
         Menu->setCentralWidget(centralwidget);
         frame->raise();
         _intro->raise();

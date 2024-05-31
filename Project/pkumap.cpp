@@ -159,6 +159,8 @@ void PKUMap::HidePath(int idx) {
     }
 }
 void PKUMap::ShowPath(int idx) {
+    if(GetEvent().size() == 0){return;}
+
     qDebug() << "Show " << idx;
     if(idx == 0){
         int to = GetEvent()[idx].iposition;
@@ -237,6 +239,11 @@ void PKUMap::Removeall(){
 }
 
 void PKUMap::Update(){
+    if(GetEvent().size() == 0){
+        QString cur = "当前没有任何事件!请先点击任意一天进行规划!";
+        ui->_label->setText(cur);
+        return;
+    }
     QString cur = "当前第";
     cur += QString::number(current);
     cur += "步，共";

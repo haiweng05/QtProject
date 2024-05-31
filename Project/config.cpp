@@ -11,7 +11,7 @@ Config::Config(QWidget *parent) :
     store(1),
     clock(1),
     answer(0),
-    origin("37楼"),
+    origin("39楼"),
     dest("../Project/1.bmp"),
     tempdest("../Project/1.bmp"),
     mainwindow(parent)

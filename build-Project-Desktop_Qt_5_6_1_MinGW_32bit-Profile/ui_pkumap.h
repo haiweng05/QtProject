@@ -76,7 +76,7 @@ public:
 
     void retranslateUi(QWidget *PKUMap)
     {
-        PKUMap->setWindowTitle(QApplication::translate("PKUMap", "Form", 0));
+        PKUMap->setWindowTitle(QApplication::translate("PKUMap", "\345\234\260\345\233\276", 0));
         _prev->setText(QApplication::translate("PKUMap", "\344\270\212\344\270\200\346\255\245", 0));
         _showall->setText(QApplication::translate("PKUMap", "\346\230\276\347\244\272\345\205\250\351\203\250", 0));
         _removeall->setText(QApplication::translate("PKUMap", "\351\232\220\350\227\217\345\205\250\351\203\250", 0));

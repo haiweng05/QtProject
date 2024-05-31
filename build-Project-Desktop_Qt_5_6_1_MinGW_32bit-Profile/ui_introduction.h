@@ -15,9 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
@@ -29,8 +27,6 @@ public:
     QWidget *centralwidget;
     QPushButton *_exit;
     QTextBrowser *_browser;
-    QMenuBar *menubar;
-    QStatusBar *statusbar;
 
     void setupUi(QMainWindow *Introduction)
     {
@@ -46,15 +42,9 @@ public:
         _browser = new QTextBrowser(centralwidget);
         _browser->setObjectName(QStringLiteral("_browser"));
         _browser->setGeometry(QRect(20, 0, 1081, 811));
+        _browser->setLineWidth(0);
         _browser->setOpenExternalLinks(true);
         Introduction->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(Introduction);
-        menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1600, 21));
-        Introduction->setMenuBar(menubar);
-        statusbar = new QStatusBar(Introduction);
-        statusbar->setObjectName(QStringLiteral("statusbar"));
-        Introduction->setStatusBar(statusbar);
 
         retranslateUi(Introduction);
 

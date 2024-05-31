@@ -29,6 +29,50 @@
       <height>791</height>
      </rect>
     </property>
+    <property name="baseSize">
+     <size>
+      <width>200</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>SimSun-ExtB</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">alternate-background-color: rgb(234, 251, 255)</string>
+    </property>
+    <property name="alternatingRowColors">
+     <bool>true</bool>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>0</width>
+      <height>3</height>
+     </size>
+    </property>
+    <property name="textElideMode">
+     <enum>Qt::ElideMiddle</enum>
+    </property>
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>180</number>
+    </attribute>
+    <attribute name="verticalHeaderDefaultSectionSize">
+     <number>60</number>
+    </attribute>
    </widget>
    <widget class="QCalendarWidget" name="_calendar">
     <property name="geometry">
@@ -39,8 +83,13 @@
       <height>501</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
     <property name="gridVisible">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="selectionMode">
      <enum>QCalendarWidget::SingleSelection</enum>
@@ -51,6 +100,12 @@
     <property name="verticalHeaderFormat">
      <enum>QCalendarWidget::NoVerticalHeader</enum>
     </property>
+    <property name="navigationBarVisible">
+     <bool>true</bool>
+    </property>
+    <property name="dateEditEnabled">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="_buttonInport">
     <property name="geometry">
@@ -60,6 +115,12 @@
       <width>160</width>
       <height>48</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <kerning>true</kerning>
+     </font>
     </property>
     <property name="text">
      <string>导入课表</string>
@@ -74,6 +135,12 @@
       <height>48</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <kerning>true</kerning>
+     </font>
+    </property>
     <property name="text">
      <string>个性化设置</string>
     </property>
@@ -86,6 +153,12 @@
       <width>160</width>
       <height>48</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <kerning>true</kerning>
+     </font>
     </property>
     <property name="text">
      <string>重新安排</string>
@@ -100,6 +173,12 @@
       <height>48</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <kerning>true</kerning>
+     </font>
+    </property>
     <property name="text">
      <string>显示地图</string>
     </property>
@@ -107,11 +186,22 @@
    <widget class="QLineEdit" name="timeDisplay">
     <property name="geometry">
      <rect>
-      <x>1200</x>
+      <x>1160</x>
       <y>900</y>
-      <width>201</width>
-      <height>51</height>
+      <width>240</width>
+      <height>72</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>WhatsThisCursor</cursorShape>
+    </property>
+    <property name="whatsThis">
+     <string>计时器</string>
     </property>
    </widget>
    <widget class="QPushButton" name="_event">
@@ -122,6 +212,12 @@
       <width>160</width>
       <height>48</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <kerning>true</kerning>
+     </font>
     </property>
     <property name="text">
      <string>个性化推荐</string>
