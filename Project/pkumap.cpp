@@ -16,12 +16,12 @@ protected:
             if(numDegrees > 0)
             {
                 // Zoom in
-                view->scale(1.25, 1.25);
+                view->scale(1.11111, 1.11111);
             }
             else
             {
                 // Zooming out
-                view->scale(0.8, 0.8);
+                view->scale(0.9, 0.9);
             }
             return true;
         }

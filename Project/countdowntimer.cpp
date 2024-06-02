@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include<QLCDNumber>
 #include<QInputDialog>
+#include<QDebug>
 CountDownTimer::CountDownTimer(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CountDownTimer)
@@ -74,6 +75,7 @@ void CountDownTimer::on_Reset_clicked()
     isStart=0;
     bool ok=0;
     resetMinutes = QInputDialog::getInt(this, tr("重置倒计时"), tr("请输入分钟数:"), 0, 0, 60, 1, &ok);
+    qDebug() << "Act";
     if (ok) {
         resetTimer(resetMinutes);
     } else {

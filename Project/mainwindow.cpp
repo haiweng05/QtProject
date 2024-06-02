@@ -1,13 +1,13 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QFileDialog>
-#include<QAction>
-#include<QAbstractItemView>
-#include<QMenu>
-#include<QTime>
-#include<QLineEdit>
-#include<vector>
-#include<QMediaPlayer>
+#include <QAction>
+#include <QAbstractItemView>
+#include <QMenu>
+#include <QTime>
+#include <QLineEdit>
+#include <vector>
+#include <QMediaPlayer>
 #include <QMediaContent>
 #include <QUrl>
 #include <QInputDialog>
@@ -94,6 +94,7 @@ void MainWindow::updateTimeDisplay(){
     }
     // 设置 QLineEdit 的文本
     ui->timeDisplay->setText(timeString);
+
     if(timeString=="00:00:01"){
        QMediaPlaylist* musicList=new QMediaPlaylist;
        musicList->addMedia(QMediaContent(QUrl("qrc:/sounds/bell.wav")));
@@ -123,6 +124,7 @@ void MainWindow::ClassImport(){
     if (fileName.isEmpty()) { // 如果没有选择文件，直接返回
             return;
     }
+//    classschedule.week.resize(8,{});
     QAxObject excel("Excel.Application");
     excel.setProperty("Visible", false);
 
