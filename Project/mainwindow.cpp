@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->_table->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->_table, &QTableWidget::customContextMenuRequested, this, &MainWindow::onItemContextMenuRequested);
     connect(ui->_event,&QPushButton::clicked,this,&MainWindow::AddActivities);
+    connect(ui->_save,&QPushButton::clicked,this,&MainWindow::saveToJson);
     AddRow(0);
     for(int i = 0; i < 4; ++ i){
         AddColumn(i);
@@ -46,15 +47,17 @@ MainWindow::MainWindow(QWidget *parent)
     files.getNodes(QString("../Project/nodes.csv"));
     files.getActivities(QString("../Project/events.csv"));
 
-    qDebug() << "修改之前";
-    qDebug() << files.readUserInfo(0);
-    qDebug() << files.readUserInfo(1);
-    files.saveUserInfo(1);
-    files.saveUserInfo(1);
-    qDebug() << "修改之后";
-    qDebug() << files.readUserInfo(0);
-    qDebug() << files.readUserInfo(1);
+    for(int i = 0; i < 7; ++ i){
+        QString Set = files.readUserInfo(QString::number(i),"../Project/course.json",2);
+        QStringList list = Set.split(';');
+        for(auto Info:list){
+            if(Info != ""){
+                Event e(Info);
+                classschedule.week[i].push_back(e);
+            }
 
+        }
+    }
 
     configs = new Config(this);
     adder = NULL;
@@ -124,7 +127,9 @@ void MainWindow::ClassImport(){
     if (fileName.isEmpty()) { // 如果没有选择文件，直接返回
             return;
     }
-//    classschedule.week.resize(8,{});
+    for(int i = 0; i < 8; ++ i){
+        classschedule.week[i] = {};
+    }
     QAxObject excel("Excel.Application");
     excel.setProperty("Visible", false);
 
@@ -193,11 +198,22 @@ void MainWindow::ClassImport(){
 
         work_book->dynamicCall("Close(Boolean)", false);  //关闭文件
         excel.dynamicCall("Quit(void)");  //退出
+
+        for(int i = 0; i < 7; ++ i){
+            QString Info;
+            for(auto u : classschedule.week[i]){
+                Info = Info + u.ToInfo();
+            }
+            qDebug() << Info;
+            files.saveUserInfo(QString::number(i),"../Project/course.json",2,Info);
+        }
+
         return ;
     }
 
 }
-void MainWindow::oneday(const QDate&date){
+
+void MainWindow::onedayHelper(QDate date,int ignore){
     if(Memo.find(date) != Memo.end()){
         tableclear();
         activities.clear();
@@ -208,27 +224,47 @@ void MainWindow::oneday(const QDate&date){
         return;
     }
 
-    int dayidx=(date.dayOfWeek()-2)%7+1;
-    dayindex=(date.dayOfWeek()-2)%7+1;
+    QString Set = files.readUserInfo(date.toString(),"../Project/activities.json",1);
+    qDebug() << Set;
+    QStringList list = Set.split(';');
 
-    MainWindow::tableclear();
+    if(Set == "" || ignore == 1){
+        int dayidx=(date.dayOfWeek()-2)%7+1;
+        dayindex=(date.dayOfWeek()-2)%7+1;
 
-    activities.clear();
-    for(Event x:classschedule.week[dayidx]){
-        InsertEvent(x);;
+        MainWindow::tableclear();
+
+        activities.clear();
+        for(Event x:classschedule.week[dayidx]){
+            InsertEvent(x);;
+        }
+
+        if(configs->Mode() == 2){
+            Bailan();
+            return;
+        }
+        GetStudy();
+
+        GetFood();
+
+        GetActivity();
     }
 
-    if(configs->Mode() == 2){
-        Bailan();
-        return;
+    else{
+        for(auto Info:list){
+            if(Info != ""){
+                Event e(Info);
+                qDebug() << Info;
+                InsertEvent(e);
+            }
+        }
     }
-    GetStudy();
-
-    GetFood();
-
-    GetActivity();
 
     Memo.insert(date,activities);
+}
+
+void MainWindow::oneday(const QDate&date){
+    onedayHelper(date,0);
 }
 void MainWindow::tableclear(){
     int t=ui->_table->rowCount();
@@ -251,7 +287,7 @@ void MainWindow::handleSelectionChanged(){}
 void MainWindow::ClassModify() {
     QDate d = ui->_calendar->selectedDate();
     Memo.erase(Memo.find(d));
-    oneday(d);
+    onedayHelper(d,1);
 }
 
 void MainWindow::onItemContextMenuRequested(const QPoint& pos) {
@@ -530,7 +566,8 @@ int MainWindow::FirstBefore(QTime t){
 void MainWindow::InsertEvent(Event& event){
     activities.push_back(event);
     SortEvent();
-    files.saveUserInfo(event.iposition);
+    QString s = QString::number(event.iposition);
+    files.saveUserInfo(s);
 }
 
 // 提供两个版本的删除课程接口
@@ -819,4 +856,14 @@ void MainWindow::onButton2Clicked() {
 void MainWindow::onButton3Clicked() {
     AddHelper(2);
     adder->close();
+}
+
+void MainWindow::saveToJson(){
+    QDate d = ui->_calendar->selectedDate();
+    QString idx = d.toString();
+    QString Info;
+    for(auto ele:activities){
+        Info += ele.ToInfo();
+    }
+    files.saveUserInfo(idx,"../Project/activities.json.",1,Info);
 }

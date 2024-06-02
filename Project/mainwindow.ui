@@ -207,8 +207,8 @@
    <widget class="QPushButton" name="_event">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>690</y>
+      <x>450</x>
+      <y>680</y>
       <width>160</width>
       <height>48</height>
      </rect>
@@ -231,6 +231,25 @@
       <width>240</width>
       <height>240</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="_save">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>680</y>
+      <width>160</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>同步到本地</string>
     </property>
    </widget>
   </widget>

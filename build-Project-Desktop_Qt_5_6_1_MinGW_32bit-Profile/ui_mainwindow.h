@@ -39,6 +39,7 @@ public:
     QLineEdit *timeDisplay;
     QPushButton *_event;
     CountDownTimer *_countdowntimer;
+    QPushButton *_save;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -107,11 +108,15 @@ public:
         timeDisplay->setCursor(QCursor(Qt::WhatsThisCursor));
         _event = new QPushButton(centralwidget);
         _event->setObjectName(QStringLiteral("_event"));
-        _event->setGeometry(QRect(340, 690, 160, 48));
+        _event->setGeometry(QRect(450, 680, 160, 48));
         _event->setFont(font2);
         _countdowntimer = new CountDownTimer(centralwidget);
         _countdowntimer->setObjectName(QStringLiteral("_countdowntimer"));
         _countdowntimer->setGeometry(QRect(300, 780, 240, 240));
+        _save = new QPushButton(centralwidget);
+        _save->setObjectName(QStringLiteral("_save"));
+        _save->setGeometry(QRect(230, 680, 160, 48));
+        _save->setFont(font2);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -137,6 +142,7 @@ public:
         timeDisplay->setWhatsThis(QApplication::translate("MainWindow", "\350\256\241\346\227\266\345\231\250", 0));
 #endif // QT_NO_WHATSTHIS
         _event->setText(QApplication::translate("MainWindow", "\344\270\252\346\200\247\345\214\226\346\216\250\350\215\220", 0));
+        _save->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\245\345\210\260\346\234\254\345\234\260", 0));
     } // retranslateUi
 
 };

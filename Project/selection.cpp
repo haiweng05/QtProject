@@ -62,7 +62,11 @@ int Selection::PreferenceSelection(int type){
 
     std::vector<int> memory;
     for(int i = 0; i < mainwindow->GetFile().TypePos[type].size(); ++ i){
-        memory.push_back(mainwindow->GetFile().readUserInfo(mainwindow->GetFile().TypePos[type][i]));
+        QString str = QString::number(mainwindow->GetFile().TypePos[type][i]);
+        qDebug() << str;
+        int num = (mainwindow->GetFile().readUserInfo(str)).toInt();
+//        qDebug() << num;
+        memory.push_back(num);
     }
     std::vector<int> sorted = memory;
     std::sort(sorted.begin(),sorted.end());

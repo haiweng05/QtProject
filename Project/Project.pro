@@ -58,7 +58,9 @@ DISTFILES += \
     UserInfo.json \
     bell.mp3 \
     events.csv \
-    icon.jpg
+    icon.jpg \
+    activities.json \
+    course.json
 
 RESOURCES += \
     background.qrc \

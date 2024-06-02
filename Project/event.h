@@ -22,6 +22,10 @@ public:
     }
     Event(const Event& e);
     Event(QString name,QString Spos,int ipos,QTime beg,QTime ed);
+
+    Event(QString Info);
+
+    QString ToInfo();
 };
 
 #endif // EVENT_H

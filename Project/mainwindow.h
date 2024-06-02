@@ -102,6 +102,7 @@ private slots:
 
 
     void oneday(const QDate&date);
+    void onedayHelper(QDate date,int ignore);
     void onItemContextMenuRequested(const QPoint& pos);
     void onActiondeleteTriggered(QTableWidgetItem *item);
     void onActionaddTriggered();
@@ -119,6 +120,8 @@ private slots:
 
 
     void onButton3Clicked();
+
+    void saveToJson();
 
 
 

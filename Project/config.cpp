@@ -116,7 +116,10 @@ QString Config::Origin(){
 }
 
 void Config::Clear(){
-    ((MainWindow*)mainwindow)->GetFile().initUserInfo();
+    for(int i = 0; i <= 2; ++ i){
+        ((MainWindow*)mainwindow)->GetFile().initUserInfo(i);
+        qDebug() << i;
+    }
 }
 
 void Config::ChangeDirection(){
