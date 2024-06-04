@@ -98,7 +98,7 @@ void MainWindow::updateTimeDisplay(){
     // 设置 QLineEdit 的文本
     ui->timeDisplay->setText(timeString);
 
-    if(timeString=="00:00:01"){
+    if(timeString=="00:10:00"){
        QMediaPlaylist* musicList=new QMediaPlaylist;
        musicList->addMedia(QMediaContent(QUrl("qrc:/sounds/bell.wav")));
        mediaPlayer.setPlaylist(musicList);
@@ -251,8 +251,10 @@ void MainWindow::onedayHelper(QDate date,int ignore){
     }
 
     else{
+        activities.clear();
         for(auto Info:list){
             if(Info != ""){
+
                 Event e(Info);
                 qDebug() << Info;
                 InsertEvent(e);
