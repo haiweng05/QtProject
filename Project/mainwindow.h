@@ -141,10 +141,6 @@ private slots:
     void ShowCalendar();
     void HideCalendar();
 
-    // 课表
-    void ShowCourse();
-    void HideCourse();
-
 
 private:
     Ui::MainWindow *ui;

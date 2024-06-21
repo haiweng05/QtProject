@@ -23,10 +23,10 @@
    <widget class="QTableWidget" name="_table">
     <property name="geometry">
      <rect>
-      <x>1280</x>
+      <x>1260</x>
       <y>0</y>
-      <width>881</width>
-      <height>1011</height>
+      <width>900</width>
+      <height>1080</height>
      </rect>
     </property>
     <property name="baseSize">
@@ -38,7 +38,7 @@
     <property name="font">
      <font>
       <family>SimSun-ExtB</family>
-      <pointsize>10</pointsize>
+      <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -68,10 +68,10 @@
      <number>0</number>
     </property>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>180</number>
+     <number>225</number>
     </attribute>
     <attribute name="verticalHeaderDefaultSectionSize">
-     <number>60</number>
+     <number>72</number>
     </attribute>
    </widget>
    <widget class="QCalendarWidget" name="_calendar">
@@ -79,13 +79,13 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1281</width>
-      <height>1011</height>
+      <width>1260</width>
+      <height>780</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="gridVisible">
@@ -107,32 +107,13 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="_buttonInport">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>1030</y>
-      <width>160</width>
-      <height>48</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="text">
-     <string>导入课表</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="_buttonPersonalize">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>1030</y>
-      <width>160</width>
-      <height>48</height>
+      <x>650</x>
+      <y>850</y>
+      <width>200</width>
+      <height>60</height>
      </rect>
     </property>
     <property name="font">
@@ -148,10 +129,10 @@
    <widget class="QPushButton" name="_buttonModify">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>1030</y>
-      <width>160</width>
-      <height>48</height>
+      <x>50</x>
+      <y>850</y>
+      <width>200</width>
+      <height>60</height>
      </rect>
     </property>
     <property name="font">
@@ -164,37 +145,20 @@
      <string>重新安排</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="_buttonConfirm">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>1030</y>
-      <width>160</width>
-      <height>48</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="text">
-     <string>显示地图</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="timeDisplay">
     <property name="geometry">
      <rect>
-      <x>1480</x>
-      <y>1270</y>
-      <width>240</width>
-      <height>72</height>
+      <x>1450</x>
+      <y>1200</y>
+      <width>521</width>
+      <height>161</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="cursor">
@@ -207,10 +171,10 @@
    <widget class="QPushButton" name="_event">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>1130</y>
-      <width>160</width>
-      <height>48</height>
+      <x>950</x>
+      <y>850</y>
+      <width>200</width>
+      <height>60</height>
      </rect>
     </property>
     <property name="font">
@@ -226,20 +190,20 @@
    <widget class="CountDownTimer" name="_countdowntimer" native="true">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>1230</y>
-      <width>240</width>
-      <height>240</height>
+      <x>420</x>
+      <y>1100</y>
+      <width>360</width>
+      <height>350</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="_save">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>1130</y>
-      <width>160</width>
-      <height>48</height>
+      <x>350</x>
+      <y>850</y>
+      <width>200</width>
+      <height>60</height>
      </rect>
     </property>
     <property name="font">
@@ -262,14 +226,33 @@
      </rect>
     </property>
    </widget>
-   <widget class="Introduction" name="_info" native="true">
+   <widget class="Intro" name="_info" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>60</y>
-      <width>20</width>
+      <width>2160</width>
       <height>1540</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="_buttonInport">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>990</y>
+      <width>200</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>导入课表</string>
     </property>
    </widget>
   </widget>
@@ -311,9 +294,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>Introduction</class>
+   <class>Intro</class>
    <extends>QWidget</extends>
-   <header location="global">introduction.h</header>
+   <header location="global">intro.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -32,19 +32,19 @@ public:
     {
         if (CountDownTimer->objectName().isEmpty())
             CountDownTimer->setObjectName(QStringLiteral("CountDownTimer"));
-        CountDownTimer->resize(240, 240);
+        CountDownTimer->resize(360, 360);
         lcdNumber = new QLCDNumber(CountDownTimer);
         lcdNumber->setObjectName(QStringLiteral("lcdNumber"));
-        lcdNumber->setGeometry(QRect(0, 0, 240, 180));
+        lcdNumber->setGeometry(QRect(0, 0, 360, 270));
         Start = new QPushButton(CountDownTimer);
         Start->setObjectName(QStringLiteral("Start"));
-        Start->setGeometry(QRect(10, 190, 60, 36));
+        Start->setGeometry(QRect(20, 290, 80, 40));
         Reset = new QPushButton(CountDownTimer);
         Reset->setObjectName(QStringLiteral("Reset"));
-        Reset->setGeometry(QRect(90, 190, 60, 36));
+        Reset->setGeometry(QRect(140, 290, 80, 40));
         End = new QPushButton(CountDownTimer);
         End->setObjectName(QStringLiteral("End"));
-        End->setGeometry(QRect(180, 190, 60, 36));
+        End->setGeometry(QRect(260, 290, 80, 40));
 
         retranslateUi(CountDownTimer);
 

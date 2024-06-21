@@ -14,7 +14,6 @@ CONFIG += c++17
 
 SOURCES += \
     event.cpp \
-    introduction.cpp \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
@@ -23,11 +22,11 @@ SOURCES += \
     config.cpp \
     selection.cpp \
     network.cpp \
-    countdowntimer.cpp
+    countdowntimer.cpp \
+    intro.cpp
 
 HEADERS += \
     event.h \
-    introduction.h \
     mainwindow.h \
     menu.h \
     pkumap.h \
@@ -36,15 +35,16 @@ HEADERS += \
     config.h \
     selection.h \
     network.h \
-    countdowntimer.h
+    countdowntimer.h \
+    intro.h
 
 FORMS += \
-    introduction.ui \
     mainwindow.ui \
     menu.ui \
     pkumap.ui \
     config.ui \
-    countdowntimer.ui
+    countdowntimer.ui \
+    intro.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

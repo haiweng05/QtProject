@@ -47,11 +47,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->menubar->addAction(menu_calendar);
     connect(menu_calendar,&QAction::triggered,this,&MainWindow::ShowCalendar);
 
-    // 课表选项
-    menu_course = new QAction("课表",this);
-    ui->menubar->addAction(menu_course);
-    connect(menu_course,&QAction::triggered,this,&MainWindow::ShowCourse);
-
     // 说明选项
     menu_info = new QAction("说明",this);
     ui->menubar->addAction(menu_info);
@@ -895,7 +890,6 @@ void MainWindow::HideAll(){
     HideMap();
     HideInfo();
     HideCalendar();
-    HideCourse();
 }
 
 // 关于地图的交互
@@ -933,11 +927,3 @@ void MainWindow::HideCalendar(){
     // 本质上没有用
 }
 
-// 关于课表的交互,尚未实现
-void MainWindow::ShowCourse(){
-    // 不管怎么样先把其他隐藏了再说
-    HideAll();
-}
-void MainWindow::HideCourse(){
-
-}
