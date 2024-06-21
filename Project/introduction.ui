@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1600</width>
-    <height>900</height>
+    <width>2160</width>
+    <height>1540</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,8 +23,8 @@
    <widget class="QPushButton" name="_exit">
     <property name="geometry">
      <rect>
-      <x>1370</x>
-      <y>800</y>
+      <x>1950</x>
+      <y>1460</y>
       <width>160</width>
       <height>48</height>
      </rect>
@@ -38,8 +38,8 @@
      <rect>
       <x>20</x>
       <y>0</y>
-      <width>1081</width>
-      <height>811</height>
+      <width>1911</width>
+      <height>1511</height>
      </rect>
     </property>
     <property name="lineWidth">

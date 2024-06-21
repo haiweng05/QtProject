@@ -71,7 +71,7 @@ public:
 
 
 PKUMap::PKUMap(QWidget *parent, std::vector<Event> events,QHash<int, QPair<int, int>> mp,QPair<int,int> ori)
-    : QMainWindow(parent)
+    : QWidget(parent)
     , ui(new Ui::PKUMap)
     , _events(events)
     , current(0)

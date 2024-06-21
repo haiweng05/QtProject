@@ -2,12 +2,12 @@
 #include "ui_introduction.h"
 #include <QIcon>
 Introduction::Introduction(QWidget *parent)
-    : QMainWindow(parent)
+    : QWidget(parent)
     , ui(new Ui::Introduction)
 {
     ui->setupUi(this);
-    setWindowTitle("Time Tracker");
-    this->setWindowIcon(QIcon(":/icon.jpg"));
+//    setWindowTitle("Time Tracker");
+//    this->setWindowIcon(QIcon(":/icon.jpg"));
     connect(ui->_exit,&QPushButton::clicked,this,&Introduction::Exit);
 
 }

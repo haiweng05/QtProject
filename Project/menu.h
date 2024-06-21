@@ -17,17 +17,13 @@ public:
     explicit Menu(QWidget *parent = nullptr);
     ~Menu();
     QMainWindow*& mainwindow();
-    QMainWindow*& introwindow();
 
 private slots:
     void ShowLaunch();
 
-    void ShowIntro();
-
 private:
     Ui::Menu *ui;
     QMainWindow* _mainwindow;
-    QMainWindow* _introwindow;
 };
 
 #endif // MENU_H

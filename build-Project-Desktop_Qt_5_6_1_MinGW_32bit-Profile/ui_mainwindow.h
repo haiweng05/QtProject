@@ -23,6 +23,8 @@
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
 #include <countdowntimer.h>
+#include <introduction.h>
+#include <pkumap.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -40,20 +42,22 @@ public:
     QPushButton *_event;
     CountDownTimer *_countdowntimer;
     QPushButton *_save;
-    QMenuBar *menubar;
+    PKUMap *_pkumap;
+    Introduction *_info;
     QStatusBar *statusbar;
+    QMenuBar *menubar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1620, 1080);
+        MainWindow->resize(2160, 1600);
         MainWindow->setMinimumSize(QSize(1000, 800));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         _table = new QTableWidget(centralwidget);
         _table->setObjectName(QStringLiteral("_table"));
-        _table->setGeometry(QRect(870, 0, 811, 791));
+        _table->setGeometry(QRect(1280, 0, 881, 1011));
         _table->setBaseSize(QSize(200, 0));
         QFont font;
         font.setFamily(QStringLiteral("SimSun-ExtB"));
@@ -72,7 +76,7 @@ public:
         _table->verticalHeader()->setDefaultSectionSize(60);
         _calendar = new QCalendarWidget(centralwidget);
         _calendar->setObjectName(QStringLiteral("_calendar"));
-        _calendar->setGeometry(QRect(0, 0, 861, 501));
+        _calendar->setGeometry(QRect(0, 0, 1281, 1011));
         QFont font1;
         font1.setPointSize(10);
         _calendar->setFont(font1);
@@ -84,47 +88,55 @@ public:
         _calendar->setDateEditEnabled(true);
         _buttonInport = new QPushButton(centralwidget);
         _buttonInport->setObjectName(QStringLiteral("_buttonInport"));
-        _buttonInport->setGeometry(QRect(20, 580, 160, 48));
+        _buttonInport->setGeometry(QRect(20, 1030, 160, 48));
         QFont font2;
         font2.setPointSize(10);
         font2.setKerning(true);
         _buttonInport->setFont(font2);
         _buttonPersonalize = new QPushButton(centralwidget);
         _buttonPersonalize->setObjectName(QStringLiteral("_buttonPersonalize"));
-        _buttonPersonalize->setGeometry(QRect(450, 580, 160, 48));
+        _buttonPersonalize->setGeometry(QRect(450, 1030, 160, 48));
         _buttonPersonalize->setFont(font2);
         _buttonModify = new QPushButton(centralwidget);
         _buttonModify->setObjectName(QStringLiteral("_buttonModify"));
-        _buttonModify->setGeometry(QRect(230, 580, 160, 48));
+        _buttonModify->setGeometry(QRect(230, 1030, 160, 48));
         _buttonModify->setFont(font2);
         _buttonConfirm = new QPushButton(centralwidget);
         _buttonConfirm->setObjectName(QStringLiteral("_buttonConfirm"));
-        _buttonConfirm->setGeometry(QRect(670, 580, 160, 48));
+        _buttonConfirm->setGeometry(QRect(670, 1030, 160, 48));
         _buttonConfirm->setFont(font2);
         timeDisplay = new QLineEdit(centralwidget);
         timeDisplay->setObjectName(QStringLiteral("timeDisplay"));
-        timeDisplay->setGeometry(QRect(1160, 900, 240, 72));
+        timeDisplay->setGeometry(QRect(1480, 1270, 240, 72));
         timeDisplay->setFont(font1);
         timeDisplay->setCursor(QCursor(Qt::WhatsThisCursor));
         _event = new QPushButton(centralwidget);
         _event->setObjectName(QStringLiteral("_event"));
-        _event->setGeometry(QRect(450, 680, 160, 48));
+        _event->setGeometry(QRect(450, 1130, 160, 48));
         _event->setFont(font2);
         _countdowntimer = new CountDownTimer(centralwidget);
         _countdowntimer->setObjectName(QStringLiteral("_countdowntimer"));
-        _countdowntimer->setGeometry(QRect(300, 780, 240, 240));
+        _countdowntimer->setGeometry(QRect(300, 1230, 240, 240));
         _save = new QPushButton(centralwidget);
         _save->setObjectName(QStringLiteral("_save"));
-        _save->setGeometry(QRect(230, 680, 160, 48));
+        _save->setGeometry(QRect(230, 1130, 160, 48));
         _save->setFont(font2);
+        _pkumap = new PKUMap(centralwidget);
+        _pkumap->setObjectName(QStringLiteral("_pkumap"));
+        _pkumap->setGeometry(QRect(0, 60, 20, 1540));
+        _info = new Introduction(centralwidget);
+        _info->setObjectName(QStringLiteral("_info"));
+        _info->setGeometry(QRect(0, 60, 20, 1540));
         MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1620, 21));
-        MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
         MainWindow->setStatusBar(statusbar);
+        menubar = new QMenuBar(MainWindow);
+        menubar->setObjectName(QStringLiteral("menubar"));
+        menubar->setGeometry(QRect(0, 0, 2160, 60));
+        menubar->setMinimumSize(QSize(0, 60));
+        menubar->setSizeIncrement(QSize(0, 0));
+        MainWindow->setMenuBar(menubar);
 
         retranslateUi(MainWindow);
 

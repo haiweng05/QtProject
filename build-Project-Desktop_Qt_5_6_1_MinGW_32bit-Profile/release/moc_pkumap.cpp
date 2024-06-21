@@ -86,7 +86,7 @@ void PKUMap::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
 }
 
 const QMetaObject PKUMap::staticMetaObject = {
-    { &QMainWindow::staticMetaObject, qt_meta_stringdata_PKUMap.data,
+    { &QWidget::staticMetaObject, qt_meta_stringdata_PKUMap.data,
       qt_meta_data_PKUMap,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
@@ -101,12 +101,12 @@ void *PKUMap::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_PKUMap.stringdata0))
         return static_cast<void*>(const_cast< PKUMap*>(this));
-    return QMainWindow::qt_metacast(_clname);
+    return QWidget::qt_metacast(_clname);
 }
 
 int PKUMap::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QMainWindow::qt_metacall(_c, _id, _a);
+    _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

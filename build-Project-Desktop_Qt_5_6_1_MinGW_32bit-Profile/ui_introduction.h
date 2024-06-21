@@ -28,30 +28,30 @@ public:
     QPushButton *_exit;
     QTextBrowser *_browser;
 
-    void setupUi(QMainWindow *Introduction)
+    void setupUi(QWidget *Introduction)
     {
         if (Introduction->objectName().isEmpty())
             Introduction->setObjectName(QStringLiteral("Introduction"));
-        Introduction->resize(1600, 900);
+        Introduction->resize(2160, 1540);
         Introduction->setMinimumSize(QSize(640, 480));
         centralwidget = new QWidget(Introduction);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         _exit = new QPushButton(centralwidget);
         _exit->setObjectName(QStringLiteral("_exit"));
-        _exit->setGeometry(QRect(1370, 800, 160, 48));
+        _exit->setGeometry(QRect(1950, 1460, 160, 48));
         _browser = new QTextBrowser(centralwidget);
         _browser->setObjectName(QStringLiteral("_browser"));
-        _browser->setGeometry(QRect(20, 0, 1081, 811));
+        _browser->setGeometry(QRect(20, 0, 1911, 1511));
         _browser->setLineWidth(0);
         _browser->setOpenExternalLinks(true);
-        Introduction->setCentralWidget(centralwidget);
+//        Introduction->setCentralWidget(centralwidget);
 
         retranslateUi(Introduction);
 
         QMetaObject::connectSlotsByName(Introduction);
     } // setupUi
 
-    void retranslateUi(QMainWindow *Introduction)
+    void retranslateUi(QWidget *Introduction)
     {
         Introduction->setWindowTitle(QApplication::translate("Introduction", "MainWindow", 0));
         _exit->setText(QApplication::translate("Introduction", "\346\210\221\347\237\245\351\201\223\344\272\206", 0));

@@ -16,7 +16,7 @@ namespace Ui {
 class PKUMap;
 }
 
-class PKUMap : public QMainWindow
+class PKUMap : public QWidget
 {
     Q_OBJECT
 

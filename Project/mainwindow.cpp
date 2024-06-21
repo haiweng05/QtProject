@@ -17,16 +17,19 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),ui(new Ui::MainWindow),timer(new QTimer(this)),mycountdown(new CountDownTimer(this))
 {
+    // 窗口设计部分
     ui->setupUi(this);
     this->setStyleSheet("QMainWindow { background-color: #add8e6; }");
     this->setWindowIcon(QIcon(":/icon.jpg"));
     setWindowTitle("Time Tracker");
+
+
     connect(timer,&QTimer::timeout,this,&MainWindow::updateTimeDisplay);
     timer->start(1000);
     ui->timeDisplay->setReadOnly(true);
     updateTimeDisplay();
     connect(ui->_calendar, &QCalendarWidget::selectionChanged, this, &MainWindow::handleSelectionChanged);
-    connect(ui->_buttonConfirm,&QPushButton::clicked,this,&MainWindow::Submit);
+//    connect(ui->_buttonConfirm,&QPushButton::clicked,this,&MainWindow::Submit);
     connect(ui->_buttonInport,&QPushButton::clicked,this,&MainWindow::ClassImport);
     connect(ui->_buttonModify,&QPushButton::clicked,this,&MainWindow::ClassModify);
     connect(ui->_buttonPersonalize,&QPushButton::clicked,this,&MainWindow::Personalize);
@@ -35,6 +38,35 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->_table, &QTableWidget::customContextMenuRequested, this, &MainWindow::onItemContextMenuRequested);
     connect(ui->_event,&QPushButton::clicked,this,&MainWindow::AddActivities);
     connect(ui->_save,&QPushButton::clicked,this,&MainWindow::saveToJson);
+
+
+    // 菜单栏初始化
+
+    // 日历选项
+    menu_calendar = new QAction("日历",this);
+    ui->menubar->addAction(menu_calendar);
+    connect(menu_calendar,&QAction::triggered,this,&MainWindow::ShowCalendar);
+
+    // 课表选项
+    menu_course = new QAction("课表",this);
+    ui->menubar->addAction(menu_course);
+    connect(menu_course,&QAction::triggered,this,&MainWindow::ShowCourse);
+
+    // 说明选项
+    menu_info = new QAction("说明",this);
+    ui->menubar->addAction(menu_info);
+    connect(menu_info,&QAction::triggered,this,&MainWindow::ShowInfo);
+
+
+    // 设置选项,可能设置还是使用弹窗比较合适
+
+    // 地图选项
+    menu_map = new QAction("地图",this);
+    ui->menubar->addAction(menu_map);
+    connect(menu_map,&QAction::triggered,this,&MainWindow::ShowMap);
+
+
+
     AddRow(0);
     for(int i = 0; i < 4; ++ i){
         AddColumn(i);
@@ -62,7 +94,8 @@ MainWindow::MainWindow(QWidget *parent)
     configs = new Config(this);
     adder = NULL;
     ui->_countdowntimer->show();
-
+    ui->_pkumap->hide();
+    ui->_info->hide();
 }
 
 MainWindow::~MainWindow()
@@ -277,13 +310,7 @@ void MainWindow::tableclear(){
 
 
 
-QWidget*& MainWindow::pkumap(){
-    return _pkumap;
-}
 
-void MainWindow::ShowMap(){
-    _pkumap->show();
-}
 void MainWindow::handleSelectionChanged(){}
 
 void MainWindow::ClassModify() {
@@ -507,15 +534,6 @@ bool MainWindow::Whetherclash(QTime begin,QTime end){
 
 void MainWindow::Personalize(){
     configs->show();
-}
-
-void MainWindow::Submit(){
-//    QDate date = QDate();
-//    date = ui->_calendar->selectedDate();
-//    int d = date.day();
-//    int weekday = date.dayOfWeek();
-    _pkumap = new PKUMap(this,activities,files.intTpos,files.intTpos[files.nameTint[configs->Origin()]]);
-    ShowMap();
 }
 
 void MainWindow::AddRow(int row){
@@ -868,4 +886,58 @@ void MainWindow::saveToJson(){
         Info += ele.ToInfo();
     }
     files.saveUserInfo(idx,"../Project/activities.json.",1,Info);
+}
+
+// 关于菜单栏的交互部分
+
+// 每次切换时我们需要将所有上层的页面都关闭
+void MainWindow::HideAll(){
+    HideMap();
+    HideInfo();
+    HideCalendar();
+    HideCourse();
+}
+
+// 关于地图的交互
+
+QWidget*& MainWindow::pkumap(){
+    return _pkumap;
+}
+
+void MainWindow::ShowMap(){
+    HideAll();
+    ui->_pkumap = new PKUMap(this,activities,files.intTpos,files.intTpos[files.nameTint[configs->Origin()]]);
+    ui->_pkumap->move(0,60);
+    ui->_pkumap->show();
+}
+
+void MainWindow::HideMap(){
+    ui->_pkumap->hide();
+}
+
+// 关于说明的交互
+void MainWindow::ShowInfo(){
+    HideAll();
+    ui->_info->show();
+
+}
+void MainWindow::HideInfo(){
+    ui->_info->hide();
+}
+
+// 关于日历的交互
+void MainWindow::ShowCalendar(){
+    HideAll();
+}
+void MainWindow::HideCalendar(){
+    // 本质上没有用
+}
+
+// 关于课表的交互,尚未实现
+void MainWindow::ShowCourse(){
+    // 不管怎么样先把其他隐藏了再说
+    HideAll();
+}
+void MainWindow::HideCourse(){
+
 }

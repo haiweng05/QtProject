@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[25];
-    char stringdata0[351];
+    QByteArrayData data[32];
+    char stringdata0[426];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,40 +32,49 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 22), // "handleSelectionChanged"
 QT_MOC_LITERAL(2, 34, 0), // ""
-QT_MOC_LITERAL(3, 35, 6), // "Submit"
-QT_MOC_LITERAL(4, 42, 11), // "ClassImport"
-QT_MOC_LITERAL(5, 54, 11), // "ClassModify"
-QT_MOC_LITERAL(6, 66, 11), // "Personalize"
-QT_MOC_LITERAL(7, 78, 6), // "oneday"
-QT_MOC_LITERAL(8, 85, 4), // "date"
-QT_MOC_LITERAL(9, 90, 12), // "onedayHelper"
-QT_MOC_LITERAL(10, 103, 6), // "ignore"
-QT_MOC_LITERAL(11, 110, 26), // "onItemContextMenuRequested"
-QT_MOC_LITERAL(12, 137, 3), // "pos"
-QT_MOC_LITERAL(13, 141, 23), // "onActiondeleteTriggered"
-QT_MOC_LITERAL(14, 165, 17), // "QTableWidgetItem*"
-QT_MOC_LITERAL(15, 183, 4), // "item"
-QT_MOC_LITERAL(16, 188, 20), // "onActionaddTriggered"
-QT_MOC_LITERAL(17, 209, 23), // "onActioncancelTriggered"
-QT_MOC_LITERAL(18, 233, 23), // "onActionreviseTriggered"
-QT_MOC_LITERAL(19, 257, 17), // "updateTimeDisplay"
-QT_MOC_LITERAL(20, 275, 13), // "AddActivities"
-QT_MOC_LITERAL(21, 289, 16), // "onButton1Clicked"
-QT_MOC_LITERAL(22, 306, 16), // "onButton2Clicked"
-QT_MOC_LITERAL(23, 323, 16), // "onButton3Clicked"
-QT_MOC_LITERAL(24, 340, 10) // "saveToJson"
+QT_MOC_LITERAL(3, 35, 11), // "ClassImport"
+QT_MOC_LITERAL(4, 47, 11), // "ClassModify"
+QT_MOC_LITERAL(5, 59, 11), // "Personalize"
+QT_MOC_LITERAL(6, 71, 6), // "oneday"
+QT_MOC_LITERAL(7, 78, 4), // "date"
+QT_MOC_LITERAL(8, 83, 12), // "onedayHelper"
+QT_MOC_LITERAL(9, 96, 6), // "ignore"
+QT_MOC_LITERAL(10, 103, 26), // "onItemContextMenuRequested"
+QT_MOC_LITERAL(11, 130, 3), // "pos"
+QT_MOC_LITERAL(12, 134, 23), // "onActiondeleteTriggered"
+QT_MOC_LITERAL(13, 158, 17), // "QTableWidgetItem*"
+QT_MOC_LITERAL(14, 176, 4), // "item"
+QT_MOC_LITERAL(15, 181, 20), // "onActionaddTriggered"
+QT_MOC_LITERAL(16, 202, 23), // "onActioncancelTriggered"
+QT_MOC_LITERAL(17, 226, 23), // "onActionreviseTriggered"
+QT_MOC_LITERAL(18, 250, 17), // "updateTimeDisplay"
+QT_MOC_LITERAL(19, 268, 13), // "AddActivities"
+QT_MOC_LITERAL(20, 282, 16), // "onButton1Clicked"
+QT_MOC_LITERAL(21, 299, 16), // "onButton2Clicked"
+QT_MOC_LITERAL(22, 316, 16), // "onButton3Clicked"
+QT_MOC_LITERAL(23, 333, 10), // "saveToJson"
+QT_MOC_LITERAL(24, 344, 7), // "ShowMap"
+QT_MOC_LITERAL(25, 352, 7), // "HideMap"
+QT_MOC_LITERAL(26, 360, 8), // "ShowInfo"
+QT_MOC_LITERAL(27, 369, 8), // "HideInfo"
+QT_MOC_LITERAL(28, 378, 12), // "ShowCalendar"
+QT_MOC_LITERAL(29, 391, 12), // "HideCalendar"
+QT_MOC_LITERAL(30, 404, 10), // "ShowCourse"
+QT_MOC_LITERAL(31, 415, 10) // "HideCourse"
 
     },
     "MainWindow\0handleSelectionChanged\0\0"
-    "Submit\0ClassImport\0ClassModify\0"
-    "Personalize\0oneday\0date\0onedayHelper\0"
-    "ignore\0onItemContextMenuRequested\0pos\0"
+    "ClassImport\0ClassModify\0Personalize\0"
+    "oneday\0date\0onedayHelper\0ignore\0"
+    "onItemContextMenuRequested\0pos\0"
     "onActiondeleteTriggered\0QTableWidgetItem*\0"
     "item\0onActionaddTriggered\0"
     "onActioncancelTriggered\0onActionreviseTriggered\0"
     "updateTimeDisplay\0AddActivities\0"
     "onButton1Clicked\0onButton2Clicked\0"
-    "onButton3Clicked\0saveToJson"
+    "onButton3Clicked\0saveToJson\0ShowMap\0"
+    "HideMap\0ShowInfo\0HideInfo\0ShowCalendar\0"
+    "HideCalendar\0ShowCourse\0HideCourse"
 };
 #undef QT_MOC_LITERAL
 
@@ -75,7 +84,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      25,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -83,38 +92,52 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  104,    2, 0x08 /* Private */,
-       3,    0,  105,    2, 0x08 /* Private */,
-       4,    0,  106,    2, 0x08 /* Private */,
-       5,    0,  107,    2, 0x08 /* Private */,
-       6,    0,  108,    2, 0x08 /* Private */,
-       7,    1,  109,    2, 0x08 /* Private */,
-       9,    2,  112,    2, 0x08 /* Private */,
-      11,    1,  117,    2, 0x08 /* Private */,
-      13,    1,  120,    2, 0x08 /* Private */,
-      16,    0,  123,    2, 0x08 /* Private */,
-      17,    1,  124,    2, 0x08 /* Private */,
-      18,    1,  127,    2, 0x08 /* Private */,
-      19,    0,  130,    2, 0x08 /* Private */,
-      20,    0,  131,    2, 0x08 /* Private */,
-      21,    0,  132,    2, 0x08 /* Private */,
-      22,    0,  133,    2, 0x08 /* Private */,
-      23,    0,  134,    2, 0x08 /* Private */,
-      24,    0,  135,    2, 0x08 /* Private */,
+       1,    0,  139,    2, 0x08 /* Private */,
+       3,    0,  140,    2, 0x08 /* Private */,
+       4,    0,  141,    2, 0x08 /* Private */,
+       5,    0,  142,    2, 0x08 /* Private */,
+       6,    1,  143,    2, 0x08 /* Private */,
+       8,    2,  146,    2, 0x08 /* Private */,
+      10,    1,  151,    2, 0x08 /* Private */,
+      12,    1,  154,    2, 0x08 /* Private */,
+      15,    0,  157,    2, 0x08 /* Private */,
+      16,    1,  158,    2, 0x08 /* Private */,
+      17,    1,  161,    2, 0x08 /* Private */,
+      18,    0,  164,    2, 0x08 /* Private */,
+      19,    0,  165,    2, 0x08 /* Private */,
+      20,    0,  166,    2, 0x08 /* Private */,
+      21,    0,  167,    2, 0x08 /* Private */,
+      22,    0,  168,    2, 0x08 /* Private */,
+      23,    0,  169,    2, 0x08 /* Private */,
+      24,    0,  170,    2, 0x08 /* Private */,
+      25,    0,  171,    2, 0x08 /* Private */,
+      26,    0,  172,    2, 0x08 /* Private */,
+      27,    0,  173,    2, 0x08 /* Private */,
+      28,    0,  174,    2, 0x08 /* Private */,
+      29,    0,  175,    2, 0x08 /* Private */,
+      30,    0,  176,    2, 0x08 /* Private */,
+      31,    0,  177,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QDate,    7,
+    QMetaType::Void, QMetaType::QDate, QMetaType::Int,    7,    9,
+    QMetaType::Void, QMetaType::QPoint,   11,
+    QMetaType::Void, 0x80000000 | 13,   14,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QDate,    8,
-    QMetaType::Void, QMetaType::QDate, QMetaType::Int,    8,   10,
-    QMetaType::Void, QMetaType::QPoint,   12,
-    QMetaType::Void, 0x80000000 | 14,   15,
+    QMetaType::Void, 0x80000000 | 13,   14,
+    QMetaType::Void, 0x80000000 | 13,   14,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 14,   15,
-    QMetaType::Void, 0x80000000 | 14,   15,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -132,23 +155,30 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->handleSelectionChanged(); break;
-        case 1: _t->Submit(); break;
-        case 2: _t->ClassImport(); break;
-        case 3: _t->ClassModify(); break;
-        case 4: _t->Personalize(); break;
-        case 5: _t->oneday((*reinterpret_cast< const QDate(*)>(_a[1]))); break;
-        case 6: _t->onedayHelper((*reinterpret_cast< QDate(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 7: _t->onItemContextMenuRequested((*reinterpret_cast< const QPoint(*)>(_a[1]))); break;
-        case 8: _t->onActiondeleteTriggered((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
-        case 9: _t->onActionaddTriggered(); break;
-        case 10: _t->onActioncancelTriggered((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
-        case 11: _t->onActionreviseTriggered((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
-        case 12: _t->updateTimeDisplay(); break;
-        case 13: _t->AddActivities(); break;
-        case 14: _t->onButton1Clicked(); break;
-        case 15: _t->onButton2Clicked(); break;
-        case 16: _t->onButton3Clicked(); break;
-        case 17: _t->saveToJson(); break;
+        case 1: _t->ClassImport(); break;
+        case 2: _t->ClassModify(); break;
+        case 3: _t->Personalize(); break;
+        case 4: _t->oneday((*reinterpret_cast< const QDate(*)>(_a[1]))); break;
+        case 5: _t->onedayHelper((*reinterpret_cast< QDate(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 6: _t->onItemContextMenuRequested((*reinterpret_cast< const QPoint(*)>(_a[1]))); break;
+        case 7: _t->onActiondeleteTriggered((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 8: _t->onActionaddTriggered(); break;
+        case 9: _t->onActioncancelTriggered((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 10: _t->onActionreviseTriggered((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 11: _t->updateTimeDisplay(); break;
+        case 12: _t->AddActivities(); break;
+        case 13: _t->onButton1Clicked(); break;
+        case 14: _t->onButton2Clicked(); break;
+        case 15: _t->onButton3Clicked(); break;
+        case 16: _t->saveToJson(); break;
+        case 17: _t->ShowMap(); break;
+        case 18: _t->HideMap(); break;
+        case 19: _t->ShowInfo(); break;
+        case 20: _t->HideInfo(); break;
+        case 21: _t->ShowCalendar(); break;
+        case 22: _t->HideCalendar(); break;
+        case 23: _t->ShowCourse(); break;
+        case 24: _t->HideCourse(); break;
         default: ;
         }
     }
@@ -179,13 +209,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 25)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 25;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 25)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 18;
+        _id -= 25;
     }
     return _id;
 }

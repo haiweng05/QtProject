@@ -10,7 +10,7 @@ namespace Ui {
 class Introduction;
 }
 
-class Introduction : public QMainWindow
+class Introduction : public QWidget
 {
     Q_OBJECT
 

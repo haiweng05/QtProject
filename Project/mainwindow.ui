@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1620</width>
-    <height>1080</height>
+    <width>2160</width>
+    <height>1600</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,10 +23,10 @@
    <widget class="QTableWidget" name="_table">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>1280</x>
       <y>0</y>
-      <width>811</width>
-      <height>791</height>
+      <width>881</width>
+      <height>1011</height>
      </rect>
     </property>
     <property name="baseSize">
@@ -79,8 +79,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>861</width>
-      <height>501</height>
+      <width>1281</width>
+      <height>1011</height>
      </rect>
     </property>
     <property name="font">
@@ -111,7 +111,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>580</y>
+      <y>1030</y>
       <width>160</width>
       <height>48</height>
      </rect>
@@ -130,7 +130,7 @@
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>580</y>
+      <y>1030</y>
       <width>160</width>
       <height>48</height>
      </rect>
@@ -149,7 +149,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>580</y>
+      <y>1030</y>
       <width>160</width>
       <height>48</height>
      </rect>
@@ -168,7 +168,7 @@
     <property name="geometry">
      <rect>
       <x>670</x>
-      <y>580</y>
+      <y>1030</y>
       <width>160</width>
       <height>48</height>
      </rect>
@@ -186,8 +186,8 @@
    <widget class="QLineEdit" name="timeDisplay">
     <property name="geometry">
      <rect>
-      <x>1160</x>
-      <y>900</y>
+      <x>1480</x>
+      <y>1270</y>
       <width>240</width>
       <height>72</height>
      </rect>
@@ -208,7 +208,7 @@
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>680</y>
+      <y>1130</y>
       <width>160</width>
       <height>48</height>
      </rect>
@@ -227,7 +227,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>780</y>
+      <y>1230</y>
       <width>240</width>
       <height>240</height>
      </rect>
@@ -237,7 +237,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>680</y>
+      <y>1130</y>
       <width>160</width>
       <height>48</height>
      </rect>
@@ -252,24 +252,68 @@
      <string>同步到本地</string>
     </property>
    </widget>
+   <widget class="PKUMap" name="_pkumap" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>60</y>
+      <width>20</width>
+      <height>1540</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="Introduction" name="_info" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>60</y>
+      <width>20</width>
+      <height>1540</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1620</width>
-     <height>21</height>
+     <width>2160</width>
+     <height>60</height>
     </rect>
    </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>60</height>
+    </size>
+   </property>
+   <property name="sizeIncrement">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
   <customwidget>
    <class>CountDownTimer</class>
    <extends>QWidget</extends>
    <header location="global">countdowntimer.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PKUMap</class>
+   <extends>QWidget</extends>
+   <header location="global">pkumap.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Introduction</class>
+   <extends>QWidget</extends>
+   <header location="global">introduction.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

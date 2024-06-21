@@ -23,24 +23,6 @@
    <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="_intro">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>750</y>
-      <width>160</width>
-      <height>48</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string notr="true">说明</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="_launch">
     <property name="geometry">
      <rect>
@@ -114,7 +96,6 @@ border-image:url(:/image.jpg)
     </widget>
    </widget>
    <zorder>frame</zorder>
-   <zorder>_intro</zorder>
    <zorder>_launch</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">

@@ -48,7 +48,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void ShowMap();
+
     void AddRow(int row);
     void AddColumn(int column);
     template<typename T>
@@ -93,9 +93,13 @@ public:
     void AddHelper(int idx = 3);
 
     bool Whetherclash(QTime begin, QTime end);
+
+    // 关于菜单栏的交互
+    void HideAll();
+
 private slots:
     void handleSelectionChanged();
-    void Submit();
+
     void ClassImport();
     void ClassModify();
     void Personalize();
@@ -123,6 +127,23 @@ private slots:
 
     void saveToJson();
 
+    // 关于菜单栏的交互
+
+    // 地图
+    void ShowMap();
+    void HideMap();
+
+    // 说明
+    void ShowInfo();
+    void HideInfo();
+
+    // 日历
+    void ShowCalendar();
+    void HideCalendar();
+
+    // 课表
+    void ShowCourse();
+    void HideCourse();
 
 
 private:
@@ -141,6 +162,13 @@ private:
     // 事件推送中使用的临时量
     Event event[3];
     QWidget* adder;
+
+    // 主界面上方菜单栏中的选项
+    QAction* menu_info;
+    QAction* menu_course;
+    QAction* menu_calendar;
+    QAction* menu_config;
+    QAction* menu_map;
 };
 
 #endif // MAINWINDOW_H

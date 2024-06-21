@@ -28,7 +28,6 @@ class Ui_Menu
 {
 public:
     QWidget *centralwidget;
-    QPushButton *_intro;
     QPushButton *_launch;
     QFrame *frame;
     QLabel *label;
@@ -44,16 +43,11 @@ public:
         Menu->setStyleSheet(QStringLiteral(""));
         centralwidget = new QWidget(Menu);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        _intro = new QPushButton(centralwidget);
-        _intro->setObjectName(QStringLiteral("_intro"));
-        _intro->setGeometry(QRect(750, 750, 160, 48));
-        QFont font;
-        font.setPointSize(10);
-        _intro->setFont(font);
-        _intro->setText(QString::fromUtf8("\350\257\264\346\230\216"));
         _launch = new QPushButton(centralwidget);
         _launch->setObjectName(QStringLiteral("_launch"));
         _launch->setGeometry(QRect(750, 660, 160, 48));
+        QFont font;
+        font.setPointSize(10);
         _launch->setFont(font);
         _launch->setText(QString::fromUtf8("\345\220\257\345\212\250"));
         frame = new QFrame(centralwidget);
@@ -78,7 +72,6 @@ public:
         label->setStyleSheet(QStringLiteral("color:rgb(255, 0, 0)"));
         Menu->setCentralWidget(centralwidget);
         frame->raise();
-        _intro->raise();
         _launch->raise();
         menubar = new QMenuBar(Menu);
         menubar->setObjectName(QStringLiteral("menubar"));
