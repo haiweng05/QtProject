@@ -1,19 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include <QFileDialog>
-#include <QAction>
-#include <QAbstractItemView>
-#include <QMenu>
-#include <QTime>
-#include <QLineEdit>
-#include <vector>
-#include <QMediaPlayer>
-#include <QMediaContent>
-#include <QUrl>
-#include <QInputDialog>
-#include <QIcon>
-#include <QMediaPlaylist>
 
+#include <QProcess>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),ui(new Ui::MainWindow),timer(new QTimer(this)),mycountdown(new CountDownTimer(this))
 {
@@ -22,23 +10,14 @@ MainWindow::MainWindow(QWidget *parent)
     this->setStyleSheet("QMainWindow { background-color: #add8e6; }");
     this->setWindowIcon(QIcon(":/icon.jpg"));
     setWindowTitle("Time Tracker");
+    ui->_countdowntimer->show();
+    ui->_pkumap->hide();
 
-
+    // 日程倒计时提醒器的初始化
     connect(timer,&QTimer::timeout,this,&MainWindow::updateTimeDisplay);
     timer->start(1000);
     ui->timeDisplay->setReadOnly(true);
     updateTimeDisplay();
-    connect(ui->_calendar, &QCalendarWidget::selectionChanged, this, &MainWindow::handleSelectionChanged);
-//    connect(ui->_buttonConfirm,&QPushButton::clicked,this,&MainWindow::Submit);
-    connect(ui->_buttonInport,&QPushButton::clicked,this,&MainWindow::ClassImport);
-    connect(ui->_buttonModify,&QPushButton::clicked,this,&MainWindow::ClassModify);
-    connect(ui->_buttonPersonalize,&QPushButton::clicked,this,&MainWindow::Personalize);
-    connect(ui->_calendar,&QCalendarWidget::activated,this,&MainWindow::oneday);
-    ui->_table->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(ui->_table, &QTableWidget::customContextMenuRequested, this, &MainWindow::onItemContextMenuRequested);
-    connect(ui->_event,&QPushButton::clicked,this,&MainWindow::AddActivities);
-    connect(ui->_save,&QPushButton::clicked,this,&MainWindow::saveToJson);
-
 
     // 菜单栏初始化
 
@@ -47,21 +26,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->menubar->addAction(menu_calendar);
     connect(menu_calendar,&QAction::triggered,this,&MainWindow::ShowCalendar);
 
-    // 说明选项
-    menu_info = new QAction("说明",this);
-    ui->menubar->addAction(menu_info);
-    connect(menu_info,&QAction::triggered,this,&MainWindow::ShowInfo);
-
-
-    // 设置选项,可能设置还是使用弹窗比较合适
-
     // 地图选项
     menu_map = new QAction("地图",this);
     ui->menubar->addAction(menu_map);
     connect(menu_map,&QAction::triggered,this,&MainWindow::ShowMap);
 
+    // 说明选项
+    menu_info = new QAction("说明",this);
+    ui->menubar->addAction(menu_info);
+    connect(menu_info,&QAction::triggered,this,&MainWindow::ShowInfo);
 
-
+    // 表格内容的初始化
+    ui->_table->setContextMenuPolicy(Qt::CustomContextMenu);
     AddRow(0);
     for(int i = 0; i < 4; ++ i){
         AddColumn(i);
@@ -71,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     AddItem(0,2,"事件");
     AddItem(0,3,"地点");
 
+    // 打开并处理本地的节点,事件,保存的日程信息
     files.getNodes(QString("../Project/nodes.csv"));
     files.getActivities(QString("../Project/events.csv"));
 
@@ -86,15 +63,45 @@ MainWindow::MainWindow(QWidget *parent)
         }
     }
 
+    // 初始化设置模块
     configs = new Config(this);
+
+    // 推荐模块使用的辅助值
     adder = NULL;
-    ui->_countdowntimer->show();
-    ui->_pkumap->hide();
-    ui->_info->hide();
+
+    // 界面上的交互按钮
+
+    // 选择新的一天时
+    connect(ui->_calendar,&QCalendarWidget::activated,this,&MainWindow::oneday);
+
+    // 导入课表
+    connect(ui->_buttonInport,&QPushButton::clicked,this,&MainWindow::ClassImport);
+
+    // 重新安排某一天
+    connect(ui->_buttonModify,&QPushButton::clicked,this,&MainWindow::ActModify);
+
+    // 个性化设置
+    connect(ui->_buttonPersonalize,&QPushButton::clicked,this,&MainWindow::Personalize);
+
+    // 表格交互设置
+    connect(ui->_table, &QTableWidget::customContextMenuRequested, this, &MainWindow::onItemContextMenuRequested);
+
+    // 个性化推荐
+    connect(ui->_event,&QPushButton::clicked,this,&MainWindow::AddActivities);
+
+    // 保存某一天
+    connect(ui->_save,&QPushButton::clicked,this,&MainWindow::saveToJson);
+
+    // 讲座信息
+    connect(ui->_lecture,&QPushButton::clicked,this,&MainWindow::GetLecture);
 }
 
 MainWindow::~MainWindow()
 {
+    // 释放动态分配的内存
+    delete menu_calendar;
+    delete menu_map;
+    delete menu_info;
 }
 
 void MainWindow::updateTimeDisplay(){
@@ -303,12 +310,7 @@ void MainWindow::tableclear(){
     }
 }
 
-
-
-
-void MainWindow::handleSelectionChanged(){}
-
-void MainWindow::ClassModify() {
+void MainWindow::ActModify() {
     QDate d = ui->_calendar->selectedDate();
     Memo.erase(Memo.find(d));
     onedayHelper(d,1);
@@ -582,7 +584,7 @@ void MainWindow::InsertEvent(Event& event){
     activities.push_back(event);
     SortEvent();
     QString s = QString::number(event.iposition);
-    files.saveUserInfo(s);
+//    files.saveUserInfo(s,"../Project/UserInfo.json",0,"");
 }
 
 // 提供两个版本的删除课程接口
@@ -888,7 +890,6 @@ void MainWindow::saveToJson(){
 // 每次切换时我们需要将所有上层的页面都关闭
 void MainWindow::HideAll(){
     HideMap();
-    HideInfo();
     HideCalendar();
 }
 
@@ -911,19 +912,43 @@ void MainWindow::HideMap(){
 
 // 关于说明的交互
 void MainWindow::ShowInfo(){
-    HideAll();
-    ui->_info->show();
-
-}
-void MainWindow::HideInfo(){
-    ui->_info->hide();
+    QDesktopServices::openUrl(QUrl("https://github.com/haiweng05/QtProject"));
 }
 
 // 关于日历的交互
 void MainWindow::ShowCalendar(){
     HideAll();
 }
-void MainWindow::HideCalendar(){
-    // 本质上没有用
+void MainWindow::HideCalendar(){}
+
+// 获取讲座信息
+void MainWindow::GetLecture(){
+    QDate d = ui->_calendar->selectedDate();
+    QString date = d.toString("yyyy-M-d");
+    qDebug() << date;
+    QDir currentDir = QDir::current();
+        qDebug() << "Current directory:" << currentDir.absolutePath();
+
+        // 获取父目录
+        QDir parentDir = currentDir;
+        if (parentDir.cdUp()) {
+            qDebug() << "Parent directory:" << parentDir.absolutePath();
+        } else {
+            qDebug() << "The current directory does not have a parent directory.";
+        }
+    QString dir = parentDir.absolutePath();
+    QProcess *process = new QProcess();
+    QString program = dir + "\\Python\\env\\Scripts\\python";
+    QStringList arguments;
+    arguments << dir + "\\Project\\lecture_info.py" << date;
+
+    process->start(program, arguments);
+
+    // 等待进程结束
+    process->waitForFinished();
+
+    // 读取标准输出
+    QString outputString = QString::fromUtf8(process->readAllStandardOutput());
+    qDebug() << "Standard Output:" << outputString;
 }
 

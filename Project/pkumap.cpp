@@ -5,6 +5,7 @@
 class WheelEventFilter : public QObject
 {
 protected:
+    // 提供地图支持的滚轮缩放操作
     bool eventFilter(QObject *obj, QEvent *event) override
     {
         if (event->type() == QEvent::Wheel)
@@ -15,19 +16,19 @@ protected:
             int numDegrees = angle.y();
             if(numDegrees > 0)
             {
-                // Zoom in
+                // 放大
                 view->scale(1.11111, 1.11111);
             }
             else
             {
-                // Zooming out
+                // 缩小
                 view->scale(0.9, 0.9);
             }
             return true;
         }
         else
         {
-            // standard event processing
+            // 标准的事件处理
             return QObject::eventFilter(obj, event);
         }
     }
@@ -42,6 +43,7 @@ public:
     {
     }
 
+    // 绘制一条线段
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     {
         // 设置线段样式
@@ -78,9 +80,9 @@ PKUMap::PKUMap(QWidget *parent, std::vector<Event> events,QHash<int, QPair<int, 
     , _idx_to_pos(mp)
     , origin(ori)
 {
-    for(Event e: _events){
-        qDebug() << e.iposition << e.Sposition;
-    }
+//    for(Event e: _events){
+//        qDebug() << e.iposition << e.Sposition;
+//    }
     // 一天内有n个事件,那么就有n + 1个节点存在,形成一个环路,共有n + 1条边
     _edges.resize(_events.size() + 1,0);
     // 链接ui中的元件与信号槽
@@ -124,8 +126,7 @@ PKUMap::PKUMap(QWidget *parent, std::vector<Event> events,QHash<int, QPair<int, 
     ui->_graph->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     ui->_graph->setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 
-    // 导入默认节点
-
+    // 更新我们已经显示的边数
     Update();
 }
 
@@ -133,13 +134,6 @@ QPair<int,int> PKUMap::IdxToPos(int idx){
     return _idx_to_pos.operator [](idx);
 }
 
-void PKUMap::DeleteNode(int idx){
-//    _idx_to_pos.erase(idx);
-}
-
-void PKUMap::AddNode(int idx,int x,int y){
-//    _idx_to_pos[idx] = {x,y};
-}
 PKUMap::~PKUMap()
 {
     delete ui;
@@ -151,7 +145,7 @@ std::vector<Event> &PKUMap::GetEvent()
 }
 
 void PKUMap::HidePath(int idx) {
-    qDebug() << "Hide "<< idx;
+//    qDebug() << "Hide "<< idx;
     if(_edges[idx] != NULL){
         _scene->removeItem((QGraphicsItem*)(_edges[idx]));
         _edges[idx] = NULL;
@@ -161,7 +155,7 @@ void PKUMap::HidePath(int idx) {
 void PKUMap::ShowPath(int idx) {
     if(GetEvent().size() == 0){return;}
 
-    qDebug() << "Show " << idx;
+//    qDebug() << "Show " << idx;
     if(idx == 0){
         int to = GetEvent()[idx].iposition;
         ArrowLine* line = new ArrowLine(origin.first,origin.second,IdxToPos(to).first,IdxToPos(to).second);
@@ -217,14 +211,14 @@ void PKUMap::Next()
 
 void PKUMap::Showall()
 {
-    qDebug() << GetEvent().size();
+//    qDebug() << GetEvent().size();
 
     for (int i = 0; i <= int(GetEvent().size()); ++i) {
         HidePath(i);
     }
     for (int i = 0; i <= int(GetEvent().size()); ++i) {
         if(i)
-        qDebug() << GetEvent()[i - 1].iposition;
+//        qDebug() << GetEvent()[i - 1].iposition;
         ShowPath(i);
     }
     current = GetEvent().size() + 1;

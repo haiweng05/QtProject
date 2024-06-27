@@ -2,11 +2,22 @@ QT       += core gui
 QT       += network
 QT       += multimedia
 QT       += axcontainer
-QT       +=multimedia
+QT       += multimedia
+#LIBS += $$PWD/../Python/env/Lib/site-packages -lpython3
+
+#LIBS += "C:\Program Files\Python311\libs" -lpython3.11
+
+#DEPENDPATH += /usr/local/python3.7/include/python3.7m
+
+#INCLUDEPATH += $$PWD/../Python/env/Lib/site-packages
+
+#INCLUDEPATH += $$PWD/../Python/env/Include
+
+#INCLUDEPATH += /usr/local/python3.7/lib/python3.7/site-packages/numpy/core/include
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
-# CONFIG += axcontainer
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -21,9 +32,7 @@ SOURCES += \
     fileio.cpp \
     config.cpp \
     selection.cpp \
-    network.cpp \
-    countdowntimer.cpp \
-    intro.cpp
+    countdowntimer.cpp
 
 HEADERS += \
     event.h \
@@ -34,9 +43,7 @@ HEADERS += \
     fileio.h \
     config.h \
     selection.h \
-    network.h \
-    countdowntimer.h \
-    intro.h
+    countdowntimer.h
 
 FORMS += \
     mainwindow.ui \
