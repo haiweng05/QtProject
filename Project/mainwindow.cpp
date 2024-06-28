@@ -588,7 +588,7 @@ void MainWindow::InsertEvent(Event& event){
     activities.push_back(event);
     SortEvent();
     QString s = QString::number(event.iposition);
-//    files.saveUserInfo(s,"../Project/UserInfo.json",0,"");
+    files.saveUserInfo(s,"../Project/UserInfo.json",0,"");
 }
 
 // 提供两个版本的删除课程接口
