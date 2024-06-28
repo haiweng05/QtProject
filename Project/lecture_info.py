@@ -84,24 +84,14 @@ if __name__ == "__main__":
 
 # 打印找到的讲座数量
     # print(f"Found {len(lectures)} lectures")
-
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
     for lecture in lectures:
         brief_div = lecture.find_element(By.CSS_SELECTOR, 'div.brief')
         title_tag = brief_div.find_element(By.CSS_SELECTOR, 'a.show-detail')
         title = title_tag.get_attribute('title')
         speaker = brief_div.find_element(By.CSS_SELECTOR, 'span.speaker').text.replace('主讲人:', '').strip()
-        # 使用GBK编码解码数据
-        # 假设gbk_encoded_speaker和gbk_encoded_title是GBK编码的bytes对象
-        # 假设gbk_encoded_data是你爬取的、使用GBK编码的数据
 
-        
-        # title.fromhex(title)
-        # speaker.fromhex(speaker)
-        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
-        print(f"讲座标题: {title}{speaker}")
+        print(f"讲座标题: {title} {speaker}")
 
 # 关闭浏览器
     driver.quit()
-    # import sys
-    # print(sys.stdout.encoding)
-

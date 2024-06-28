@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 
 #include <QProcess>
+#include <QFont>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),ui(new Ui::MainWindow),timer(new QTimer(this)),mycountdown(new CountDownTimer(this))
 {
@@ -102,6 +103,9 @@ MainWindow::~MainWindow()
     delete menu_calendar;
     delete menu_map;
     delete menu_info;
+}
+std::vector<Event>* MainWindow::ClassSchedule(){
+    return classschedule.week;
 }
 
 void MainWindow::updateTimeDisplay(){
@@ -923,32 +927,58 @@ void MainWindow::HideCalendar(){}
 
 // 获取讲座信息
 void MainWindow::GetLecture(){
-    QDate d = ui->_calendar->selectedDate();
-    QString date = d.toString("yyyy-M-d");
-    qDebug() << date;
-    QDir currentDir = QDir::current();
-        qDebug() << "Current directory:" << currentDir.absolutePath();
+        QDate d = ui->_calendar->selectedDate();
+        QString date = d.toString("yyyy-M-d");
+        QDialog* dialog=new QDialog(this);
+        dialog->setWindowTitle("讲座信息");
+        dialog->setMinimumSize(640,120);
 
-        // 获取父目录
-        QDir parentDir = currentDir;
-        if (parentDir.cdUp()) {
-            qDebug() << "Parent directory:" << parentDir.absolutePath();
-        } else {
-            qDebug() << "The current directory does not have a parent directory.";
-        }
-    QString dir = parentDir.absolutePath();
-    QProcess *process = new QProcess();
-    QString program = dir + "\\Python\\env\\Scripts\\python";
-    QStringList arguments;
-    arguments << dir + "\\Project\\lecture_info.py" << date;
+        QVBoxLayout* layout=new QVBoxLayout(dialog);
+        QComboBox* lectures=new QComboBox(this);
+        lectures->setMinimumSize(640,100);
+        layout->addWidget(lectures);
 
-    process->start(program, arguments);
+        qDebug() << date;
+        QDir currentDir = QDir::current();
+            qDebug() << "Current directory:" << currentDir.absolutePath();
 
-    // 等待进程结束
-    process->waitForFinished();
+            // 获取父目录
+            QDir parentDir = currentDir;
+            if (parentDir.cdUp()) {
+                qDebug() << "Parent directory:" << parentDir.absolutePath();
+            } else {
+                qDebug() << "The current directory does not have a parent directory.";
+            }
+        QString dir = parentDir.absolutePath();
+        QProcess *process = new QProcess();
+        QString program = dir + "\\Python\\env\\Scripts\\python";
+        QStringList arguments;
+        arguments << dir + "\\Project\\lecture_info.py" << date;
 
-    // 读取标准输出
-    QString outputString = QString::fromUtf8(process->readAllStandardOutput());
-    qDebug() << "Standard Output:" << outputString;
+        process->start(program, arguments);
+
+        // 等待进程结束
+        process->waitForFinished();
+
+        // 读取标准输出
+        QString outputString = QString::fromUtf8(process->readAllStandardOutput());
+        qDebug() << "Standard Output:" << outputString;
+
+        QStringList lines = outputString.split("\r\n", QString::SkipEmptyParts);
+
+        QString title;
+        QString speaker;
+
+        for (const QString &line : lines) {
+                lectures->addItem(line);
+            }
+        QFont font;
+            font.setPointSize(11); // 设置字体大小为20
+
+            for(int i = 0; i < lectures->count(); i++)
+            {
+                lectures->setItemData(i, font, Qt::FontRole); // 设置每个项的字体
+            }
+        dialog->exec();
 }
 

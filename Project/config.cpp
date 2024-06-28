@@ -120,6 +120,10 @@ void Config::Clear(){
         ((MainWindow*)mainwindow)->GetFile().initUserInfo(i);
         qDebug() << i;
     }
+    auto ptr = ((MainWindow*)mainwindow)->ClassSchedule();
+    for(int i = 0; i < 8; ++ i){
+        ptr[i].clear();
+    }
 }
 
 void Config::ChangeDirection(){
