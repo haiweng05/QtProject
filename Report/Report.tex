@@ -1,0 +1,312 @@
+% \documentclass{article}
+\documentclass[11pt,hyperref,a4paper,UTF8]{ctexart}
+\usepackage[left=2.50cm, right=2.50cm, top=2.50cm, bottom=2.50cm]{geometry}
+\usepackage[unicode=true,colorlinks,urlcolor=blue,linkcolor=blue,bookmarksnumbered=true]{hyperref}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{ctex}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+% 导入 xparse 宏包以支持 LaTeX3 语法
+\usepackage{xparse}
+\usepackage{pgfplots}
+% 用于插入带有坐标轴,标签和曲线的图像
+
+% \begin{tikzpicture}
+%     \begin{axis}[
+%       xlabel=$x$,
+%       ylabel=$f(x)$,
+%       axis lines=middle,
+%       xmin=-5, xmax=5,
+%       ymin=-2, ymax=8,
+%       width=\textwidth,
+%       height=8cm
+%     ]
+%     \addplot[blue,domain=-3:3] {x^2};
+%     \end{axis}
+%   \end{tikzpicture}
+\usepackage{tikz}
+% 用于绘制一般的图像
+
+% \begin{tikzpicture}[scale=0.8]
+%     \draw[->] (-4,0) -- (4,0) node[right] {$x$};
+%     \draw[->] (0,-1) -- (0,9) node[above] {$f(x)$};
+%     \draw[domain=-3:3,smooth,variable=\x,blue] plot ({\x},{\x^2});
+%   \end{tikzpicture}
+
+\usepackage{tabularx}  % 需要在文档开头添加这行来引入tabularx包,方便表格参数调整
+
+
+\usepackage{mdframed}  % 引入mdframed宏包
+\usepackage{listings}  % 引入listings宏包
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}% 引入算法模块实现伪代码的书写
+
+\lstset{  % 设置代码环境的样式
+    frame=single,  % 添加单线边框
+    basicstyle=\ttfamily,  % 使用等宽字体
+    columns=fullflexible,  % 列布局为灵活的
+    breaklines=true,  % 允许自动折行
+    postbreak=\mbox{$\hookrightarrow$},  % 在折行后添加一个右箭头
+    escapeinside=,  % 允许在代码中插入LaTeX命令
+    literate={\_}{\_}{1},  % 正确显示下划线
+}
+
+% 第一个包为了我们创建的代码块可以拥有边框,第二个包为了我们能够在note中显示代码块
+
+\usepackage{enumitem}
+% 用于实现引用itemize和enumerate环境的内容
+
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{lemma}{Lemma}[subsection]
+\newtheorem{corollary}{corollary}[subsection]
+\newtheorem{example}{Example}[subsection]
+\newtheorem{definition}{Definition}[subsection]
+
+% 为了证明中可以使用中文,后续定义证明时使用cproof而不是proof
+\newenvironment{cproof}{%
+\heiti{证明}\kaishu
+}{%
+%   \hfill $\square$ 添加结束符号
+%   \par\bigskip 可选的垂直间距
+}
+\newenvironment{identification}{%
+\heiti{定义}\kaishu
+}{%
+%   \hfill $\square$ 添加结束符号
+%   \par\bigskip 可选的垂直间距
+}
+
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\FF}{\mathbb{F}}
+% 简化各种常见数的集合
+
+\newcommand{\parameter}[1]{\left(#1\right)}
+
+\newcommand{\bracket}[1]{\left[#1\right]}
+
+\newcommand{\abs}[1]{\left|#1\right|}
+
+\newcommand{\mo}[1]{\|#1\|}
+% 各种自动变化大小的括号的简化
+
+\newcommand{\ve}{\boldsymbol}
+% 为了适应David C Lay线性代数中,简化斜体+粗体向量的书写
+
+\newcommand{\base}{\mathcal}
+
+\newcommand{\tb}{\textbf}
+% 简化粗体字体的书写
+
+\newcommand{\f}[2]{\frac}
+\newcommand{\df}[2]{\dfrac}
+
+\NewDocumentCommand{\vs}{m m m}{
+    \boldsymbol{#1}_#2,\cdots,\boldsymbol{#1}_#3
+}
+% 快速书写一个向量组,第一个参数为向量名称,后两个为首末角标
+
+% $\vs{b}{1}{n} $这是多参数命令的使用示例
+
+\NewDocumentCommand{\cvs}{m m m m m}{
+    #1_{#4}\boldsymbol{#2}_#4 #3 \cdots #3 #1_{#5}\boldsymbol{#2}_#5
+}
+% 快速书写一个向量线性组合,第一个参数为系数,第二个参数为向量名称,第三个参数为运算符,后两个参数为角标
+
+
+\title{Qt作业报告}
+\author{Haiweng Xu}
+\date{2024.6.28}
+
+\begin{document}
+
+\begin{CJK}{UTF8}{gkai}
+
+\maketitle
+\tableofcontents
+
+\section{综述}
+\begin{itemize}
+    \item 我们的项目的目标是实现一个能够满足北大学生尤其是新生个性化需求的日程管理应用，希望借此帮助用户提高效率，关键是尝试走出舒适区，尝试未尝试过的事情，活出多彩的人生。
+    \item 与通常的日程管理软件不同，我们的项目的突出特点在其个性化的设计，希望项目能够帮助有缺乏规划意识的同学提高效率，同时能够降低走出舒适区所需要的各类成本
+\end{itemize}
+
+\section{ 程序功能介绍}
+
+\subsection{ 菜单}
+\begin{itemize}
+    \item 在菜单界面点击启动按钮可以进入主界面
+\end{itemize}
+
+\subsection{ 主界面}
+
+\paragraph{ 导入课表功能}
+\begin{itemize}
+    \item 点击导入课表按钮，可以从文件资源管理器中打开从选课网或信息门户上下载的xls/xlsx格式课表，作为之后日程自动推荐的基础。
+    \item 导入的课表会被自动保存到本地，用户重新打开应用时无需重新导入课表。
+\end{itemize}
+
+
+\paragraph{ 日程自动推荐功能}
+\begin{itemize}
+    \item 双击日历中未被点击且本地没有相应数据的一天时，程序将会根据用户的个性化设置生成一个当天的基本日程规划，并且展示在日程表中，基本日程包含就餐和自习场所的信息。
+    \item 当双击的一天已被规划或本地已经有数据时，右侧的日程表将会自动回到那天已有的日程规划，用户可以点击重新安排按钮对当天进行的日程进行重新安排。
+\end{itemize}
+
+\paragraph{ 个性化事件推荐功能}
+\begin{itemize}
+    \item 点击个性化推荐按钮，程序将会自动生成$3$个推荐事件，并展示在弹出窗口中，用户可以点击其中的任意事件进行添加或重开按钮进行重新生成。
+\end{itemize}
+
+\paragraph{ 日程本地保存功能}
+\begin{itemize}
+    \item 选定日历中的某一天时，我们可以点击保存到本地按钮，将当天的日程记录到本地，关闭程序重新打开后再次双击该天可以将日程切换为当天的日程。
+\end{itemize}
+
+
+\paragraph{ 日程表交互}
+\begin{itemize}
+    \item 右键日程表任意一个位置会弹出包含删除，添加，取消，修改等四个按钮：点击删除会删除当前行;点击添加会弹出一个设置事件信息的窗口，设置完成后可以添加事件，如果添加的事件存在时间冲突会进行弹窗警告;点击修改则可以按照当前单元格的类别对当前单元格内容进行修改。
+    \item 日程表下方有一个日程倒计时器，将会显示当前到日程表中的下一个日程的剩余事件，为了提醒用户及时通勤，将会在倒计时结束$10$分钟前响铃并弹窗提醒用户。
+\end{itemize}
+
+\paragraph{ 讲座信息获取功能}
+\begin{itemize}
+    \item 选定日历中的一天时，点击讲座信息将会利用爬虫从北京大学讲座网中获取当天的讲座信息，并显示出来，帮助用户获取讲座信息，拓宽自己的眼界。
+\end{itemize}
+
+\paragraph{ 手动倒计时功能}
+
+\begin{itemize}
+    \item 为了在内卷模式下提高用户的内卷效率，用户可以操作主界面左下方的倒计时器，手动设计一个倒计时，到时提醒用户。
+\end{itemize}
+
+
+\subsection{ 个性化设置功能}
+\begin{itemize}
+    \item 点击个性化设置按钮将会弹出一个个性化设置界面，主要的各项功能如下：
+\end{itemize}
+
+\paragraph{ 模式设置}
+\begin{itemize}
+    \item 用户可以选择合适的推荐模式：
+\end{itemize}
+
+\begin{enumerate}
+    \item 探索模式(默认模式)：在这个模式下，在日程自动推荐功能中，我们会采用智能的方式为用户规划自习和就餐的时间和地点，当我们勾选记录并使用日程记录改进推荐选项时，程序将会优先推荐用户前往那些前往次数较少的就餐和自习场所，当不勾选该选项时，程序将会随机进行推荐。
+    \item 内卷模式：在这个模式下，在日程自动推荐功能中，程序会采用最短路径的原则为用户推荐自习和就餐地点，并且会将上午，下午，晚上没有课程的时间全部排满，提高用户的内卷效率。
+    \item 摆烂模式：在这个模式下，用户可以获得酣畅淋漓的摆烂体验。
+\end{enumerate}
+
+\paragraph{ 偏好设置}
+\begin{itemize}
+    \item 用户可以勾选或者取消日程自动推荐功能中是否自动推荐早餐，中餐，晚餐的选项。
+\end{itemize}
+
+\paragraph{ 杂项}
+
+\begin{enumerate}
+    \item 用户可以勾选明确的答复选项，关闭用户添加事件发生时间冲突时的弹窗提醒。
+    \item 用户可以修改宿舍位置，作为我们地图中路径的起始点和终止点。
+    \item 用户可以点击倒计时设置中的修改图片按钮，修改倒计时弹窗的图片。
+    \item 用户可以点击清空历史记录按钮，清空本地的课表，日程和访问记录等数据。
+\end{enumerate}
+
+\subsection{ 地图}
+\begin{itemize}
+    \item 点击主界面上方菜单栏中的地图项可以切换主界面至地图界面。
+    \item 在地图界面中可以使用界面中的按钮上一步，下一步，显示全部，隐藏全部在地图上分步或一次性显示路径
+\end{itemize}
+
+\subsection{ 说明}
+\begin{itemize}
+    \item 点击主界面上方菜单栏中的说明项会自动在浏览器中打开本项目的Github仓库，在这里用户可以查看README文档获取应用使用说明。
+\end{itemize}
+
+\section{ 项目各模块与类设计细节}
+
+\subsection{ 主界面模块}
+\begin{itemize}
+    \item 主界面模块主要包含日历，日程表(包含倒计时)，课表导入三部分组成，由于彼此相互关联程度高，因此没有对它们做进一步的细分，我们可以分别介绍其相关设计细节。 
+\end{itemize}
+
+
+\paragraph{ 日历}
+\begin{itemize}
+    \item 当我们点击日历上任意一天时，会触发...
+\end{itemize}
+
+
+\paragraph{ 日程表}
+\begin{itemize}
+    \item 为了日程表高阶交互操作的构建方便，我们构建了一些基础接口例如AddRow，AddCol，AddEvent，DeleteEvent，在之后更为复杂的交互部分实现更加复杂的抽象。
+    \item 我们右键日程表中任意处时，会触发。。。接口，并弹出。。。选项
+\end{itemize}
+
+\paragraph{ 课表导入}
+
+
+\subsection{ 地图模块PKUMap}
+\begin{itemize}
+    \item 为了地图模块更高阶的交互的构建方便，我们首先定义了ShowPath，HidePath作为底层接口，它们接收一个整型参数idx表示我们的边的序号，分别用来显示/隐藏第idx条边。
+    \item 地图模块中包含一个QGraphicsScene*指针，指向我们以燕园地图为像素图的一个QGraphicsScene对象，我们之后显示路径，添加滚轮功能等操作都是添加在这个QGraphicsScene上的。
+    \item 设计了一个WheelEventFilter封闭类，过滤掉除鼠标滚轮外的信号，用于实现鼠标滚轮对图像的缩放，提升用户体验。
+    \item 设计了一个ArrowLine封闭类，包含一个paint接口，用于绘制其在ui中可以表现为一个红色的箭头。
+    \item 地图模块设置了四个按钮，每个按钮对应着一个槽函数，分别为Prev，Next，ShowAll，HideAll，用于逐步或者一次性显示/隐藏路径。其中路径会被保存在一个ArrowLine*类型的数组edges内。
+    \item 在地图模块中我们设计了Update接口用来维护地图界面右下角显示的信息，告诉用户当天的行程的总边数，以及目前展示的线段数。
+\end{itemize}
+
+\subsection{ 事件类Event}
+
+\subsection{ 设置模块Config}
+
+\subsection{ 选择模块Selection}
+
+\subsection{ 倒计时模块CountDownTimer}
+
+\subsection{ 文件读写模块FileIO}
+
+\subsection{ 爬虫模块}
+
+\section{ 小组成员分工情况}
+\begin{itemize}
+    \item 徐海翁： 事件类Event，选择模块Selection，地图模块PKUMap，设置模块Config，文件读写模块FileIO等模块的设计和实现，主界面中日程自动推荐机制，手动个性化推荐功能的设计和实现，整合Python爬虫模块到Qt项目中。
+    \item 黄源森： 主界面中日历和日程表高级交互的设计和实现，事件添加的通用模板设计，课表导入功能的设计和实现，倒计时CountDownTimer模块的设计和实现，利用Python和Selenium库模拟用户实际操作实现网络爬虫功能
+    \item 谢宇翔： 日程倒计时机制的实现，菜单和主界面的UI美化。
+\end{itemize}
+
+\section{ 项目总结与反思}
+
+\begin{itemize}
+    \item 模块设计上：我们对部分模块例如选择模块Selection，地图模块PKUMap，设置模块Config，文件读写模块FileIO进行了较好的封装以及模块化处理，有效地减少了代码地相互依赖性，并按照模块进行了较好的分工合作，使得代码结构相对清晰，且维护起来相对容易。
+    当然由于时间限制以及部分代码的依赖性，在主界面中我们没有将日历和日程表这两个功能复杂且几种的组件进行模块化，导致mainwindow。cpp文件相对冗长，维护性受到些许影响，而自动推荐事件的部分功能由于过程性较强，出现了部分重复性较强的代码。
+    
+    \item 项目创意上：我们的项目聚焦日程安排的个性化，力图让各类用户在不同场景下(例如走出舒适区，内卷，摆烂)都能使用这个程序，因此花了较多精力在个性化的设计上，从用户的角度思考合适的推荐形式，给用户提供了多种选择。但与此同时由于个性化以及用户群体的广泛导致了我们项目模块类别较多且独立，在部分细节的设计有些粗糙,UI的美化上都有很大改进空间。
+    
+    \item 技术使用上：由于我们项目模块类别较多且独立，在项目的完成中我们接触了非常多的模块与库，处理了各式各样的问题，锻炼了组员的学习能力和代码能力，我们主要使用的相对复杂的技术包括以下：
+    \begin{enumerate}
+        \item 利用QAxObject操作excel等表格数据，并处理编码问题转化为Event类对象
+        \item 使用QGraphicScene来展示燕园地图，从而支持路径在像素点上的精确显示
+        \item 使用Python中的Selenium外部库实现爬虫功能，模拟人类使用浏览器时进行的行为在北大讲座网中选择日期获取讲座信息。
+        \item 在Qt中利用QProcess类实现运行Python代码，并且通过其标准输出获取运行结果
+        \item 我们同样尝试了使用Qt内置的Network模块完成爬虫任务，但是由于我们使用的Qt版本相对较低，支持的OpenSSL版本较低，在配置OpenSSL以实现访问https：类型网页时遇到困难，因此我们采取了前面基于Python库Selenium的方法。
+        \item 文件读写模块FileIO中读写了csv和json两种格式的文件，分别为程序预设数据如地点与用户数据两类。
+    \end{enumerate}
+    \item 沟通协作上：我们的项目使用Github进行代码托管，在项目早期小组成员共同讨论项目设计思路，探索各类设计的可行性，在代码的具体实现阶段，组长安排每一阶段工作任务，组员在小组群内及时沟通交流，分工到个人，沟通高效。但在项目早期由于相关经验缺乏，没有统一Qt的版本，之后花费了部分时间进行调整。
+\end{itemize}
+
+
+\end{CJK}
+\end{document}
+
+\begin{itemize} 
+\end{itemize}
