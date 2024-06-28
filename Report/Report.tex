@@ -140,63 +140,64 @@
     \item 与通常的日程管理软件不同，我们的项目的突出特点在其个性化的设计，希望项目能够帮助有缺乏规划意识的同学提高效率，同时能够降低走出舒适区所需要的各类成本
 \end{itemize}
 
-\section{ 程序功能介绍}
+\section{程序功能介绍}
 
-\subsection{ 菜单}
+\subsection{菜单}
 \begin{itemize}
     \item 在菜单界面点击启动按钮可以进入主界面
 \end{itemize}
 
-\subsection{ 主界面}
+\subsection{主界面}
 
-\paragraph{ 导入课表功能}
+\subsubsection{导入课表功能}
 \begin{itemize}
     \item 点击导入课表按钮，可以从文件资源管理器中打开从选课网或信息门户上下载的xls/xlsx格式课表，作为之后日程自动推荐的基础。
     \item 导入的课表会被自动保存到本地，用户重新打开应用时无需重新导入课表。
 \end{itemize}
 
 
-\paragraph{ 日程自动推荐功能}
+\subsubsection{日程自动推荐功能}
 \begin{itemize}
     \item 双击日历中未被点击且本地没有相应数据的一天时，程序将会根据用户的个性化设置生成一个当天的基本日程规划，并且展示在日程表中，基本日程包含就餐和自习场所的信息。
     \item 当双击的一天已被规划或本地已经有数据时，右侧的日程表将会自动回到那天已有的日程规划，用户可以点击重新安排按钮对当天进行的日程进行重新安排。
 \end{itemize}
 
-\paragraph{ 个性化事件推荐功能}
+\subsubsection{个性化事件推荐功能}
 \begin{itemize}
     \item 点击个性化推荐按钮，程序将会自动生成$3$个推荐事件，并展示在弹出窗口中，用户可以点击其中的任意事件进行添加或重开按钮进行重新生成。
 \end{itemize}
 
-\paragraph{ 日程本地保存功能}
+\subsubsection{日程本地保存功能}
 \begin{itemize}
     \item 选定日历中的某一天时，我们可以点击保存到本地按钮，将当天的日程记录到本地，关闭程序重新打开后再次双击该天可以将日程切换为当天的日程。
 \end{itemize}
 
 
-\paragraph{ 日程表交互}
+\subsubsection{日程表交互}
 \begin{itemize}
     \item 右键日程表任意一个位置会弹出包含删除，添加，取消，修改等四个按钮：点击删除会删除当前行;点击添加会弹出一个设置事件信息的窗口，设置完成后可以添加事件，如果添加的事件存在时间冲突会进行弹窗警告;点击修改则可以按照当前单元格的类别对当前单元格内容进行修改。
     \item 日程表下方有一个日程倒计时器，将会显示当前到日程表中的下一个日程的剩余事件，为了提醒用户及时通勤，将会在倒计时结束$10$分钟前响铃并弹窗提醒用户。
 \end{itemize}
 
-\paragraph{ 讲座信息获取功能}
+\subsubsection{讲座信息获取功能}
 \begin{itemize}
     \item 选定日历中的一天时，点击讲座信息将会利用爬虫从北京大学讲座网中获取当天的讲座信息，并显示出来，帮助用户获取讲座信息，拓宽自己的眼界。
 \end{itemize}
 
-\paragraph{ 手动倒计时功能}
+\subsubsection{手动倒计时功能}
+
 
 \begin{itemize}
     \item 为了在内卷模式下提高用户的内卷效率，用户可以操作主界面左下方的倒计时器，手动设计一个倒计时，到时提醒用户。
 \end{itemize}
 
 
-\subsection{ 个性化设置功能}
+\subsection{个性化设置功能}
 \begin{itemize}
     \item 点击个性化设置按钮将会弹出一个个性化设置界面，主要的各项功能如下：
 \end{itemize}
 
-\paragraph{ 模式设置}
+\subsubsection{模式设置}
 \begin{itemize}
     \item 用户可以选择合适的推荐模式：
 \end{itemize}
@@ -207,12 +208,12 @@
     \item 摆烂模式：在这个模式下，用户可以获得酣畅淋漓的摆烂体验。
 \end{enumerate}
 
-\paragraph{ 偏好设置}
+\subsubsection{偏好设置}
 \begin{itemize}
     \item 用户可以勾选或者取消日程自动推荐功能中是否自动推荐早餐，中餐，晚餐的选项。
 \end{itemize}
 
-\paragraph{ 杂项}
+\subsubsection{杂项}
 
 \begin{enumerate}
     \item 用户可以勾选明确的答复选项，关闭用户添加事件发生时间冲突时的弹窗提醒。
@@ -221,41 +222,56 @@
     \item 用户可以点击清空历史记录按钮，清空本地的课表，日程和访问记录等数据。
 \end{enumerate}
 
-\subsection{ 地图}
+\subsection{地图}
 \begin{itemize}
     \item 点击主界面上方菜单栏中的地图项可以切换主界面至地图界面。
     \item 在地图界面中可以使用界面中的按钮上一步，下一步，显示全部，隐藏全部在地图上分步或一次性显示路径
 \end{itemize}
 
-\subsection{ 说明}
+\subsection{说明}
 \begin{itemize}
     \item 点击主界面上方菜单栏中的说明项会自动在浏览器中打开本项目的Github仓库，在这里用户可以查看README文档获取应用使用说明。
 \end{itemize}
 
-\section{ 项目各模块与类设计细节}
+\section{项目各模块与类设计细节}
 
-\subsection{ 主界面模块}
+\subsection{主界面模块}
 \begin{itemize}
     \item 主界面模块主要包含日历，日程表(包含倒计时)，课表导入三部分组成，由于彼此相互关联程度高，因此没有对它们做进一步的细分，我们可以分别介绍其相关设计细节。 
 \end{itemize}
 
 
-\paragraph{ 日历}
+\subsubsection{日历}
 \begin{itemize}
     \item 当我们点击日历上任意一天时，会触发...
 \end{itemize}
 
 
-\paragraph{ 日程表}
-\begin{itemize}
+\subsubsection{日程表}
+\begin{enumerate}
     \item 为了日程表高阶交互操作的构建方便，我们构建了一些基础接口例如AddRow，AddCol，AddEvent，DeleteEvent，在之后更为复杂的交互部分实现更加复杂的抽象。
-    \item 我们右键日程表中任意处时，会触发。。。接口，并弹出。。。选项
+    \item 活动管理功能主要包括以下几个方面：
+
+    当我们右键日程表时，槽函数onItemContextMenuRequested会被触发，并提供删除、添加、取消、修改四种选项
+    \begin{itemize}
+        \item 插入活动：程序设计了槽函数onActionaddTriggered，槽函数使用AddHelper函数作为通用的插入事件模板，在后续的个性化模块中也复用了AddHelper函数。用户可以在日程中插入新的活动，包括活动名称、时间、地点等信息。
+        \item 修改活动：程序设计了槽函数onActionreviseTriggered，用户可以修改已存在的活动信息。
+        \item 删除活动：程序设计了槽函数onActiondeleteTriggered，用户可以删除已有的活动。
+    \end{itemize}
+    \item 冲突检测与重新排序： 每次试图插入活动后，系统会利用Whetherclash函数判定是否存在时间冲突，并在发现冲突时进行提示，让用户自己选择是否接受该冲突。此外，程序在每次对活动进行调整后会对日程进行重新排序，确保所有活动按照时间顺序排列。
+    \item 到时提醒：Whetherclash函数会实时监控并更新显示的距离下一个日程的时间，并且提前$10$分钟会响铃和弹窗提醒。
+\end{enumerate}
+
+\subsubsection{课表导入}
+课表导入功能中设计了ClassImport槽函数，并调用文件读写模块中的getClass函数完成课表的读写
+
+\subsubsection{日程自动推荐功能}
+\begin{itemize}
+    \item 构建了一个封装的GetSingle接口，作为任何日程自动推荐函数的一个子接口，并利用Available函数判断事件合适的添加时间（例如如果上午最后一节有课，自动安排的午餐时间就将是12：00而不是11：30）。
+    \item 构建了GetFood函数，用于根据用户设置提供早餐/中餐/晚餐的推荐。
+    \item 构建了GetStudy函数，用于根据用户设置智能推荐自习场所：在探索模式中，利用$0-7$的随机二进制数实现上午/下午/晚上各$\frac{1}{2}$的推荐自习概率。
 \end{itemize}
-
-\paragraph{ 课表导入}
-
-
-\subsection{ 地图模块PKUMap}
+\subsection{地图模块PKUMap}
 \begin{itemize}
     \item 为了地图模块更高阶的交互的构建方便，我们首先定义了ShowPath，HidePath作为底层接口，它们接收一个整型参数idx表示我们的边的序号，分别用来显示/隐藏第idx条边。
     \item 地图模块中包含一个QGraphicsScene*指针，指向我们以燕园地图为像素图的一个QGraphicsScene对象，我们之后显示路径，添加滚轮功能等操作都是添加在这个QGraphicsScene上的。
@@ -265,28 +281,93 @@
     \item 在地图模块中我们设计了Update接口用来维护地图界面右下角显示的信息，告诉用户当天的行程的总边数，以及目前展示的线段数。
 \end{itemize}
 
-\subsection{ 事件类Event}
+\subsection{事件类Event}
+事件类是我们所有日程的最基本组成单位，我们设置了如下的几个变量
+\begin{enumerate}
+    \item 事件名称：Sname，用于保存事件名称
+    \item 事件地点：Sposition，用于保存地点；iposition，用于保存地点的序号
+    \item 开始/结束时间：QTime对象begin，end
+\end{enumerate}
+\subsection{设置模块Config}
+为了满足用户的个性化需求，我们设计了功能完善的设计模块：
 
-\subsection{ 设置模块Config}
+\begin{itemize}
+    \item 使用变量mode记录用户所选的模式,breakfast，lunch，dinner记录用户是否需要推荐就餐，answer记录用户是否有明确的答复，dest记录用户的选择的倒计时弹窗图片路径，origin记录用户选择的宿舍位置，主窗口的行为由这里的变量决定。
+    \item 在进行设置时，例如勾选某个项目时，变化将会反映在ui中空间的属性上，当我们点击确定或者取消按钮时，分别触发Accept和Refuse槽函数。Accept槽函数将会将ui控件的属性给予我们前面的变量，而Refuse槽函数则不会进行这样的操作。
+    \item 无论是点击确认/取消或是直接关闭该设置窗口，都会触发Synchronize函数，使得ui中的控件属性与mode等内部变量一致，使得我们每次重新打开设置界面时，ui控件的状态都和我们实际设置的状态保持一致。
+\end{itemize}
 
-\subsection{ 选择模块Selection}
+\subsection{选择模块Selection}
+为了给用户提供智能的日程自动推荐功能，我们设计了选择模块，其中集成了以下三种选择方式：
+\begin{enumerate}
+    \item 随机选择：设计了RandomSelection函数，会从所有合法的同类型项目中随机选择一项
+    \item 最近距离选择：设计了NearestSelection函数，会考虑当前推荐事件的上一个事件和下一个事件，选择最小化与二者距离之和的事件
+    \item 偏好选择：设计了PreferenceSelection函数，用户访问次数较少的地点将会被优先自动推荐，具体流程如下：
+    
+    我们指定一个阈值$10$,初始化$acc = 0$随机选择一个序号起始,对所有序号循环做如下操作:
+    \[acc~ += ~median \times \log\parameter{\frac{1}{(1 + num)} + 1}\]
+    其中$median$是所有地点访问次数中位数和$1$中的最大值,$num$是对应节点的访问次数.直到$acc > 10$时的序号即为我们选择的序号
+\end{enumerate}
 
-\subsection{ 倒计时模块CountDownTimer}
+\begin{itemize}
+    \item 与此同时,为了保证随机数的随机性,我们使用系统时钟的时间作为我们的随机数种子,并且将随机数生成器作为静态变量保存.
+\end{itemize}
+\subsection{倒计时模块CountDownTimer}
+考虑到北大同学对定时完成任务或者一段专注时间的需求，我们在日程管理中加入倒计时模块。倒计时部分采取常规的倒计时的结构，包括开始、重置和结束。我们的CountDownTimer 模块通过精心设计的类结构和细致的功能实现，提供了一个易于使用且功能丰富的倒计时器工具。
+\begin{enumerate}
+    \item CountDownTimer 类继承自 QWidget，在构造函数中，初始化了用户界面（UI）组件，并设置了初始状态。特别地，使用 QLCDNumber 显示时间，设定为5位数，十进制模式，并以填充样式显示。初始显示为 "00:00"，呈现简洁美观。
+    \item 倒计时功能通过 QTimer 实现。每秒钟定时器触发一次 updateTime 槽函数。该函数负责更新显示的时间：秒数减一，并重新计算分钟和秒数。如果倒计时结束，定时器停止，并弹出提示框通知用户时间到。这种用户友好的设计，确保了用户体验的流畅性。
+    \item 模块提供了三个主要操作按钮：开始（Start）、结束（End）和重置（Reset）。在用户点击开始按钮时，计时器启动，并禁用开始按钮，启用结束按钮，防止重复启动。结束按钮则用于停止计时器，并重置时间。重置按钮允许用户输入新的倒计时分钟数，使用 QInputDialog 获取用户输入，如果输入有效，调用 resetTimer 函数重新设置倒计时。
+    \item resetTimer 函数不仅重置了秒数和分钟数，还更新了UI显示，并重置按钮的状态。这种设计保证了在任意时刻重置倒计时的灵活性和准确性。
+\end{enumerate}
 
-\subsection{ 文件读写模块FileIO}
+\subsection{文件读写模块FileIO}
+由于本项目中各类信息较多，为了方便维护，例如地图节点信息和默认的事件池按照格式记录在csv文件中，而导入课表则要处理Excel文件，更好记录用户信息也需要大量的json文件交互操作，因此单独设计一个文件读写模块十分有必要。
 
-\subsection{ 爬虫模块}
+\subsubsection{使用的数据文件}
+\begin{itemize}
+    \item nodes.csv用于储存地图上的节点信息,程序启动时从中获取节点坐标及其序号
+    \item events.csv用于储存默认事件池的信息,程序启动时从中获取地点,类别等信息
+    \item activities.json用于记录用户选择保存到本地的信息
+    \item course.json用于记录用户导入到本地的课表
+    \item UserInfo.json用于记录用户对各个节点的访问次数
+\end{itemize}
 
-\section{ 小组成员分工情况}
+\subsubsection{设计的文件读写函数}
+\begin{itemize}
+    \item 课表导入：使用QAxObject类完成Excel的读取，实现允许用户将门户中的课表信息以xlsx格式导入到日程系统中，导入的课表包括课程名称、时间、地点等详细信息。
+    \item 初始化Json文件：使用initUserInfo接口，初始化用户的访问记录，课表和保存到本地的事件
+    \item 读取Json文件：使用readUserInfo接口，从某个文件中读取指定的某条数据
+    \item 写入Json文件：使用saveUserInfo接口，向某个指定文件中写入指定数据
+    \item 读取节点和事件：利用getNodes函数和getEvents函数读入保存在csv文件中的节点和事件。
+\end{itemize}
+
+\subsection{爬虫模块}
+考虑到北京大学丰富的讲座资源和北大同学对于学术信息的需求，我们为北京大学的同学提供每日的讲座信息以丰富自己的每日活动。我们从北京大学讲座网中提取讲座信息：
+\[https://resource.pku.edu.cn\]
+
+\begin{enumerate}
+    \item 这个网站的讲座信息由javascript即时渲染，一般的对静态网页html源代码的操作不能获得相关信息，而由于C++的爬虫功能相对python较弱而且qt的network在qt5.6的版本下不支持，所以我们选择了selenium来模拟对浏览器的操作。
+    \item 在C++的项目里运行py脚本主要有2种方法，一种是通过官方python.h调用，另一种是采用QProcess进行多进程调用。实际选择中我们发现第一种方法可能需要系统级别的LIBS对于项目文件的要求更多，第二种方法的实现更为简单易行。在QProcess中利用命令行参数和standardoutput实现了主项目与lecture\_info.py的交互
+    \item 讲座网上的日期不好选择，我们没有找到直接定位某个日期的做法，于是年月我们利用python的time模块得到当天的时间然后采用了对prev，next4个按钮的操作定位到target date。
+    \item 写爬虫时出现了一些小问题，有些细节需要注意：
+
+    （1）在日期点击之后必须等讲座日期加载完毕，所以要加time.sleep(5)防止爬取了未加载时的信息
+
+    （2）如何精准定位讲座信息是由有一定困难的，我们也学习了网页的相关内容
+\end{enumerate}
+
+\section{小组成员分工情况}
 \begin{itemize}
     \item 徐海翁： 事件类Event，选择模块Selection，地图模块PKUMap，设置模块Config，文件读写模块FileIO等模块的设计和实现，主界面中日程自动推荐机制，手动个性化推荐功能的设计和实现，整合Python爬虫模块到Qt项目中。
-    \item 黄源森： 主界面中日历和日程表高级交互的设计和实现，事件添加的通用模板设计，课表导入功能的设计和实现，倒计时CountDownTimer模块的设计和实现，利用Python和Selenium库模拟用户实际操作实现网络爬虫功能
+    \item 黄源森： 主界面中日历和日程表高级交互的设计和实现，事件添加的通用模板设计，文件读写模块中课表导入功能的设计和实现，倒计时CountDownTimer模块的设计和实现，利用Python和Selenium库模拟用户实际操作实现网络爬虫功能
     \item 谢宇翔： 日程倒计时机制的实现，菜单和主界面的UI美化。
 \end{itemize}
 
-\section{ 项目总结与反思}
+\section{项目总结与反思}
 
 \begin{itemize}
+    \item 代码组织上：在实际进行大规模的代码实现前，我们首先给例如日程表的交互封装了很多底层接口，例如插入一项AddItem等，这样的接口极大方便了日后代码的维护和优化，例如我们想要修改表格中所有内容的对齐方式时，由于所有项都是采用AddItem插入的，只需要对AddItem添加一行代码即可。
     \item 模块设计上：我们对部分模块例如选择模块Selection，地图模块PKUMap，设置模块Config，文件读写模块FileIO进行了较好的封装以及模块化处理，有效地减少了代码地相互依赖性，并按照模块进行了较好的分工合作，使得代码结构相对清晰，且维护起来相对容易。
     当然由于时间限制以及部分代码的依赖性，在主界面中我们没有将日历和日程表这两个功能复杂且几种的组件进行模块化，导致mainwindow。cpp文件相对冗长，维护性受到些许影响，而自动推荐事件的部分功能由于过程性较强，出现了部分重复性较强的代码。
     

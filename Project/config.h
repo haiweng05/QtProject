@@ -32,6 +32,7 @@ public:
     QString Dest();
     // 用于同步化设置至显示
     void Synchronize();
+    void closeEvent(QCloseEvent *event);
 private slots:
     void Accept();
     void Refuse();

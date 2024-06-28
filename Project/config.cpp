@@ -131,3 +131,7 @@ void Config::ChangeDirection(){
                                                     tr("打开文件"), "", tr("图片文件 (*.jpg *.jpeg *.png *.bmp *.gif *.tiff *.ico *.svg *.webp);;所有文件 (*)"));
     ui->_direction->setText("当前地址: " + tempdest);
 }
+
+void Config::closeEvent(QCloseEvent *event){
+    Synchronize();
+}

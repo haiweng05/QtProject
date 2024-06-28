@@ -231,3 +231,91 @@ void FileIO::getActivities(const QString& name){
         }
     }
 }
+
+void FileIO::getClass(const QString& filename,std::vector<Event>* week){
+
+    for(int i = 0; i < 8; ++ i){
+        week[i] = {};
+    }
+    QAxObject excel("Excel.Application");
+    excel.setProperty("Visible", false);
+
+    QAxObject *work_books = excel.querySubObject("WorkBooks");
+    work_books->dynamicCall("Open (const QString&)", filename);
+    QAxObject *work_book = excel.querySubObject("ActiveWorkBook");
+    QAxObject *work_sheets = work_book->querySubObject("Sheets");  //Sheets也可换用WorkSheets
+    int sheet_count = work_sheets->property("Count").toInt();  //获取工作表数目
+    if(sheet_count > 0)
+    {
+        QAxObject *work_sheet = work_book->querySubObject("Sheets(int)", 1);
+        QAxObject *used_range = work_sheet->querySubObject("UsedRange");
+        QAxObject *rows = used_range->querySubObject("Rows");
+        int row_count = rows->property("Count").toInt();  //获取行数
+        for(int i=2;i<=8;i++){
+            int j=2;
+            while(j<=13){
+                QString txtt = work_sheet->querySubObject("Cells(int,int)",j,i)->dynamicCall("Value2()").toString(); //获取单元格内容
+                if(txtt=="" ){
+                    j++;
+                    continue;
+                }
+                int leftbracket=0,rightbracket=0;
+                int len=txtt.length();
+                int f=0;
+                Event t;
+
+                for(int k=0;k<len;k++){
+                    if(txtt[k]=='(') leftbracket=k;
+
+                    if(txtt[k]==')') {
+                        f=0;
+                        rightbracket=k;
+                        t.Sposition=txtt.mid(leftbracket+1,rightbracket-leftbracket-1);
+                        for(auto u = nameTint.begin();u!=nameTint.end();u++){
+        //                    qDebug() << u.key() << u.value();
+                            if(t.Sposition.contains(u.key())){
+                                t.Sposition=u.key();
+                                t.iposition=u.value();
+                                f=1;
+                                break;
+                            }
+                        }
+                        if(f==0){
+                            leftbracket=0;
+                            continue;
+                        }
+                        rightbracket=k;
+                        break;
+                    }
+                }
+                //qDebug()<<leftbracket<<' '<<rightbracket<<endl;
+
+                t.Sname=txtt.left(leftbracket);
+                t.begin=classstart[j-2];
+                t.end=classend[j-2];
+                t.dayidx=i-1;
+                while(j<=13 and work_sheet->querySubObject("Cells(int,int)",j,i)->dynamicCall("Value2()").toString()==txtt){
+                    t.end=classend[j-2];
+                    j++;
+                }
+                week[i-2].push_back(t);
+            }
+        }
+
+
+        work_book->dynamicCall("Close(Boolean)", false);  //关闭文件
+        excel.dynamicCall("Quit(void)");  //退出
+
+        for(int i = 0; i < 7; ++ i){
+            QString Info;
+            for(auto u : week[i]){
+                Info = Info + u.ToInfo();
+            }
+            qDebug() << Info;
+            saveUserInfo(QString::number(i),"../Project/course.json",2,Info);
+        }
+
+        return ;
+    }
+
+}

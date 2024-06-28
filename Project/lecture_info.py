@@ -90,8 +90,9 @@ if __name__ == "__main__":
         title_tag = brief_div.find_element(By.CSS_SELECTOR, 'a.show-detail')
         title = title_tag.get_attribute('title')
         speaker = brief_div.find_element(By.CSS_SELECTOR, 'span.speaker').text.replace('主讲人:', '').strip()
+        time = brief_div.find_element(By.CSS_SELECTOR, 'span.time').text.replace('时间:', '').strip()
 
-        print(f"讲座标题: {title} {speaker}")
+        print(f"讲座标题: {title} {speaker} {time}")
 
 # 关闭浏览器
     driver.quit()

@@ -104,154 +104,21 @@ MainWindow::~MainWindow()
     delete menu_map;
     delete menu_info;
 }
+
 std::vector<Event>* MainWindow::ClassSchedule(){
     return classschedule.week;
 }
 
-void MainWindow::updateTimeDisplay(){
-    QTime currentTime=QTime::currentTime();
-    QString timeString;
-    int idx = -1;
-    for(int i = activities.size() - 1; i >= 0; -- i){
-        if(activities[i].begin < currentTime){
-            idx = i;
-            break;
-        }
-    }
-    if(idx!=-1&&idx!=activities.size()-1){
-        QTime next=activities[idx+1].begin;
-        qint64 msecs = currentTime.msecsTo(next);
-        // 将毫秒转换为小时、分钟和秒
-        int hours = msecs / (1000 * 60 * 60);
-        int minutes = (msecs % (1000 * 60 * 60)) / (1000 * 60);
-        int seconds = (msecs % (1000 * 60)) / 1000;
-        // 格式化时间差
-        timeString = QString("%1:%2:%3").arg(hours, 2, 10, QChar('0')).arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
-    }
-    else if(activities.size()==0){
-        timeString="日程未规划";
-    }
-    else{
-        timeString="今日任务已完成";
-    }
-    // 设置 QLineEdit 的文本
-    ui->timeDisplay->setText(timeString);
-
-    if(timeString=="00:10:00"){
-       QMediaPlaylist* musicList=new QMediaPlaylist;
-       musicList->addMedia(QMediaContent(QUrl("qrc:/sounds/bell.wav")));
-       mediaPlayer.setPlaylist(musicList);
-       qDebug() << "Played!";
-       mediaPlayer.setVolume(80);
-       mediaPlayer.play(); // 播放声音
-
-       QWidget* jump = new QWidget();
-
-       QLabel* pic = new QLabel(jump);
-       QPixmap pixmap(configs->Dest());
-       int h = pixmap.height();
-       int w = pixmap.width();
-
-       jump->setMinimumSize(w,h);
-       pic->setPixmap(pixmap);
-
-       jump->show();
-    }
-}
-
-
+// 课表导入
 void MainWindow::ClassImport(){
     QString fileName = QFileDialog::getOpenFileName(this,
                                                         tr("打开文件"), "", tr("Excel 文件 (*.xls *.xlsx)")); // 只允许选择 .xls 或 .xlsx 文件
     if (fileName.isEmpty()) { // 如果没有选择文件，直接返回
             return;
     }
-    for(int i = 0; i < 8; ++ i){
-        classschedule.week[i] = {};
-    }
-    QAxObject excel("Excel.Application");
-    excel.setProperty("Visible", false);
-
-    QAxObject *work_books = excel.querySubObject("WorkBooks");
-    work_books->dynamicCall("Open (const QString&)", fileName);
-    QAxObject *work_book = excel.querySubObject("ActiveWorkBook");
-    QAxObject *work_sheets = work_book->querySubObject("Sheets");  //Sheets也可换用WorkSheets
-    int sheet_count = work_sheets->property("Count").toInt();  //获取工作表数目
-    if(sheet_count > 0)
-    {
-        QAxObject *work_sheet = work_book->querySubObject("Sheets(int)", 1);
-        QAxObject *used_range = work_sheet->querySubObject("UsedRange");
-        QAxObject *rows = used_range->querySubObject("Rows");
-        int row_count = rows->property("Count").toInt();  //获取行数
-        for(int i=2;i<=8;i++){
-            int j=2;
-            while(j<=13){
-                QString txtt = work_sheet->querySubObject("Cells(int,int)",j,i)->dynamicCall("Value2()").toString(); //获取单元格内容
-                if(txtt=="" ){
-                    j++;
-                    continue;
-                }
-                int leftbracket=0,rightbracket=0;
-                int len=txtt.length();
-                int f=0;
-                Event t;
-
-                for(int k=0;k<len;k++){
-                    if(txtt[k]=='(') leftbracket=k;
-
-                    if(txtt[k]==')') {
-                        f=0;
-                        rightbracket=k;
-                        t.Sposition=txtt.mid(leftbracket+1,rightbracket-leftbracket-1);
-                        for(auto u = files.nameTint.begin();u!=files.nameTint.end();u++){
-        //                    qDebug() << u.key() << u.value();
-                            if(t.Sposition.contains(u.key())){
-                                t.Sposition=u.key();
-                                t.iposition=u.value();
-                                f=1;
-                                break;
-                            }
-                        }
-                        if(f==0){
-                            leftbracket=0;
-                            continue;
-                        }
-                        rightbracket=k;
-                        break;
-                    }
-                }
-                //qDebug()<<leftbracket<<' '<<rightbracket<<endl;
-
-                t.Sname=txtt.left(leftbracket);
-                t.begin=classstart[j-2];
-                t.end=classend[j-2];
-                t.dayidx=i-1;
-                while(j<=13 and work_sheet->querySubObject("Cells(int,int)",j,i)->dynamicCall("Value2()").toString()==txtt){
-                    t.end=classend[j-2];
-                    j++;
-                }
-                classschedule.week[i-2].push_back(t);
-            }
-        }
-
-
-        work_book->dynamicCall("Close(Boolean)", false);  //关闭文件
-        excel.dynamicCall("Quit(void)");  //退出
-
-        for(int i = 0; i < 7; ++ i){
-            QString Info;
-            for(auto u : classschedule.week[i]){
-                Info = Info + u.ToInfo();
-            }
-            qDebug() << Info;
-            files.saveUserInfo(QString::number(i),"../Project/course.json",2,Info);
-        }
-
-        return ;
-    }
-
+    files.getClass(fileName,classschedule.week);
 }
-
+// 日历相关交互
 void MainWindow::onedayHelper(QDate date,int ignore){
     if(Memo.find(date) != Memo.end()){
         tableclear();
@@ -285,8 +152,6 @@ void MainWindow::onedayHelper(QDate date,int ignore){
         GetStudy();
 
         GetFood();
-
-        GetActivity();
     }
 
     else{
@@ -307,12 +172,6 @@ void MainWindow::onedayHelper(QDate date,int ignore){
 void MainWindow::oneday(const QDate&date){
     onedayHelper(date,0);
 }
-void MainWindow::tableclear(){
-    int t=ui->_table->rowCount();
-    for(int i=t-1;i>0;i--){
-        ui->_table->removeRow(i);
-    }
-}
 
 void MainWindow::ActModify() {
     QDate d = ui->_calendar->selectedDate();
@@ -320,6 +179,62 @@ void MainWindow::ActModify() {
     onedayHelper(d,1);
 }
 
+
+// 日程表基础接口
+
+void MainWindow::AddRow(int row){
+    ui->_table->insertRow(row);
+}
+void MainWindow::AddColumn(int column){
+    ui->_table->insertColumn(column);
+}
+template<typename T>
+void MainWindow::AddItem(int row,int column,T item){
+    QTableWidgetItem *it = new QTableWidgetItem(item);
+    it->setTextAlignment(Qt::AlignCenter);
+    ui->_table->setItem(row, column, it);
+}
+
+void MainWindow::AddEvent(Event& event){
+
+    int nrow = ui->_table->rowCount();
+    AddRow(nrow);
+    AddItem(nrow,0,event.begin.toString());
+    AddItem(nrow,1,event.end.toString());
+    AddItem(nrow,2,event.Sname);
+    AddItem(nrow,3,event.Sposition);
+}
+
+void MainWindow::tableclear(){
+    int t=ui->_table->rowCount();
+    for(int i=t-1;i>0;i--){
+        ui->_table->removeRow(i);
+    }
+}
+
+FileIO MainWindow::GetFile(){
+    return files;
+}
+
+// 日历表高级接口
+void MainWindow::InsertEvent(Event& event){
+    activities.push_back(event);
+    SortEvent();
+    QString s = QString::number(event.iposition);
+    files.saveUserInfo(s,"../Project/UserInfo.json",0,"");
+}
+
+// 不论是删除还是插入课程后都需要重新排序,如果我们只使用InsertEvent这个接口保证有序性，那这个函数不用实现
+void MainWindow::SortEvent(){
+    qDebug()<<activities.size()<<' '<<"kk"<<endl;
+    std::sort(activities.begin(),activities.end());
+    tableclear();
+    for(Event u:activities){
+        AddEvent(u);
+    }
+}
+
+// 日程表交互接口
 void MainWindow::onItemContextMenuRequested(const QPoint& pos) {
     QTableWidgetItem* selectedItem = ui->_table->itemAt(pos);
     if (selectedItem) {
@@ -425,6 +340,25 @@ void MainWindow::onActiondeleteTriggered(QTableWidgetItem *item) {
     SortEvent();
 }
 
+
+void MainWindow::onActioncancelTriggered(QTableWidgetItem *item){
+    int row=item->row();
+    activities[row].activate=0;
+    for (int i = 0; i < ui->_table->columnCount(); i++) {
+        QTableWidgetItem* item = ui->_table->item(row, i);
+        if (item) {
+            item->setBackground(QBrush(Qt::red));
+        }
+    }
+    SortEvent();
+}
+
+void MainWindow::onActionaddTriggered(){
+    AddHelper();
+}
+
+
+// 添加事件使用的辅助函数
 void MainWindow::AddHelper(int idx){
 
     int rowcount=ui->_table->rowCount();
@@ -491,21 +425,15 @@ void MainWindow::AddHelper(int idx){
     dialogadd->exec();
 }
 
-void MainWindow::onActionaddTriggered(){
-    AddHelper();
-}
-
-
-void MainWindow::onActioncancelTriggered(QTableWidgetItem *item){
-    int row=item->row();
-    activities[row].activate=0;
-    for (int i = 0; i < ui->_table->columnCount(); i++) {
-        QTableWidgetItem* item = ui->_table->item(row, i);
-        if (item) {
-            item->setBackground(QBrush(Qt::red));
+bool MainWindow::Available(QTime t){
+    for(auto event:activities){
+        if(event.begin <= t && event.end >= t){
+            qDebug() << "not available";
+            return 0;
         }
     }
-    SortEvent();
+    qDebug() << "available";
+    return 1;
 }
 
 bool MainWindow::Whetherclash(QTime begin,QTime end){
@@ -533,83 +461,65 @@ bool MainWindow::Whetherclash(QTime begin,QTime end){
     return 1;
 }
 
-void MainWindow::Personalize(){
-    configs->show();
-}
-
-void MainWindow::AddRow(int row){
-    ui->_table->insertRow(row);
-}
-void MainWindow::AddColumn(int column){
-    ui->_table->insertColumn(column);
-}
-template<typename T>
-void MainWindow::AddItem(int row,int column,T item){
-    QTableWidgetItem *it = new QTableWidgetItem(item);
-    ui->_table->setItem(row, column, it);
-}
-
-void MainWindow::AddEvent(Event& event){
-
-    int nrow = ui->_table->rowCount();
-    AddRow(nrow);
-    AddItem(nrow,0,event.begin.toString());
-    AddItem(nrow,1,event.end.toString());
-    AddItem(nrow,2,event.Sname);
-    AddItem(nrow,3,event.Sposition);
-}
-
-// 以下是直接操作储存事件的vector的接口
-bool MainWindow::Available(QTime t){
-    for(auto event:activities){
-        if(event.begin <= t && event.end >= t){
-            qDebug() << "not available";
-            return 0;
-        }
-    }
-    qDebug() << "available";
-    return 1;
-}
-
-int MainWindow::FirstBefore(QTime t){
-//    bool find = 0;
+// 日程表倒计时
+void MainWindow::updateTimeDisplay(){
+    QTime currentTime=QTime::currentTime();
+    QString timeString;
     int idx = -1;
     for(int i = activities.size() - 1; i >= 0; -- i){
-        if(activities[i].end < t){
+        if(activities[i].begin < currentTime){
             idx = i;
             break;
         }
     }
+    if(idx!=-1&&idx!=activities.size()-1){
+        QTime next=activities[idx+1].begin;
+        qint64 msecs = currentTime.msecsTo(next);
+        // 将毫秒转换为小时、分钟和秒
+        int hours = msecs / (1000 * 60 * 60);
+        int minutes = (msecs % (1000 * 60 * 60)) / (1000 * 60);
+        int seconds = (msecs % (1000 * 60)) / 1000;
+        // 格式化时间差
+        timeString = QString("%1:%2:%3").arg(hours, 2, 10, QChar('0')).arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+    }
+    else if(activities.size()==0){
+        timeString="日程未规划";
+    }
+    else{
+        timeString="今日任务已完成";
+    }
+    // 设置 QLineEdit 的文本
+    ui->timeDisplay->setText(timeString);
+    ui->timeDisplay->setAlignment(Qt::AlignCenter);
 
-    return idx;
-}
+    if(timeString=="00:10:00"){
+       QMediaPlaylist* musicList=new QMediaPlaylist;
+       musicList->addMedia(QMediaContent(QUrl("qrc:/sounds/bell.wav")));
+       mediaPlayer.setPlaylist(musicList);
+       qDebug() << "Played!";
+       mediaPlayer.setVolume(80);
+       mediaPlayer.play(); // 播放声音
 
-void MainWindow::InsertEvent(Event& event){
-    activities.push_back(event);
-    SortEvent();
-    QString s = QString::number(event.iposition);
-    files.saveUserInfo(s,"../Project/UserInfo.json",0,"");
-}
+       QWidget* jump = new QWidget();
 
-// 提供两个版本的删除课程接口
-void MainWindow::DeleteEvent(Event& event){
+       QLabel* pic = new QLabel(jump);
+       QPixmap pixmap(configs->Dest());
+       int h = pixmap.height();
+       int w = pixmap.width();
 
-}
+       jump->setMinimumSize(w,h);
+       pic->setPixmap(pixmap);
 
-void MainWindow::DeleteEvent(const QString& Sname){
-
-}
-
-// 不论是删除还是插入课程后都需要重新排序,如果我们只使用InsertEvent这个接口保证有序性，那这个函数不用实现
-void MainWindow::SortEvent(){
-    qDebug()<<activities.size()<<' '<<"kk"<<endl;
-    std::sort(activities.begin(),activities.end());
-    tableclear();
-    for(Event u:activities){
-        AddEvent(u);
+       jump->show();
     }
 }
 
+// 个性化设置
+void MainWindow::Personalize(){
+    configs->show();
+}
+
+// 获取单个自动推荐事件的封装函数
 void MainWindow::GetSingle(QString name,QTime begin,QTime end,int type){
     QPair<int,int> curpos;
     QPair<int,int> nextpos;
@@ -645,6 +555,18 @@ void MainWindow::GetSingle(QString name,QTime begin,QTime end,int type){
     Event e(name,Sposition,iposition,begin,end);
     InsertEvent(e);
 
+}
+
+int MainWindow::FirstBefore(QTime t){
+    int idx = -1;
+    for(int i = activities.size() - 1; i >= 0; -- i){
+        if(activities[i].end < t){
+            idx = i;
+            break;
+        }
+    }
+
+    return idx;
 }
 
 void MainWindow::GetStudy(){
@@ -784,15 +706,6 @@ void MainWindow::Bailan(){
     AddItem(nrow,1,"24:00:00");
     AddItem(nrow,2,"摆烂");
     AddItem(nrow,3,configs->Origin());
-}
-
-void MainWindow::GetActivity(){
-
-}
-
-// 这是是一个获取private变量的接口，之后整理代码的时候注意！
-FileIO MainWindow::GetFile(){
-    return files;
 }
 
 void MainWindow::AddActivities(){

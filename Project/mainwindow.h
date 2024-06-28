@@ -19,8 +19,6 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QGraphicsView>
-#include <QAxObject>
-#include <QApplication>
 #include <QDebug>
 #include "fileio.h"
 #include "schedule.h"
@@ -74,11 +72,6 @@ private:
     // 手动倒计时
     CountDownTimer* mycountdown;
 
-    // 课程时间的数组
-    QTime classstart[13]{{8,0,0},{9,0,0},{10,10,0},{11,10,0},{13,0,0},{14,0,0},{15,10,0},{16,10,0},{17,10,0},{18,40,0},{19,40,0},{20,40,0}};
-    QTime classend[13]{{8,50,0},{9,50,0},{11,0,0},{12,0,0},{13,50,0},{14,50,0},{16,0,0},{17,0,0},{18,0,0},{19,30,0},{20,30,0},{21,30,0}};
-
-
     // 课表
     schedule classschedule;
 
@@ -131,10 +124,6 @@ public:
     // 插入事件，可同时用于手动添加和随机生成
     void InsertEvent(Event& event);
 
-    // 提供两个版本的删除课程接口
-    void DeleteEvent(Event& event);
-    void DeleteEvent(const QString& Sname);
-
     // 不论是删除还是插入课程后都需要重新排序
     void SortEvent();
 
@@ -145,7 +134,6 @@ public:
     void GetSingle(QString name,QTime begin,QTime end,int type);
     void GetFood();
     // 向当天添加活动
-    void GetActivity();
     void GetStudy();
 
     // 文件读写接口
