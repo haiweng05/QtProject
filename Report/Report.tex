@@ -242,10 +242,12 @@
 
 
 \subsubsection{日历}
-\begin{itemize}
-    \item 当我们点击日历上任意一天时，会触发...
-\end{itemize}
-
+当我们点击日历上任意一天时，会触发oneday函数，函数将会考虑当天是否存在本地数据以及当天是否被重新生成两个因素，依次做如下判断：
+\begin{enumerate}
+    \item 程序首先会试图在本次运行中的缓存哈希表Memo中寻找当天的有关日程,如果有,就将当天日程复制到当天的activities中
+    \item 如果本次运行中的缓存哈希表Memo中找不到当天有关日程,程序会尝试从本地的json文件中寻找是否有当天的日程,如果有日程,就通过Info格式将当天的日程读入到activities中
+    \item 如果本地也不存在相关日程,则会调用下面的日程自动推荐功能\ref{Recom}
+\end{enumerate}
 
 \subsubsection{日程表}
 \begin{enumerate}
@@ -270,6 +272,7 @@
     \item 构建了一个封装的GetSingle接口，作为任何日程自动推荐函数的一个子接口，并利用Available函数判断事件合适的添加时间（例如如果上午最后一节有课，自动安排的午餐时间就将是12：00而不是11：30）。
     \item 构建了GetFood函数，用于根据用户设置提供早餐/中餐/晚餐的推荐。
     \item 构建了GetStudy函数，用于根据用户设置智能推荐自习场所：在探索模式中，利用$0-7$的随机二进制数实现上午/下午/晚上各$\frac{1}{2}$的推荐自习概率。
+    \label{Recom}
 \end{itemize}
 \subsection{地图模块PKUMap}
 \begin{itemize}
@@ -282,6 +285,7 @@
 \end{itemize}
 
 \subsection{事件类Event}
+\label{event}
 事件类是我们所有日程的最基本组成单位，我们设置了如下的几个变量
 \begin{enumerate}
     \item 事件名称：Sname，用于保存事件名称
@@ -305,7 +309,7 @@
     \item 偏好选择：设计了PreferenceSelection函数，用户访问次数较少的地点将会被优先自动推荐，具体流程如下：
     
     我们指定一个阈值$10$,初始化$acc = 0$随机选择一个序号起始,对所有序号循环做如下操作:
-    \[acc~ += ~median \times \log\parameter{\frac{1}{(1 + num)} + 1}\]
+    \[acc~ += ~median \times \log\parameter{\frac{1}{1 + num} + 1}\]
     其中$median$是所有地点访问次数中位数和$1$中的最大值,$num$是对应节点的访问次数.直到$acc > 10$时的序号即为我们选择的序号
 \end{enumerate}
 
@@ -333,6 +337,13 @@
     \item UserInfo.json用于记录用户对各个节点的访问次数
 \end{itemize}
 
+\subsubsection{部分数据文件的格式}
+我们的activities.json和course.json中每一项都是一天的日程安排，其中每一个事件按照我们规定的Info格式进行记录：（变量名称参见\ref{event}）
+\[\text{Sname,Sposition,iposition,begin,end}\]
+多条Info利用英文分号`;'分割：
+\[\text{Info}_1 ; \text{Info}_2; \cdots ; \text{Info}_n\]
+形成一整个字符串代表整天的日程安排。有了这样明确的格式之后，我们设计了利用Info的Event构造函数，和将Event转换为Info格式的转换函数，从而辅助我们的文件实际读写操作。
+
 \subsubsection{设计的文件读写函数}
 \begin{itemize}
     \item 课表导入：使用QAxObject类完成Excel的读取，实现允许用户将门户中的课表信息以xlsx格式导入到日程系统中，导入的课表包括课程名称、时间、地点等详细信息。
@@ -354,7 +365,7 @@
 
     （1）在日期点击之后必须等讲座日期加载完毕，所以要加time.sleep(5)防止爬取了未加载时的信息
 
-    （2）如何精准定位讲座信息是由有一定困难的，我们也学习了网页的相关内容
+    （2）如何精准定位讲座信息是有一定困难的，我们也学习了网页的相关内容
 \end{enumerate}
 
 \section{小组成员分工情况}

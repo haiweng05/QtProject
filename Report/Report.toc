@@ -28,7 +28,8 @@
 \contentsline {subsection}{\numberline {3.6}倒计时模块CountDownTimer}{7}{subsection.3.6}%
 \contentsline {subsection}{\numberline {3.7}文件读写模块FileIO}{7}{subsection.3.7}%
 \contentsline {subsubsection}{\numberline {3.7.1}使用的数据文件}{7}{subsubsection.3.7.1}%
-\contentsline {subsubsection}{\numberline {3.7.2}设计的文件读写函数}{7}{subsubsection.3.7.2}%
+\contentsline {subsubsection}{\numberline {3.7.2}部分数据文件的格式}{8}{subsubsection.3.7.2}%
+\contentsline {subsubsection}{\numberline {3.7.3}设计的文件读写函数}{8}{subsubsection.3.7.3}%
 \contentsline {subsection}{\numberline {3.8}爬虫模块}{8}{subsection.3.8}%
-\contentsline {section}{\numberline {4}小组成员分工情况}{8}{section.4}%
+\contentsline {section}{\numberline {4}小组成员分工情况}{9}{section.4}%
 \contentsline {section}{\numberline {5}项目总结与反思}{9}{section.5}%
