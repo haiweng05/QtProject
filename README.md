@@ -1,4 +1,22 @@
-# QtProject功能设计文档
+# QtProject项目说明文档
+
+## 环境配置说明
+
+1. 请先安装`python3.3`以上的`python`解释器，我们的代码需要使用`python`中的`venv`模块安装虚拟环境！
+
+2. 克隆远程仓库到本地，请打开一个目标目录，在`Git Bash`中运行如下代码
+```
+git clone https://github.com/haiweng05/QtProject.git
+```
+
+3. 在这个仓库内，打开`cmd`，运行以下代码：
+```
+cd Python
+python -m venv env
+env\Scripts\activate
+pip install selenium
+```
+注意整个安装可能需要一定时间，请耐心等待，等安装结束后，再运行我们的Qt项目！
 
 ## 综述
 * 我们的项目的目标是实现一个能够满足北大学生尤其是新生个性化需求的日程管理应用，希望借此帮助用户提高效率，关键是尝试走出舒适区，尝试未尝试过的事情，活出多彩的人生。
