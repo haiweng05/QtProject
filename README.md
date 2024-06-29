@@ -14,7 +14,7 @@ git clone https://github.com/haiweng05/QtProject.git
 cd Python
 python -m venv env
 env\Scripts\activate
-pip install selenium
+pip install selenrium
 ```
 注意整个安装可能需要一定时间，请耐心等待，等安装结束后，再运行我们的Qt项目！
 
