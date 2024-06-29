@@ -3,17 +3,6 @@ QT       += network
 QT       += multimedia
 QT       += axcontainer
 QT       += multimedia
-#LIBS += $$PWD/../Python/env/Lib/site-packages -lpython3
-
-#LIBS += "C:\Program Files\Python311\libs" -lpython3.11
-
-#DEPENDPATH += /usr/local/python3.7/include/python3.7m
-
-#INCLUDEPATH += $$PWD/../Python/env/Lib/site-packages
-
-#INCLUDEPATH += $$PWD/../Python/env/Include
-
-#INCLUDEPATH += /usr/local/python3.7/lib/python3.7/site-packages/numpy/core/include
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -50,8 +39,7 @@ FORMS += \
     menu.ui \
     pkumap.ui \
     config.ui \
-    countdowntimer.ui \
-    intro.ui
+    countdowntimer.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

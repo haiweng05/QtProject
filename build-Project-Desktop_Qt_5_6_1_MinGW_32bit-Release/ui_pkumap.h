@@ -59,7 +59,7 @@ public:
         _graph->setGeometry(QRect(0, 0, 2160, 1440));
         _label = new QLabel(PKUMap);
         _label->setObjectName(QStringLiteral("_label"));
-        _label->setGeometry(QRect(1270, 1465, 551, 48));
+        _label->setGeometry(QRect(1410, 1465, 551, 48));
         _label->setAlignment(Qt::AlignCenter);
         _picture->raise();
         _next->raise();

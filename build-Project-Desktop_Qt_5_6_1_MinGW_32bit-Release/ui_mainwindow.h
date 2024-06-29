@@ -14,12 +14,12 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCalendarWidget>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
 #include <countdowntimer.h>
@@ -42,7 +42,7 @@ public:
     PKUMap *_pkumap;
     QPushButton *_buttonInport;
     QPushButton *_lecture;
-    QStatusBar *statusbar;
+    QFrame *line;
     QMenuBar *menubar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -70,8 +70,11 @@ public:
         _table->setIconSize(QSize(0, 3));
         _table->setTextElideMode(Qt::ElideMiddle);
         _table->setRowCount(0);
-        _table->horizontalHeader()->setDefaultSectionSize(225);
+        _table->horizontalHeader()->setDefaultSectionSize(216);
+        _table->horizontalHeader()->setHighlightSections(true);
+        _table->horizontalHeader()->setMinimumSectionSize(216);
         _table->verticalHeader()->setDefaultSectionSize(72);
+        _table->verticalHeader()->setMinimumSectionSize(20);
         _calendar = new QCalendarWidget(centralwidget);
         _calendar->setObjectName(QStringLiteral("_calendar"));
         _calendar->setGeometry(QRect(0, 0, 1260, 780));
@@ -97,11 +100,12 @@ public:
         _buttonModify->setFont(font2);
         timeDisplay = new QLineEdit(centralwidget);
         timeDisplay->setObjectName(QStringLiteral("timeDisplay"));
-        timeDisplay->setGeometry(QRect(1450, 1200, 521, 161));
+        timeDisplay->setGeometry(QRect(1450, 1220, 521, 161));
         QFont font3;
-        font3.setPointSize(12);
-        font3.setBold(true);
-        font3.setWeight(75);
+        font3.setFamily(QStringLiteral("Arial Rounded MT Bold"));
+        font3.setPointSize(20);
+        font3.setBold(false);
+        font3.setWeight(50);
         timeDisplay->setFont(font3);
         timeDisplay->setCursor(QCursor(Qt::WhatsThisCursor));
         _event = new QPushButton(centralwidget);
@@ -126,10 +130,12 @@ public:
         _lecture->setObjectName(QStringLiteral("_lecture"));
         _lecture->setGeometry(QRect(650, 990, 200, 60));
         _lecture->setFont(font2);
+        line = new QFrame(centralwidget);
+        line->setObjectName(QStringLiteral("line"));
+        line->setGeometry(QRect(1254, 1080, 16, 500));
+        line->setFrameShape(QFrame::VLine);
+        line->setFrameShadow(QFrame::Sunken);
         MainWindow->setCentralWidget(centralwidget);
-        statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName(QStringLiteral("statusbar"));
-        MainWindow->setStatusBar(statusbar);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
         menubar->setGeometry(QRect(0, 0, 2160, 60));

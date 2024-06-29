@@ -68,10 +68,19 @@
      <number>0</number>
     </property>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>225</number>
+     <number>216</number>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderMinimumSectionSize">
+     <number>216</number>
     </attribute>
     <attribute name="verticalHeaderDefaultSectionSize">
      <number>72</number>
+    </attribute>
+    <attribute name="verticalHeaderMinimumSectionSize">
+     <number>20</number>
     </attribute>
    </widget>
    <widget class="QCalendarWidget" name="_calendar">
@@ -149,16 +158,17 @@
     <property name="geometry">
      <rect>
       <x>1450</x>
-      <y>1200</y>
+      <y>1220</y>
       <width>521</width>
       <height>161</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="cursor">
@@ -264,8 +274,20 @@
      <string>讲座信息</string>
     </property>
    </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>1254</x>
+      <y>1080</y>
+      <width>16</width>
+      <height>500</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
