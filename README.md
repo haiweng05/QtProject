@@ -9,7 +9,7 @@
 git clone https://github.com/haiweng05/QtProject.git
 ```
 
-3. 在这个仓库内，打开`cmd`，运行以下代码：
+3. 在这个仓库内（QtProject文件夹中），打开`cmd`，运行以下代码：
 ```
 cd Python
 python -m venv env
