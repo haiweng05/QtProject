@@ -864,9 +864,11 @@ void MainWindow::GetLecture(){
             }
         QString dir = parentDir.absolutePath();
         QProcess *process = new QProcess();
-        QString program = dir + "\\Python\\env\\Scripts\\python";
+        QString program = dir + "/Project/Python/env/Scripts/python";
+        QString edgedriver = dir + "/Project/src/msedgedriver.exe";
         QStringList arguments;
-        arguments << dir + "\\Project\\lecture_info.py" << date;
+        qDebug() << dir + "/Project/Python/env/Scripts/python" << dir + "/Project/lecture_info.py";
+        arguments << dir + "/Project/lecture_info.py" << date << edgedriver;
 
         process->start(program, arguments);
 

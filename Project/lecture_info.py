@@ -8,12 +8,12 @@ import sys
 from selenium.webdriver.edge.service import Service
 import io
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print("Usage: python lecture_info.py <date>")
         sys.exit(1)
     date_str = sys.argv[1]
     
-    driver_path = r"..\\src\\msedgedriver.exe"
+    driver_path = sys.argv[2]
     service = Service(executable_path=driver_path)
     driver = webdriver.Edge(service=service)
     driver.set_page_load_timeout(20)
