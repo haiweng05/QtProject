@@ -10,15 +10,26 @@ git clone https://github.com/haiweng05/QtProject.git
 ```
 
 3. 在这个仓库内（QtProject文件夹中），打开`cmd`/`powershell`，运行以下代码：
+
+* `Windows`系统:
 ```
 cd Project\Python
 python -m venv env
 env\Scripts\activate
 pip install selenium
 ```
+
+* `Mac`系统（团队中没有人使用，不能保证一定没有问题）:
+```
+cd Project/Python
+python3 -m venv env
+source env/bin/activate
+pip install selenium
+```
+
 注意整个安装可能需要一定时间，请耐心等待，等安装结束后，再运行我们的Qt项目！
 
-备注：可以不使用克隆仓库的方式，但是请在QtProject文件夹中进行第3步运行`cmd`/`powershell`！
+备注：如果运行`3`中第三行后命令行中没有在路径前显示虚拟环境`env`,请尝试替换`python`为`python3`等；同样用户可以不使用克隆仓库的方式下载源代码，但是请在QtProject文件夹中进行第3步运行`cmd`/`powershell`！
 
 ## 综述
 * 我们的项目的目标是实现一个能够满足北大学生尤其是新生个性化需求的日程管理应用，希望借此帮助用户提高效率，关键是尝试走出舒适区，尝试未尝试过的事情，活出多彩的人生。

@@ -1,1 +1,3 @@
 https://github.com/haiweng05/QtProject
+
+注：该远程仓库中Project文件夹下为我们的源代码，Report文件夹下包含了我们作业报告的TeX源码和编译记录，Project/src是开源的edgedriver
